@@ -9,7 +9,7 @@ import java.util.Collection;
  * signature of the existing methods.
  */
 public class ChessPiece {
-    private ChessPosition position;
+    private ChessPosition position; // axel said i might need this...?
     private ChessGame.TeamColor color;
     private ChessPiece.PieceType type;
 
@@ -40,14 +40,14 @@ public class ChessPiece {
      * @return Which team this chess piece belongs to
      */
     public ChessGame.TeamColor getTeamColor() {
-        throw new RuntimeException("Not implemented");
+        return color;
     }
 
     /**
      * @return which type of chess piece this piece is
      */
     public PieceType getPieceType() {
-        throw new RuntimeException("Not implemented");
+        return type;
     }
 
     /**
@@ -58,6 +58,14 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
-        throw new RuntimeException("Not implemented");
+        ChessPiece piece = board.getPiece(myPosition);
+        // ONLY HORSES CAN JUMP
+        if (piece.type == PieceType.BISHOP) {
+            // ok so we are going to look at all the spaces diagonal that are within the bounds of the board
+            // and then check for pieces along each path.
+            //look aat ChessMove class?
+            //figure out Collection data structure
+        }
+        return null;
     }
 }
