@@ -9,7 +9,7 @@ import java.util.Collection;
  * signature of the existing methods.
  */
 public class ChessPiece {
-    public ChessPosition position;
+    private ChessPosition position;
     private ChessGame.TeamColor color;
     private ChessPiece.PieceType type;
 
@@ -17,6 +17,7 @@ public class ChessPiece {
     public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type) {
         this.color = pieceColor;
         this.type = type;
+        //this.position = position;
     }
 
     /**
@@ -29,6 +30,10 @@ public class ChessPiece {
         KNIGHT,
         ROOK,
         PAWN
+    }
+
+    public void setPosition(ChessPosition position) {
+        this.position = position;
     }
 
     /**
