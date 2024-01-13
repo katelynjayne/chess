@@ -1,6 +1,7 @@
 package chess;
 
 import java.util.Collection;
+import java.util.ArrayList;
 
 /**
  * Represents a single chess piece
@@ -59,13 +60,42 @@ public class ChessPiece {
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         ChessPiece piece = board.getPiece(myPosition);
-        // ONLY HORSES CAN JUMP
+        int rowIndex = myPosition.getRow() - 1;
+        int colIndex = myPosition.getColumn() - 1;
+        Collection<ChessMove> validMoves = new ArrayList<>();
         if (piece.type == PieceType.BISHOP) {
             // ok so we are going to look at all the spaces diagonal that are within the bounds of the board
             // and then check for pieces along each path.
             //look aat ChessMove class?
             //figure out Collection data structure
         }
-        return null;
+        else if (piece.type == PieceType.KING) {
+            // can move any direction ***i think*** but only one space
+        }
+        else if (piece.type == PieceType.KNIGHT) {
+            if (rowIndex - 2 >= 0) {
+                if (colIndex - 1 >= 0) {
+                    ChessPosition newPosition = new ChessPosition(rowIndex - 3, colIndex - 2);
+                    ChessMove validMove = new ChessMove(myPosition, newPosition, null);
+                    validMoves.add(validMove);
+                }
+            }
+            // ONLY HORSES CAN JUMP
+            // 2 vert 1 horizontal + vice versa all directions
+            // 8 possiblites
+        }
+        else if (piece.type == PieceType.PAWN) {
+            // can move forward one
+            // 2 on the first move?? is this included??
+        }
+        else if (piece.type == PieceType.QUEEN) {
+            // can move any direction i believe***
+        }
+        else if (piece.type == PieceType.ROOK) {
+            // can move in a straight line up or sideways as far as there are no pieces there
+            //wait what about capturing other pieces????
+            //hmmmmmm
+        }
+        return validMoves;
     }
 }
