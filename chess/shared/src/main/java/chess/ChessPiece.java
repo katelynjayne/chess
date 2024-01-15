@@ -1,7 +1,10 @@
 package chess;
 
+import javax.lang.model.type.ArrayType;
 import java.util.Collection;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * Represents a single chess piece
@@ -51,6 +54,29 @@ public class ChessPiece {
         return type;
     }
 
+    private Boolean isInBounds(int rowIndex, int colIndex) {
+       return rowIndex >= 0 && rowIndex < 8 && colIndex < 8 && colIndex >= 0;
+    }
+    private Boolean sameColorPiece(ChessBoard board, ChessPosition position) {
+        if (board.getPiece(position) == null) {
+            return false;
+        }
+        return board.getPiece(position).getTeamColor() == color;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChessPiece piece=(ChessPiece) o;
+        return Objects.equals(position, piece.position) && color == piece.color && type == piece.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(position, color, type);
+    }
+
     /**
      * Calculates all the positions a chess piece can move to
      * Does not take into account moves that are illegal due to leaving the king in
@@ -62,27 +88,71 @@ public class ChessPiece {
         ChessPiece piece = board.getPiece(myPosition);
         int rowIndex = myPosition.getRow() - 1;
         int colIndex = myPosition.getColumn() - 1;
-        Collection<ChessMove> validMoves = new ArrayList<>();
+        Collection<ChessMove> validMoves = new HashSet<>();
         if (piece.type == PieceType.BISHOP) {
-            // ok so we are going to look at all the spaces diagonal that are within the bounds of the board
-            // and then check for pieces along each path.
-            //look aat ChessMove class?
-            //figure out Collection data structure
+
+            //while (!isInBounds())
         }
         else if (piece.type == PieceType.KING) {
-            // can move any direction ***i think*** but only one space
+            // can move any direction but only one space
         }
         else if (piece.type == PieceType.KNIGHT) {
-            if (rowIndex - 2 >= 0) {
-                if (colIndex - 1 >= 0) {
-                    ChessPosition newPosition = new ChessPosition(rowIndex - 3, colIndex - 2);
-                    ChessMove validMove = new ChessMove(myPosition, newPosition, null);
+            if (isInBounds(rowIndex - 2, colIndex - 1)) {
+                ChessPosition newPosition = new ChessPosition(rowIndex - 1, colIndex);
+                if (!sameColorPiece(board, newPosition)) {
+                    ChessMove validMove=new ChessMove(myPosition, newPosition, null);
                     validMoves.add(validMove);
                 }
             }
-            // ONLY HORSES CAN JUMP
-            // 2 vert 1 horizontal + vice versa all directions
-            // 8 possiblites
+            if (isInBounds(rowIndex - 2, colIndex + 1)) {
+                ChessPosition newPosition = new ChessPosition(rowIndex - 1, colIndex + 2);
+                if (!sameColorPiece(board, newPosition)) {
+                    ChessMove validMove=new ChessMove(myPosition, newPosition, null);
+                    validMoves.add(validMove);
+                }
+            }
+            if (isInBounds(rowIndex - 1, colIndex - 2)) {
+                ChessPosition newPosition = new ChessPosition(rowIndex, colIndex - 1);
+                if (!sameColorPiece(board, newPosition)) {
+                    ChessMove validMove=new ChessMove(myPosition, newPosition, null);
+                    validMoves.add(validMove);
+                }
+            }
+            if (isInBounds(rowIndex - 1, colIndex + 2)) {
+                ChessPosition newPosition = new ChessPosition(rowIndex, colIndex + 3);
+                if (!sameColorPiece(board, newPosition)) {
+                    ChessMove validMove=new ChessMove(myPosition, newPosition, null);
+                    validMoves.add(validMove);
+                }
+            }
+            if (isInBounds(rowIndex + 2, colIndex - 1)) {
+                ChessPosition newPosition = new ChessPosition(rowIndex + 3, colIndex);
+                if (!sameColorPiece(board, newPosition)) {
+                    ChessMove validMove=new ChessMove(myPosition, newPosition, null);
+                    validMoves.add(validMove);
+                }
+            }
+            if (isInBounds(rowIndex + 2, colIndex + 1)) {
+                ChessPosition newPosition = new ChessPosition(rowIndex + 3, colIndex + 2);
+                if (!sameColorPiece(board, newPosition)) {
+                    ChessMove validMove=new ChessMove(myPosition, newPosition, null);
+                    validMoves.add(validMove);
+                }
+            }
+            if (isInBounds(rowIndex + 1, colIndex - 2)) {
+                ChessPosition newPosition = new ChessPosition(rowIndex + 2, colIndex - 1);
+                if (!sameColorPiece(board, newPosition)) {
+                    ChessMove validMove=new ChessMove(myPosition, newPosition, null);
+                    validMoves.add(validMove);
+                }
+            }
+            if (isInBounds(rowIndex + 1, colIndex + 2)) {
+                ChessPosition newPosition = new ChessPosition(rowIndex + 2, colIndex + 3);
+                if (!sameColorPiece(board, newPosition)) {
+                    ChessMove validMove=new ChessMove(myPosition, newPosition, null);
+                    validMoves.add(validMove);
+                }
+            }
         }
         else if (piece.type == PieceType.PAWN) {
             // can move forward one
