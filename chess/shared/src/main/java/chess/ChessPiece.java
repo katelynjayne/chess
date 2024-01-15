@@ -14,8 +14,8 @@ import java.util.Objects;
  */
 public class ChessPiece {
     private ChessPosition position; // axel said i might need this...?
-    private ChessGame.TeamColor color;
-    private ChessPiece.PieceType type;
+    private final ChessGame.TeamColor color;
+    private final ChessPiece.PieceType type;
 
 
     public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type) {
@@ -64,6 +64,14 @@ public class ChessPiece {
         return board.getPiece(position).getTeamColor() == color;
     }
 
+    private ChessMove validateMove(ChessBoard board, int rowIndex, int colIndex, ChessPosition currentPosition) {
+        ChessPosition newPosition = new ChessPosition(rowIndex + 1, colIndex + 1);
+        if (!sameColorPiece(board, newPosition)) {
+            return new ChessMove(currentPosition, newPosition, null);
+        }
+        return null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,66 +98,124 @@ public class ChessPiece {
         int colIndex = myPosition.getColumn() - 1;
         Collection<ChessMove> validMoves = new HashSet<>();
         if (piece.type == PieceType.BISHOP) {
-
-            //while (!isInBounds())
+            // up and left
+            int newRowIndex = rowIndex + 1;
+            int newColIndex = colIndex - 1;
+            while (isInBounds(newRowIndex, newColIndex)) {
+                ChessMove validMove = validateMove(board, newRowIndex, newColIndex, myPosition);
+                if (validMove == null) {
+                    break;
+                }
+                validMoves.add(validMove);
+                if (board.getPiece(validMove.getEndPosition()) != null) {
+                    break;
+                }
+                newRowIndex += 1;
+                newColIndex -= 1;
+            }
+            // up and right
+            newRowIndex = rowIndex + 1;
+            newColIndex = colIndex + 1;
+            while (isInBounds(newRowIndex, newColIndex)) {
+                ChessMove validMove = validateMove(board, newRowIndex, newColIndex, myPosition);
+                if (validMove == null) {
+                    break;
+                }
+                validMoves.add(validMove);
+                if (board.getPiece(validMove.getEndPosition()) != null) {
+                    break;
+                }
+                newRowIndex += 1;
+                newColIndex += 1;
+            }
+            // down and left
+            newRowIndex = rowIndex - 1;
+            newColIndex = colIndex - 1;
+            while (isInBounds(newRowIndex, newColIndex)) {
+                ChessMove validMove = validateMove(board, newRowIndex, newColIndex, myPosition);
+                if (validMove == null) {
+                    break;
+                }
+                validMoves.add(validMove);
+                if (board.getPiece(validMove.getEndPosition()) != null) {
+                    break;
+                }
+                newRowIndex -= 1;
+                newColIndex -= 1;
+            }
+            // down and right
+            newRowIndex = rowIndex - 1;
+            newColIndex = colIndex + 1;
+            while (isInBounds(newRowIndex, newColIndex)) {
+                ChessMove validMove = validateMove(board, newRowIndex, newColIndex, myPosition);
+                if (validMove == null) {
+                    break;
+                }
+                validMoves.add(validMove);
+                if (board.getPiece(validMove.getEndPosition()) != null) {
+                    break;
+                }
+                newRowIndex -= 1;
+                newColIndex += 1;
+            }
         }
         else if (piece.type == PieceType.KING) {
             // can move any direction but only one space
         }
         else if (piece.type == PieceType.KNIGHT) {
+            // 2 down, 1 left
             if (isInBounds(rowIndex - 2, colIndex - 1)) {
-                ChessPosition newPosition = new ChessPosition(rowIndex - 1, colIndex);
-                if (!sameColorPiece(board, newPosition)) {
-                    ChessMove validMove=new ChessMove(myPosition, newPosition, null);
+                ChessMove validMove = validateMove(board, rowIndex - 2, colIndex - 1, myPosition);
+                if (validMove != null) {
                     validMoves.add(validMove);
                 }
             }
+            // 2 down, 1 right
             if (isInBounds(rowIndex - 2, colIndex + 1)) {
-                ChessPosition newPosition = new ChessPosition(rowIndex - 1, colIndex + 2);
-                if (!sameColorPiece(board, newPosition)) {
-                    ChessMove validMove=new ChessMove(myPosition, newPosition, null);
+                ChessMove validMove = validateMove(board, rowIndex - 2, colIndex + 1, myPosition);
+                if (validMove != null) {
                     validMoves.add(validMove);
                 }
             }
+            // 1 down, 2 left
             if (isInBounds(rowIndex - 1, colIndex - 2)) {
-                ChessPosition newPosition = new ChessPosition(rowIndex, colIndex - 1);
-                if (!sameColorPiece(board, newPosition)) {
-                    ChessMove validMove=new ChessMove(myPosition, newPosition, null);
+                ChessMove validMove = validateMove(board, rowIndex - 1, colIndex - 2, myPosition);
+                if (validMove != null) {
                     validMoves.add(validMove);
                 }
             }
+            // 1 down, 2 right
             if (isInBounds(rowIndex - 1, colIndex + 2)) {
-                ChessPosition newPosition = new ChessPosition(rowIndex, colIndex + 3);
-                if (!sameColorPiece(board, newPosition)) {
-                    ChessMove validMove=new ChessMove(myPosition, newPosition, null);
+                ChessMove validMove = validateMove(board, rowIndex - 1, colIndex + 2, myPosition);
+                if (validMove != null) {
                     validMoves.add(validMove);
                 }
             }
+            // 2 up, 1 left
             if (isInBounds(rowIndex + 2, colIndex - 1)) {
-                ChessPosition newPosition = new ChessPosition(rowIndex + 3, colIndex);
-                if (!sameColorPiece(board, newPosition)) {
-                    ChessMove validMove=new ChessMove(myPosition, newPosition, null);
+                ChessMove validMove = validateMove(board, rowIndex + 2, colIndex - 1, myPosition);
+                if (validMove != null) {
                     validMoves.add(validMove);
                 }
             }
+            // 2 up, 1 right
             if (isInBounds(rowIndex + 2, colIndex + 1)) {
-                ChessPosition newPosition = new ChessPosition(rowIndex + 3, colIndex + 2);
-                if (!sameColorPiece(board, newPosition)) {
-                    ChessMove validMove=new ChessMove(myPosition, newPosition, null);
+                ChessMove validMove = validateMove(board, rowIndex + 2, colIndex + 1, myPosition);
+                if (validMove != null) {
                     validMoves.add(validMove);
                 }
             }
+            // 1 up, 2 left
             if (isInBounds(rowIndex + 1, colIndex - 2)) {
-                ChessPosition newPosition = new ChessPosition(rowIndex + 2, colIndex - 1);
-                if (!sameColorPiece(board, newPosition)) {
-                    ChessMove validMove=new ChessMove(myPosition, newPosition, null);
+                ChessMove validMove = validateMove(board, rowIndex + 1, colIndex - 2, myPosition);
+                if (validMove != null) {
                     validMoves.add(validMove);
                 }
             }
+            // 1 up, 2 right
             if (isInBounds(rowIndex + 1, colIndex + 2)) {
-                ChessPosition newPosition = new ChessPosition(rowIndex + 2, colIndex + 3);
-                if (!sameColorPiece(board, newPosition)) {
-                    ChessMove validMove=new ChessMove(myPosition, newPosition, null);
+                ChessMove validMove = validateMove(board, rowIndex + 1, colIndex + 2, myPosition);
+                if (validMove != null) {
                     validMoves.add(validMove);
                 }
             }
