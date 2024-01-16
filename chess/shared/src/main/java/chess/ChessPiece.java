@@ -71,6 +71,25 @@ public class ChessPiece {
         return null;
     }
 
+    private Collection<ChessMove> groovyMoves(int rowIndex, int colIndex, int rowDirection, int colDirection, ChessBoard board, ChessPosition position) {
+        int newRowIndex = rowIndex + rowDirection;
+        int newColIndex = colIndex + colDirection;
+        Collection<ChessMove> validMoves = new ArrayList<>();
+        while (isInBounds(newRowIndex, newColIndex)) {
+            ChessMove validMove = validateMove(board, newRowIndex, newColIndex, position);
+            if (validMove == null) {
+                break;
+            }
+            validMoves.add(validMove);
+            if (board.getPiece(validMove.getEndPosition()) != null) {
+                break;
+            }
+            newRowIndex += rowDirection;
+            newColIndex += colDirection;
+        }
+        return validMoves;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,65 +117,13 @@ public class ChessPiece {
         Collection<ChessMove> validMoves = new ArrayList<>();
         if (piece.type == PieceType.BISHOP) {
             // up and left
-            int newRowIndex = rowIndex + 1;
-            int newColIndex = colIndex - 1;
-            while (isInBounds(newRowIndex, newColIndex)) {
-                ChessMove validMove = validateMove(board, newRowIndex, newColIndex, myPosition);
-                if (validMove == null) {
-                    break;
-                }
-                validMoves.add(validMove);
-                if (board.getPiece(validMove.getEndPosition()) != null) {
-                    break;
-                }
-                newRowIndex += 1;
-                newColIndex -= 1;
-            }
+            validMoves.addAll(groovyMoves(rowIndex, colIndex, 1, -1, board, myPosition));
             // up and right
-            newRowIndex = rowIndex + 1;
-            newColIndex = colIndex + 1;
-            while (isInBounds(newRowIndex, newColIndex)) {
-                ChessMove validMove = validateMove(board, newRowIndex, newColIndex, myPosition);
-                if (validMove == null) {
-                    break;
-                }
-                validMoves.add(validMove);
-                if (board.getPiece(validMove.getEndPosition()) != null) {
-                    break;
-                }
-                newRowIndex += 1;
-                newColIndex += 1;
-            }
+            validMoves.addAll(groovyMoves(rowIndex, colIndex, 1, 1, board, myPosition));
             // down and left
-            newRowIndex = rowIndex - 1;
-            newColIndex = colIndex - 1;
-            while (isInBounds(newRowIndex, newColIndex)) {
-                ChessMove validMove = validateMove(board, newRowIndex, newColIndex, myPosition);
-                if (validMove == null) {
-                    break;
-                }
-                validMoves.add(validMove);
-                if (board.getPiece(validMove.getEndPosition()) != null) {
-                    break;
-                }
-                newRowIndex -= 1;
-                newColIndex -= 1;
-            }
+            validMoves.addAll(groovyMoves(rowIndex, colIndex, -1, -1, board, myPosition));
             // down and right
-            newRowIndex = rowIndex - 1;
-            newColIndex = colIndex + 1;
-            while (isInBounds(newRowIndex, newColIndex)) {
-                ChessMove validMove = validateMove(board, newRowIndex, newColIndex, myPosition);
-                if (validMove == null) {
-                    break;
-                }
-                validMoves.add(validMove);
-                if (board.getPiece(validMove.getEndPosition()) != null) {
-                    break;
-                }
-                newRowIndex -= 1;
-                newColIndex += 1;
-            }
+            validMoves.addAll(groovyMoves(rowIndex, colIndex, -1, 1, board, myPosition));
         }
         else if (piece.type == PieceType.KING) {
             // can move any direction but only one space
@@ -224,12 +191,33 @@ public class ChessPiece {
             // 2 on the first move?? is this included??
         }
         else if (piece.type == PieceType.QUEEN) {
-            // can move any direction i believe***
+            // up and left
+            validMoves.addAll(groovyMoves(rowIndex, colIndex, 1, -1, board, myPosition));
+            // up and right
+            validMoves.addAll(groovyMoves(rowIndex, colIndex, 1, 1, board, myPosition));
+            // down and left
+            validMoves.addAll(groovyMoves(rowIndex, colIndex, -1, -1, board, myPosition));
+            // down and right
+            validMoves.addAll(groovyMoves(rowIndex, colIndex, -1, 1, board, myPosition));
+            // up
+            validMoves.addAll(groovyMoves(rowIndex,colIndex,1,0,board,myPosition));
+            // down
+            validMoves.addAll(groovyMoves(rowIndex,colIndex,-1,0,board,myPosition));
+            // left
+            validMoves.addAll(groovyMoves(rowIndex,colIndex,0,-1,board,myPosition));
+            // right
+            validMoves.addAll(groovyMoves(rowIndex,colIndex,0,1,board,myPosition));
         }
         else if (piece.type == PieceType.ROOK) {
-            // can move in a straight line up or sideways as far as there are no pieces there
-            //wait what about capturing other pieces????
-            //hmmmmmm
+            // up
+            validMoves.addAll(groovyMoves(rowIndex,colIndex,1,0,board,myPosition));
+            // down
+            validMoves.addAll(groovyMoves(rowIndex,colIndex,-1,0,board,myPosition));
+            // left
+            validMoves.addAll(groovyMoves(rowIndex,colIndex,0,-1,board,myPosition));
+            // right
+            validMoves.addAll(groovyMoves(rowIndex,colIndex,0,1,board,myPosition));
+
         }
         return validMoves;
     }
