@@ -3,7 +3,6 @@ package chess;
 import javax.lang.model.type.ArrayType;
 import java.util.Collection;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Objects;
 
 /**
@@ -96,7 +95,7 @@ public class ChessPiece {
         ChessPiece piece = board.getPiece(myPosition);
         int rowIndex = myPosition.getRow() - 1;
         int colIndex = myPosition.getColumn() - 1;
-        Collection<ChessMove> validMoves = new HashSet<>();
+        Collection<ChessMove> validMoves = new ArrayList<>();
         if (piece.type == PieceType.BISHOP) {
             // up and left
             int newRowIndex = rowIndex + 1;
