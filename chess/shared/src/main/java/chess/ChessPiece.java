@@ -2,6 +2,7 @@ package chess;
 
 import java.util.Collection;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
 /**
@@ -96,6 +97,19 @@ public class ChessPiece {
         return validMoves;
     }
 
+    private Collection<ChessMove> promotionMoves (ChessPosition currentPosition, ChessPosition newPosition) {
+        Collection<ChessMove> promotionMoves = new ArrayList<>();
+        ChessMove promotionMove1 = new ChessMove(currentPosition, newPosition, PieceType.ROOK);
+        ChessMove promotionMove2 = new ChessMove(currentPosition, newPosition, PieceType.KNIGHT);
+        ChessMove promotionMove3 = new ChessMove(currentPosition, newPosition, PieceType.BISHOP);
+        ChessMove promotionMove4 = new ChessMove(currentPosition, newPosition, PieceType.QUEEN);
+        promotionMoves.add(promotionMove1);
+        promotionMoves.add(promotionMove2);
+        promotionMoves.add(promotionMove3);
+        promotionMoves.add(promotionMove4);
+        return promotionMoves;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -128,7 +142,7 @@ public class ChessPiece {
         ChessPiece piece = board.getPiece(myPosition);
         int rowIndex = myPosition.getRow() - 1;
         int colIndex = myPosition.getColumn() - 1;
-        Collection<ChessMove> validMoves = new ArrayList<>();
+        Collection<ChessMove> validMoves = new HashSet<>();
         if (piece.type == PieceType.BISHOP) {
             // up and left
             validMoves.addAll(groovyMoves(rowIndex, colIndex, 1, -1, board, myPosition));
@@ -250,16 +264,21 @@ public class ChessPiece {
         else if (piece.type == PieceType.PAWN) {
             if (piece.getTeamColor() == ChessGame.TeamColor.WHITE) {
                 if (isInBounds(rowIndex + 1, colIndex)) {
-                    ChessMove validMove=validateMove(board, rowIndex + 1, colIndex, myPosition);
-                    ChessPosition forwardPosition=new ChessPosition(rowIndex + 2, colIndex + 1);
-                    if (validMove != null && board.getPiece(forwardPosition) == null) {
-                        validMoves.add(validMove);
-                    }
-                    if (rowIndex == 1) {
-                        ChessMove doubleValidMove=validateMove(board, rowIndex + 2, colIndex, myPosition);
-                        ChessPosition doubleForwardPosition=new ChessPosition(rowIndex + 3, colIndex + 1);
-                        if (validMove != null && board.getPiece(doubleForwardPosition) == null) {
-                            validMoves.add(doubleValidMove);
+                    ChessMove validMove = validateMove(board, rowIndex + 1, colIndex, myPosition);
+                    ChessPosition forwardPosition = new ChessPosition(rowIndex + 2, colIndex + 1);
+                    if (validMove != null) {
+                        if (rowIndex + 1 == 7) {
+                            validMoves.addAll(promotionMoves(myPosition, forwardPosition));
+                        }
+                        else if (board.getPiece(forwardPosition) == null) {
+                            validMoves.add(validMove);
+                        }
+                        if (rowIndex == 1) {
+                            ChessMove doubleValidMove=validateMove(board, rowIndex + 2, colIndex, myPosition);
+                            ChessPosition doubleForwardPosition=new ChessPosition(rowIndex + 3, colIndex + 1);
+                            if (board.getPiece(doubleForwardPosition) == null) {
+                                validMoves.add(doubleValidMove);
+                            }
                         }
                     }
                 }
@@ -268,16 +287,26 @@ public class ChessPiece {
                     if (differentColorPiece(board, diagonalLeft)) {
                         ChessMove validMove = validateMove(board, rowIndex + 1, colIndex - 1, myPosition);
                         if (validMove != null) {
-                            validMoves.add(validMove);
+                            if (rowIndex + 1 == 7) {
+                                validMoves.addAll(promotionMoves(myPosition, diagonalLeft));
+                            }
+                            else {
+                                validMoves.add(validMove);
+                            }
                         }
                     }
                 }
                 if (isInBounds(rowIndex + 1, colIndex + 1)) {
-                    ChessPosition diagonalLeft = new ChessPosition(rowIndex + 2, colIndex + 2);
-                    if (differentColorPiece(board, diagonalLeft)) {
+                    ChessPosition diagonalRight = new ChessPosition(rowIndex + 2, colIndex + 2);
+                    if (differentColorPiece(board, diagonalRight)) {
                         ChessMove validMove = validateMove(board, rowIndex + 1, colIndex + 1, myPosition);
                         if (validMove != null) {
-                            validMoves.add(validMove);
+                            if (rowIndex + 1 == 7) {
+                                validMoves.addAll(promotionMoves(myPosition, diagonalRight));
+                            }
+                            else {
+                                validMoves.add(validMove);
+                            }
                         }
                     }
                 }
@@ -286,33 +315,47 @@ public class ChessPiece {
                 if (isInBounds(rowIndex - 1, colIndex)) {
                     ChessMove validMove = validateMove(board, rowIndex - 1, colIndex, myPosition);
                     ChessPosition forwardPosition = new ChessPosition(rowIndex, colIndex + 1);
-                    if (validMove != null && board.getPiece(forwardPosition) == null) {
-                        validMoves.add(validMove);
-                    }
-                    if (rowIndex == 6) {
-                        ChessMove doubleValidMove = validateMove(board, rowIndex - 2, colIndex, myPosition);
-                        ChessPosition doubleForwardPosition = new ChessPosition(rowIndex - 1, colIndex + 1);
-                        if (validMove != null && board.getPiece(doubleForwardPosition) == null) {
-                            validMoves.add(doubleValidMove);
+                    if (validMove != null) {
+                        if (rowIndex - 1 == 0) {
+                            validMoves.addAll(promotionMoves(myPosition, forwardPosition));
+                        }
+                        else if (board.getPiece(forwardPosition) == null) {
+                            validMoves.add(validMove);
+                        }
+                        if (rowIndex == 6) {
+                            ChessMove doubleValidMove = validateMove(board, rowIndex - 2, colIndex, myPosition);
+                            ChessPosition doubleForwardPosition = new ChessPosition(rowIndex - 1, colIndex + 1);
+                            if (board.getPiece(doubleForwardPosition) == null) {
+                                validMoves.add(doubleValidMove);
+                            }
                         }
                     }
                 }
-
                 if (isInBounds(rowIndex - 1, colIndex - 1)) {
-                    ChessPosition diagonalLeft = new ChessPosition(rowIndex - 2, colIndex);
+                    ChessPosition diagonalLeft = new ChessPosition(rowIndex, colIndex);
                     if (differentColorPiece(board, diagonalLeft)) {
                         ChessMove validMove = validateMove(board, rowIndex - 1, colIndex - 1, myPosition);
                         if (validMove != null) {
-                            validMoves.add(validMove);
+                            if (rowIndex - 1 == 0) {
+                                validMoves.addAll(promotionMoves(myPosition, diagonalLeft));
+                            }
+                            else {
+                                validMoves.add(validMove);
+                            }
                         }
                     }
                 }
                 if (isInBounds(rowIndex - 1, colIndex + 1)) {
-                    ChessPosition diagonalLeft = new ChessPosition(rowIndex, colIndex + 2);
-                    if (differentColorPiece(board, diagonalLeft)) {
+                    ChessPosition diagonalRight = new ChessPosition(rowIndex, colIndex + 2);
+                    if (differentColorPiece(board, diagonalRight)) {
                         ChessMove validMove = validateMove(board, rowIndex - 1, colIndex + 1, myPosition);
                         if (validMove != null) {
-                            validMoves.add(validMove);
+                            if (rowIndex - 1 == 0) {
+                                validMoves.addAll(promotionMoves(myPosition, diagonalRight));
+                            }
+                            else {
+                                validMoves.add(validMove);
+                            }
                         }
                     }
                 }
