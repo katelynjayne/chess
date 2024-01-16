@@ -1,6 +1,5 @@
 package chess;
 
-import javax.lang.model.type.ArrayType;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -12,7 +11,7 @@ import java.util.Objects;
  * signature of the existing methods.
  */
 public class ChessPiece {
-    private ChessPosition position; // axel said i might need this...?
+    //private ChessPosition position; axel said I might need this...?
     private final ChessGame.TeamColor color;
     private final ChessPiece.PieceType type;
 
@@ -35,9 +34,9 @@ public class ChessPiece {
         PAWN
     }
 
-    public void setPosition(ChessPosition position) {
-        this.position = position;
-    }
+    //public void setPosition(ChessPosition position) {
+        //this.position = position;
+    //}
 
     /**
      * @return Which team this chess piece belongs to
@@ -61,6 +60,13 @@ public class ChessPiece {
             return false;
         }
         return board.getPiece(position).getTeamColor() == color;
+    }
+
+    private Boolean differentColorPiece(ChessBoard board, ChessPosition position) {
+        if (board.getPiece(position) == null) {
+            return false;
+        }
+        return board.getPiece(position).getTeamColor() != color;
     }
 
     private ChessMove validateMove(ChessBoard board, int rowIndex, int colIndex, ChessPosition currentPosition) {
@@ -95,12 +101,20 @@ public class ChessPiece {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ChessPiece piece=(ChessPiece) o;
-        return Objects.equals(position, piece.position) && color == piece.color && type == piece.type;
+        return color == piece.color && type == piece.type;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(position, color, type);
+        return Objects.hash(color, type);
+    }
+
+    @Override
+    public String toString() {
+        return "ChessPiece{" +
+                "color=" + color +
+                ", type=" + type +
+                '}';
     }
 
     /**
@@ -126,7 +140,54 @@ public class ChessPiece {
             validMoves.addAll(groovyMoves(rowIndex, colIndex, -1, 1, board, myPosition));
         }
         else if (piece.type == PieceType.KING) {
-            // can move any direction but only one space
+            if (isInBounds(rowIndex + 1, colIndex - 1)) {
+                ChessMove validMove = validateMove(board, rowIndex + 1, colIndex - 1, myPosition);
+                if (validMove != null) {
+                    validMoves.add(validMove);
+                }
+            }
+            if (isInBounds(rowIndex + 1, colIndex)) {
+                ChessMove validMove = validateMove(board, rowIndex + 1, colIndex, myPosition);
+                if (validMove != null) {
+                    validMoves.add(validMove);
+                }
+            }
+            if (isInBounds(rowIndex + 1, colIndex + 1)) {
+                ChessMove validMove = validateMove(board, rowIndex + 1, colIndex + 1, myPosition);
+                if (validMove != null) {
+                    validMoves.add(validMove);
+                }
+            }
+            if (isInBounds(rowIndex, colIndex - 1)) {
+                ChessMove validMove = validateMove(board, rowIndex, colIndex - 1, myPosition);
+                if (validMove != null) {
+                    validMoves.add(validMove);
+                }
+            }
+            if (isInBounds(rowIndex, colIndex + 1)) {
+                ChessMove validMove = validateMove(board, rowIndex, colIndex + 1, myPosition);
+                if (validMove != null) {
+                    validMoves.add(validMove);
+                }
+            }
+            if (isInBounds(rowIndex - 1, colIndex - 1)) {
+                ChessMove validMove = validateMove(board, rowIndex - 1, colIndex - 1, myPosition);
+                if (validMove != null) {
+                    validMoves.add(validMove);
+                }
+            }
+            if (isInBounds(rowIndex - 1, colIndex)) {
+                ChessMove validMove = validateMove(board, rowIndex - 1, colIndex, myPosition);
+                if (validMove != null) {
+                    validMoves.add(validMove);
+                }
+            }
+            if (isInBounds(rowIndex - 1, colIndex + 1)) {
+                ChessMove validMove = validateMove(board, rowIndex - 1, colIndex + 1, myPosition);
+                if (validMove != null) {
+                    validMoves.add(validMove);
+                }
+            }
         }
         else if (piece.type == PieceType.KNIGHT) {
             // 2 down, 1 left
@@ -187,8 +248,75 @@ public class ChessPiece {
             }
         }
         else if (piece.type == PieceType.PAWN) {
-            // can move forward one
-            // 2 on the first move?? is this included??
+            if (piece.getTeamColor() == ChessGame.TeamColor.WHITE) {
+                if (isInBounds(rowIndex + 1, colIndex)) {
+                    ChessMove validMove=validateMove(board, rowIndex + 1, colIndex, myPosition);
+                    ChessPosition forwardPosition=new ChessPosition(rowIndex + 2, colIndex + 1);
+                    if (validMove != null && board.getPiece(forwardPosition) == null) {
+                        validMoves.add(validMove);
+                    }
+                    if (rowIndex == 1) {
+                        ChessMove doubleValidMove=validateMove(board, rowIndex + 2, colIndex, myPosition);
+                        ChessPosition doubleForwardPosition=new ChessPosition(rowIndex + 3, colIndex + 1);
+                        if (validMove != null && board.getPiece(doubleForwardPosition) == null) {
+                            validMoves.add(doubleValidMove);
+                        }
+                    }
+                }
+                if (isInBounds(rowIndex + 1, colIndex - 1)) {
+                    ChessPosition diagonalLeft = new ChessPosition(rowIndex + 2, colIndex);
+                    if (differentColorPiece(board, diagonalLeft)) {
+                        ChessMove validMove = validateMove(board, rowIndex + 1, colIndex - 1, myPosition);
+                        if (validMove != null) {
+                            validMoves.add(validMove);
+                        }
+                    }
+                }
+                if (isInBounds(rowIndex + 1, colIndex + 1)) {
+                    ChessPosition diagonalLeft = new ChessPosition(rowIndex + 2, colIndex + 2);
+                    if (differentColorPiece(board, diagonalLeft)) {
+                        ChessMove validMove = validateMove(board, rowIndex + 1, colIndex + 1, myPosition);
+                        if (validMove != null) {
+                            validMoves.add(validMove);
+                        }
+                    }
+                }
+            }
+            if (piece.getTeamColor() == ChessGame.TeamColor.BLACK) {
+                if (isInBounds(rowIndex - 1, colIndex)) {
+                    ChessMove validMove = validateMove(board, rowIndex - 1, colIndex, myPosition);
+                    ChessPosition forwardPosition = new ChessPosition(rowIndex, colIndex + 1);
+                    if (validMove != null && board.getPiece(forwardPosition) == null) {
+                        validMoves.add(validMove);
+                    }
+                    if (rowIndex == 6) {
+                        ChessMove doubleValidMove = validateMove(board, rowIndex - 2, colIndex, myPosition);
+                        ChessPosition doubleForwardPosition = new ChessPosition(rowIndex - 1, colIndex + 1);
+                        if (validMove != null && board.getPiece(doubleForwardPosition) == null) {
+                            validMoves.add(doubleValidMove);
+                        }
+                    }
+                }
+
+                if (isInBounds(rowIndex - 1, colIndex - 1)) {
+                    ChessPosition diagonalLeft = new ChessPosition(rowIndex - 2, colIndex);
+                    if (differentColorPiece(board, diagonalLeft)) {
+                        ChessMove validMove = validateMove(board, rowIndex - 1, colIndex - 1, myPosition);
+                        if (validMove != null) {
+                            validMoves.add(validMove);
+                        }
+                    }
+                }
+                if (isInBounds(rowIndex - 1, colIndex + 1)) {
+                    ChessPosition diagonalLeft = new ChessPosition(rowIndex, colIndex + 2);
+                    if (differentColorPiece(board, diagonalLeft)) {
+                        ChessMove validMove = validateMove(board, rowIndex - 1, colIndex + 1, myPosition);
+                        if (validMove != null) {
+                            validMoves.add(validMove);
+                        }
+                    }
+                }
+            }
         }
         else if (piece.type == PieceType.QUEEN) {
             // up and left
