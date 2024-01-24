@@ -11,7 +11,7 @@ import java.util.Objects;
  * Note: You can add to this class, but you may not alter
  * signature of the existing methods.
  */
-public class ChessPiece {
+public class  ChessPiece {
     //private ChessPosition position; axel said I might need this...?
     private final ChessGame.TeamColor color;
     private final ChessPiece.PieceType type;
@@ -139,7 +139,7 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
-        ChessPiece piece = board.getPiece(myPosition);
+        ChessPiece piece = board.getPiece(myPosition); // do i need this??
         int rowIndex = myPosition.getRow() - 1;
         int colIndex = myPosition.getColumn() - 1;
         Collection<ChessMove> validMoves = new HashSet<>();
