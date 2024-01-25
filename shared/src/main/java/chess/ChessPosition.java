@@ -25,12 +25,20 @@ public class ChessPosition {
         return row;
     }
 
+    public int getRowIndex() {
+        return row - 1;
+    }
+
     /**
      * @return which column this position is in
      * 1 codes for the left row
      */
     public int getColumn() {
         return col;
+    }
+
+    public int getColIndex() {
+        return col - 1;
     }
 
     @Override

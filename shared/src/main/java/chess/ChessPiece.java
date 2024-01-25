@@ -12,7 +12,6 @@ import java.util.Objects;
  * signature of the existing methods.
  */
 public class  ChessPiece {
-    //private ChessPosition position; axel said I might need this...?
     private final ChessGame.TeamColor color;
     private final ChessPiece.PieceType type;
 
@@ -20,7 +19,6 @@ public class  ChessPiece {
     public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type) {
         this.color = pieceColor;
         this.type = type;
-        //this.position = position;
     }
 
     /**
@@ -34,10 +32,6 @@ public class  ChessPiece {
         ROOK,
         PAWN
     }
-
-    //public void setPosition(ChessPosition position) {
-        //this.position = position;
-    //}
 
     /**
      * @return Which team this chess piece belongs to
@@ -73,7 +67,7 @@ public class  ChessPiece {
     private ChessMove validateMove(ChessBoard board, int rowIndex, int colIndex, ChessPosition currentPosition) {
         ChessPosition newPosition = new ChessPosition(rowIndex + 1, colIndex + 1);
         if (!sameColorPiece(board, newPosition)) {
-            return new ChessMove(currentPosition, newPosition, null);
+            return new ChessMove(currentPosition, newPosition);
         }
         return null;
     }
@@ -139,11 +133,10 @@ public class  ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
-        ChessPiece piece = board.getPiece(myPosition); // do i need this??
-        int rowIndex = myPosition.getRow() - 1;
-        int colIndex = myPosition.getColumn() - 1;
+        int rowIndex = myPosition.getRowIndex();
+        int colIndex = myPosition.getColIndex();
         Collection<ChessMove> validMoves = new HashSet<>();
-        if (piece.type == PieceType.BISHOP) {
+        if (type == PieceType.BISHOP) {
             // up and left
             validMoves.addAll(groovyMoves(rowIndex, colIndex, 1, -1, board, myPosition));
             // up and right
@@ -153,7 +146,7 @@ public class  ChessPiece {
             // down and right
             validMoves.addAll(groovyMoves(rowIndex, colIndex, -1, 1, board, myPosition));
         }
-        else if (piece.type == PieceType.KING) {
+        else if (type == PieceType.KING) {
             if (isInBounds(rowIndex + 1, colIndex - 1)) {
                 ChessMove validMove = validateMove(board, rowIndex + 1, colIndex - 1, myPosition);
                 if (validMove != null) {
@@ -203,7 +196,7 @@ public class  ChessPiece {
                 }
             }
         }
-        else if (piece.type == PieceType.KNIGHT) {
+        else if (type == PieceType.KNIGHT) {
             // 2 down, 1 left
             if (isInBounds(rowIndex - 2, colIndex - 1)) {
                 ChessMove validMove = validateMove(board, rowIndex - 2, colIndex - 1, myPosition);
@@ -261,8 +254,8 @@ public class  ChessPiece {
                 }
             }
         }
-        else if (piece.type == PieceType.PAWN) {
-            if (piece.getTeamColor() == ChessGame.TeamColor.WHITE) {
+        else if (type == PieceType.PAWN) {
+            if (color == ChessGame.TeamColor.WHITE) {
                 if (isInBounds(rowIndex + 1, colIndex)) {
                     ChessMove validMove = validateMove(board, rowIndex + 1, colIndex, myPosition);
                     ChessPosition forwardPosition = new ChessPosition(rowIndex + 2, colIndex + 1);
@@ -311,7 +304,7 @@ public class  ChessPiece {
                     }
                 }
             }
-            if (piece.getTeamColor() == ChessGame.TeamColor.BLACK) {
+            if (color == ChessGame.TeamColor.BLACK) {
                 if (isInBounds(rowIndex - 1, colIndex)) {
                     ChessMove validMove = validateMove(board, rowIndex - 1, colIndex, myPosition);
                     ChessPosition forwardPosition = new ChessPosition(rowIndex, colIndex + 1);
@@ -361,7 +354,7 @@ public class  ChessPiece {
                 }
             }
         }
-        else if (piece.type == PieceType.QUEEN) {
+        else if (type == PieceType.QUEEN) {
             // up and left
             validMoves.addAll(groovyMoves(rowIndex, colIndex, 1, -1, board, myPosition));
             // up and right
@@ -379,7 +372,7 @@ public class  ChessPiece {
             // right
             validMoves.addAll(groovyMoves(rowIndex,colIndex,0,1,board,myPosition));
         }
-        else if (piece.type == PieceType.ROOK) {
+        else if (type == PieceType.ROOK) {
             // up
             validMoves.addAll(groovyMoves(rowIndex,colIndex,1,0,board,myPosition));
             // down
