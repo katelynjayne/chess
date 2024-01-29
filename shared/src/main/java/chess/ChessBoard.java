@@ -24,6 +24,12 @@ public class ChessBoard {
         board[position.getRowIndex()][position.getColIndex()] = piece;
     }
 
+    public void movePiece(ChessPosition startPosition, ChessPosition endPosition) {
+        ChessPiece piece = getPiece(startPosition);
+        addPiece(startPosition,null);
+        addPiece(endPosition,piece);
+    }
+
     /**
      * Gets a chess piece on the chessboard
      *
