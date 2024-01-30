@@ -58,7 +58,7 @@ public class ChessGame {
         Collection<ChessMove> validMoves = new HashSet<>();
         for (var move: potentialMoves) {
             ChessBoard boardCopy = board.copy();
-            boardCopy.movePiece(move.getStartPosition(),move.getEndPosition());
+            boardCopy.movePiece(move);
             if (!boardCopy.isInCheck(piece.getTeamColor())) {
                 validMoves.add(move);
             }
@@ -73,8 +73,9 @@ public class ChessGame {
      * @throws InvalidMoveException if move is invalid
      */
     public void makeMove(ChessMove move) throws InvalidMoveException {
-        if (validMoves(move.getStartPosition()).contains(move)) {
-            board.movePiece(move.getStartPosition(),move.getEndPosition());
+        ChessPosition startPosition = move.getStartPosition();
+        if (validMoves(startPosition).contains(move)) {
+            board.movePiece(move);
         }
         else {
             throw new InvalidMoveException();
@@ -98,7 +99,21 @@ public class ChessGame {
      * @return True if the specified team is in checkmate
      */
     public boolean isInCheckmate(TeamColor teamColor) {
-        return isInCheck(teamColor);
+        boolean validMovesEmpty = true;
+        for (int i = 1; i <= 8; i++) {
+            for (int j=1; j <= 8; j++) {
+                ChessPosition square=new ChessPosition(i, j);
+                ChessPiece piece=board.getPiece(square);
+                if (piece != null) {
+                    if (piece.getTeamColor() == teamColor) {
+                        if (!validMoves(square).isEmpty()) {
+                            validMovesEmpty = false;
+                        }
+                    }
+                }
+            }
+        }
+        return isInCheck(teamColor) && validMovesEmpty;
     }
 
     /**
@@ -109,7 +124,21 @@ public class ChessGame {
      * @return True if the specified team is in stalemate, otherwise false
      */
     public boolean isInStalemate(TeamColor teamColor) {
-        throw new RuntimeException("Not implemented");
+        boolean validMovesEmpty = true;
+        for (int i = 1; i <= 8; i++) {
+            for (int j=1; j <= 8; j++) {
+                ChessPosition square=new ChessPosition(i, j);
+                ChessPiece piece=board.getPiece(square);
+                if (piece != null) {
+                    if (piece.getTeamColor() == teamColor) {
+                        if (!validMoves(square).isEmpty()) {
+                            validMovesEmpty = false;
+                        }
+                    }
+                }
+            }
+        }
+        return !isInCheck(teamColor) && validMovesEmpty;
     }
 
     /**

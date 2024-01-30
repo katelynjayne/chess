@@ -60,10 +60,19 @@ public class ChessBoard {
         board[position.getRowIndex()][position.getColIndex()] = piece;
     }
 
-    public void movePiece(ChessPosition startPosition, ChessPosition endPosition) {
+    public void movePiece(ChessMove move) {
+        ChessPosition startPosition = move.getStartPosition();
+        ChessPosition endPosition = move.getEndPosition();
+        ChessPiece.PieceType promotionPiece = move.getPromotionPiece();
         ChessPiece piece = getPiece(startPosition);
         addPiece(startPosition,null);
-        addPiece(endPosition,piece);
+        if (promotionPiece != null) {
+            ChessPiece newPiece = new ChessPiece(piece.getTeamColor(), promotionPiece);
+            addPiece(endPosition,newPiece);
+        }
+        else {
+            addPiece(endPosition,piece);
+        }
     }
 
     /**
