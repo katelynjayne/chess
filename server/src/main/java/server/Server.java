@@ -1,5 +1,6 @@
 package server;
 
+import service.ClearService;
 import spark.*;
 
 import java.nio.file.Paths;
@@ -52,7 +53,15 @@ public class Server {
         return 200;
     }
     private Object clear(Request req, Response res) {
-        return 200;
+        try {
+            ClearService service = new ClearService();
+            service.clear();
+            res.status(200);
+        }
+        catch (Exception e){
+            res.status(500);
+        }
+        return "";
     }
 
     public void stop() {
