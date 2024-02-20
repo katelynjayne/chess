@@ -1,22 +1,31 @@
 package dataAccess;
 
-import java.util.HashMap;
+import model.UserData;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class UserDAO {
-   private HashMap<String, String> users = new HashMap<String, String>();
+   private ArrayList<UserData> users = new ArrayList<>();
    public void clear() {
       users.clear();
    }
 
-   public String getUser(String username) {
-      if (users.containsKey(username)) {
-         return users.get(username); //returns password.
-         // find way to return both username and password??
+   public UserData getUser(String username) {
+      for (UserData user:users) {
+         if (Objects.equals(user.username(), username)) {
+            return user;
+         }
       }
       return null;
    }
 
-   public void createUser(String username, String password) {
-      users.put(username, password);
+   public void createUser(String username, String password, String email) {
+      UserData user = new UserData(username, password, email);
+      users.add(user);
+   }
+
+   public void insertUser(UserData user) {
+      users.add(user);
    }
 }
