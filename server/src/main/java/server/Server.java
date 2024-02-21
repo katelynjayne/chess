@@ -6,6 +6,7 @@ import model.AuthData;
 import model.UserData;
 import service.ClearService;
 import service.LoginService;
+import service.LogoutService;
 import service.RegisterService;
 import spark.*;
 
@@ -80,7 +81,21 @@ public class Server {
         }
     }
     private Object logout(Request req, Response res) {
-        return 200;
+        LogoutService service = new LogoutService();
+        Gson serializer = new Gson();
+        try {
+            service.logout(req.headers("authorization"));
+            res.status(200);
+            return "{}";
+        }
+        catch (DataAccessException e) {
+            res.status(401);
+            return "{ \"message\": \"" + e.getMessage() + "\" }";
+        }
+        catch (Exception e) {
+            res.status(500);
+            return "{ \"message\": \"" + e.getMessage() + "\" }";
+        }
     }
 
     private Object listGames(Request req, Response res) {

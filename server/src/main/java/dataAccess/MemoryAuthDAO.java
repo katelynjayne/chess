@@ -4,6 +4,7 @@ import model.AuthData;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.UUID;
 
 public class MemoryAuthDAO implements AuthDAO {
@@ -18,5 +19,18 @@ public class MemoryAuthDAO implements AuthDAO {
       AuthData auth = new AuthData(token, username);
       authTokens.add(auth);
       return auth;
+   }
+
+   public AuthData getAuth(String token) {
+      for (AuthData auth:authTokens) {
+         if (Objects.equals(auth.authToken(), token)) {
+            return auth;
+         }
+      }
+      return null;
+   }
+
+   public void deleteAuth(AuthData auth) {
+      authTokens.remove(auth);
    }
 }
