@@ -5,6 +5,7 @@ import dataAccess.DataAccessException;
 import model.AuthData;
 import model.UserData;
 import service.ClearService;
+import service.LoginService;
 import service.RegisterService;
 import spark.*;
 
@@ -40,25 +41,43 @@ public class Server {
         Gson serializer = new Gson();
         try {
             UserData user = serializer.fromJson(req.body(), UserData.class);
-            System.out.println(req.body());
-            System.out.println(user);
+            if (user.username() == null || user.password() == null || user.email() == null) {
+                res.status(400);
+                return "{ \"message\": \"Error: bad request\" }";
+            }
             AuthData authToken = service.register(user);
             res.status(200);
             return serializer.toJson(authToken);
         }
         catch (DataAccessException e) {
             res.status(403);
-            return serializer.toJson(e);
+            return "{ \"message\": \"" + e.getMessage() + "\" }";
+            //return serializer.toJson(e);
+            //this is ugly!!
         }
         catch (Exception e) {
             res.status(500);
-            return serializer.toJson(e);
+            return "{ \"message\": \"" + e.getMessage() + "\" }";
         }
 
     }
 
     private Object login(Request req, Response res) {
-        return 200;
+        LoginService service = new LoginService();
+        Gson serializer = new Gson();
+        try {
+            AuthData auth = service.login(serializer.fromJson(req.body(), UserData.class));
+            res.status(200);
+            return serializer.toJson(auth);
+        }
+        catch (DataAccessException e) {
+            res.status(401);
+            return "{ \"message\": \"" + e.getMessage() + "\" }";
+        }
+        catch (Exception e) {
+            res.status(500);
+            return "{ \"message\": \"" + e.getMessage() + "\" }";
+        }
     }
     private Object logout(Request req, Response res) {
         return 200;
