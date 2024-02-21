@@ -3,7 +3,7 @@ package service;
 import dataAccess.*;
 
 public class Service {
-   protected static UserDAO userDAO = new UserDAO();
-   protected static AuthDAO authDAO = new AuthDAO();
-   protected static GameDAO gameDAO = new GameDAO();
+   protected static MemoryUserDAO userDAO = new MemoryUserDAO();
+   protected static MemoryAuthDAO authDAO = new MemoryAuthDAO();
+   protected static MemoryGameDAO gameDAO = new MemoryGameDAO();
 }
