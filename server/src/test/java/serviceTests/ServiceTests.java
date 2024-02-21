@@ -1,16 +1,15 @@
 package serviceTests;
 
 import dataAccess.DataAccessException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import service.*;
 import model.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ServiceTests {
-
    private RegisterService registerService;
    private LoginService loginService;
    private LogoutService logoutService;
@@ -35,6 +34,7 @@ public class ServiceTests {
    }
 
    @Test
+   @Order(1)
    public void registerTest() throws DataAccessException {
       AuthData user1Auth = registerService.register(user1);
       assertEquals("username", user1Auth.username());
@@ -42,24 +42,24 @@ public class ServiceTests {
    }
 
    @Test
+   @Order(2)
    public void loginTest() throws DataAccessException {
-      registerService.register(user1);
       AuthData auth = loginService.login(user1);
       assertEquals("username", auth.username());
       assertThrows(DataAccessException.class, () -> loginService.login(user2));
    }
 
    @Test
+   @Order(3)
    public void logoutTest() throws DataAccessException {
-      registerService.register(user1);
       AuthData auth = loginService.login(user1);
       logoutService.logout(auth.authToken());
       assertThrows(DataAccessException.class, () -> logoutService.logout(auth.authToken()));
    }
 
    @Test
+   @Order(4)
    public void clearTest() throws DataAccessException {
-      registerService.register(user1);
       loginService.login(user1);
       clearService.clear();
       assertThrows(DataAccessException.class, () -> loginService.login(user1));
