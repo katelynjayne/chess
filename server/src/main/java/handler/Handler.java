@@ -94,9 +94,14 @@ public class Handler {
       CreateGameService service = new CreateGameService();
       Gson serializer = new Gson();
       try {
-         service.createGame(req.headers("authorization"), null);
+         GameData input = serializer.fromJson(req.body(), GameData.class);
+         if (input.gameName() == null) {
+            res.status(400);
+            return serializer.toJson(new ExceptionResponse("Error: bad request"));
+         }
+         int gameID = service.createGame(req.headers("authorization"), input);
          res.status(200);
-         return "{}";
+         return serializer.toJson(new CreateGameResponse(gameID));
       }
       catch (DataAccessException e) {
          res.status(401);
