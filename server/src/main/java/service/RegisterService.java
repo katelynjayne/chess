@@ -6,14 +6,13 @@ import model.UserData;
 
 public class RegisterService extends Service {
    public AuthData register(UserData user) throws DataAccessException {
-      if (userDAO.getUser(user.username()) == null) { //error if otherwise!
+      if (userDAO.getUser(user.username()) == null) {
          userDAO.insertUser(user);
          return authDAO.createAuth(user.username());
       }
       else {
          throw new DataAccessException("Error: already taken");
       }
-      //return new AuthData("1234","hey");
    }
 }
 
