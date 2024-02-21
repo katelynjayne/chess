@@ -4,6 +4,7 @@ import chess.ChessGame;
 import com.google.gson.Gson;
 import dataAccess.DataAccessException;
 import model.AuthData;
+import model.GameData;
 import model.UserData;
 import service.*;
 import spark.Request;
@@ -12,14 +13,14 @@ import spark.Response;
 import java.util.Collection;
 
 public class Handler {
-   public Object register(Request req, Response res) {
+   public String register(Request req, Response res) {
       RegisterService service = new RegisterService();
       Gson serializer = new Gson();
       try {
          UserData user = serializer.fromJson(req.body(), UserData.class);
          if (user.username() == null || user.password() == null || user.email() == null) {
             res.status(400);
-            return "{ \"message\": \"Error: bad request\" }";
+            return serializer.toJson(new ExceptionResponse("Error: bad request"));
          }
          AuthData authToken = service.register(user);
          res.status(200);
@@ -27,18 +28,16 @@ public class Handler {
       }
       catch (DataAccessException e) {
          res.status(403);
-         return "{ \"message\": \"" + e.getMessage() + "\" }";
-         //return serializer.toJson(e);
-         //this is ugly!!
+         return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
       catch (Exception e) {
          res.status(500);
-         return "{ \"message\": \"" + e.getMessage() + "\" }";
+         return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
 
    }
 
-   public Object login(Request req, Response res) {
+   public String login(Request req, Response res) {
       LoginService service = new LoginService();
       Gson serializer = new Gson();
       try {
@@ -48,14 +47,14 @@ public class Handler {
       }
       catch (DataAccessException e) {
          res.status(401);
-         return "{ \"message\": \"" + e.getMessage() + "\" }";
+         return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
       catch (Exception e) {
          res.status(500);
-         return "{ \"message\": \"" + e.getMessage() + "\" }";
+         return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
    }
-   public Object logout(Request req, Response res) {
+   public String logout(Request req, Response res) {
       LogoutService service = new LogoutService();
       Gson serializer = new Gson();
       try {
@@ -65,33 +64,33 @@ public class Handler {
       }
       catch (DataAccessException e) {
          res.status(401);
-         return "{ \"message\": \"" + e.getMessage() + "\" }";
+         return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
       catch (Exception e) {
          res.status(500);
-         return "{ \"message\": \"" + e.getMessage() + "\" }";
+         return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
    }
 
-   public Object listGames(Request req, Response res) {
+   public String listGames(Request req, Response res) {
       ListGamesService service = new ListGamesService();
       Gson serializer = new Gson();
       try {
-         Collection<ChessGame> gameList = service.listGames(req.headers("authorization"));
+         Collection<GameData> gameList = service.listGames(req.headers("authorization"));
          res.status(200);
-         return serializer.toJson(gameList);
+         return serializer.toJson(new ListGamesResponse(gameList));
       }
       catch (DataAccessException e) {
          res.status(401);
-         return "{ \"message\": \"" + e.getMessage() + "\" }";
+         return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
       catch (Exception e) {
          res.status(500);
-         return "{ \"message\": \"" + e.getMessage() + "\" }";
+         return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
    }
 
-   public Object createGame(Request req, Response res) {
+   public String createGame(Request req, Response res) {
       CreateGameService service = new CreateGameService();
       Gson serializer = new Gson();
       try {
@@ -101,15 +100,15 @@ public class Handler {
       }
       catch (DataAccessException e) {
          res.status(401);
-         return "{ \"message\": \"" + e.getMessage() + "\" }";
+         return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
       catch (Exception e) {
          res.status(500);
-         return "{ \"message\": \"" + e.getMessage() + "\" }";
+         return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
    }
 
-   public Object joinGame(Request req, Response res) {
+   public String joinGame(Request req, Response res) {
       JoinGameService service = new JoinGameService();
       Gson serializer = new Gson();
       try {
@@ -119,14 +118,14 @@ public class Handler {
       }
       catch (DataAccessException e) {
          res.status(401);
-         return "{ \"message\": \"" + e.getMessage() + "\" }";
+         return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
       catch (Exception e) {
          res.status(500);
-         return "{ \"message\": \"" + e.getMessage() + "\" }";
+         return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
    }
-   public Object clear(Request req, Response res) {
+   public String clear(Request req, Response res) {
       try {
          ClearService service = new ClearService();
          service.clear();
@@ -135,7 +134,7 @@ public class Handler {
       }
       catch (Exception e){
          res.status(500);
-         return new Gson().toJson(e);
+         return new Gson().toJson(new ExceptionResponse(e.getMessage()));
       }
    }
 }

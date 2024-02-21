@@ -1,13 +1,15 @@
 package service;
 
-import chess.ChessGame;
 import dataAccess.DataAccessException;
+import model.GameData;
 
 import java.util.Collection;
-import java.util.Iterator;
 
-public class ListGamesService {
-   public Collection<ChessGame> listGames(String authToken) throws DataAccessException {
-      return null;
+public class ListGamesService extends Service {
+   public Collection<GameData> listGames(String authToken) throws DataAccessException {
+      if (authDAO.getAuth(authToken) == null) {
+         throw new DataAccessException("Error: unauthorized");
+      }
+      return gameDAO.listGames();
    }
 }

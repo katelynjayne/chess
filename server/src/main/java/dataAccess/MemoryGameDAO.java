@@ -10,4 +10,7 @@ public class MemoryGameDAO implements GameDAO{
    public void clear() {
       games.clear();
    }
+   public Collection<GameData> listGames(){
+      return games;
+   }
 }
