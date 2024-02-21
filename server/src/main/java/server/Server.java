@@ -1,6 +1,7 @@
 package server;
 
 import com.google.gson.Gson;
+import dataAccess.DataAccessException;
 import model.AuthData;
 import model.UserData;
 import service.ClearService;
@@ -37,10 +38,23 @@ public class Server {
     private Object register(Request req, Response res) {
         RegisterService service = new RegisterService();
         Gson serializer = new Gson();
-        UserData user = serializer.fromJson(req.body(), UserData.class);
-        AuthData authToken = service.register(user);
-        res.status(200);
-        return serializer.toJson(authToken);
+        try {
+            UserData user = serializer.fromJson(req.body(), UserData.class);
+            System.out.println(req.body());
+            System.out.println(user);
+            AuthData authToken = service.register(user);
+            res.status(200);
+            return serializer.toJson(authToken);
+        }
+        catch (DataAccessException e) {
+            res.status(403);
+            return serializer.toJson(e);
+        }
+        catch (Exception e) {
+            res.status(500);
+            return serializer.toJson(e);
+        }
+
     }
 
     private Object login(Request req, Response res) {
@@ -66,7 +80,7 @@ public class Server {
             ClearService service = new ClearService();
             service.clear();
             res.status(200);
-            return ""; //expected json??
+            return "{}";
         }
         catch (Exception e){
             res.status(500);
