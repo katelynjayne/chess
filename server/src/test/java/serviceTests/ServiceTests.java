@@ -1,9 +1,12 @@
 package serviceTests;
 
+import chess.ChessGame;
 import dataAccess.DataAccessException;
 import org.junit.jupiter.api.*;
 import service.*;
 import model.*;
+
+import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -19,6 +22,7 @@ public class ServiceTests {
    private ListGamesService listGamesService;
    private UserData user1;
    private UserData user2;
+   private String authToken;
 
    @BeforeEach
    public void setup() {
@@ -45,6 +49,7 @@ public class ServiceTests {
    @Order(2)
    public void loginTest() throws DataAccessException {
       AuthData auth = loginService.login(user1);
+      authToken = auth.authToken();
       assertEquals("username", auth.username());
       assertThrows(DataAccessException.class, () -> loginService.login(user2));
    }
@@ -59,10 +64,34 @@ public class ServiceTests {
 
    @Test
    @Order(4)
+   public void createGameTest() throws DataAccessException{
+      authToken = loginService.login(user1).authToken();
+      int gameID = createGameService.createGame(authToken, "game1");
+      assertEquals(0, gameID);
+      int gameID2 = createGameService.createGame(authToken, "game2");
+      assertEquals(1, gameID2);
+      assertThrows(DataAccessException.class, () -> createGameService.createGame("", "badgame"));
+   }
+
+   @Test
+   @Order(5)
+   public void listGameTest() throws DataAccessException {
+      authToken = loginService.login(user1).authToken();
+      Collection<GameData> list = listGamesService.listGames(authToken);
+      assertEquals(2, list.size());
+      assertThrows(DataAccessException.class, () -> listGamesService.listGames(""));
+   }
+
+   @Test
+   @Order(6)
+   public void joinGameTest() throws DataAccessException {
+
+   }
+
+   @Test
+   @Order(7)
    public void clearTest() throws DataAccessException {
-      loginService.login(user1);
       clearService.clear();
       assertThrows(DataAccessException.class, () -> loginService.login(user1));
    }
-
 }

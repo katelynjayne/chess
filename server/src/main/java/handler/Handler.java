@@ -11,6 +11,7 @@ import spark.Request;
 import spark.Response;
 
 import java.util.Collection;
+import java.util.Objects;
 
 public class Handler {
    public String register(Request req, Response res) {
@@ -117,12 +118,20 @@ public class Handler {
       JoinGameService service = new JoinGameService();
       Gson serializer = new Gson();
       try {
-         service.joinGame(req.headers("authorization"), null);
+         JoinGameRequest input = serializer.fromJson(req.body(), JoinGameRequest.class);
+         service.joinGame(req.headers("authorization"), input.playerColor(), input.gameID());
          res.status(200);
          return "{}";
       }
       catch (DataAccessException e) {
-         res.status(401);
+         int statusCode = 403;
+         if (Objects.equals(e.getMessage(), "Error: unauthorized")) {
+            statusCode = 401;
+         }
+         else if (Objects.equals(e.getMessage(), "Error: bad request")) {
+            statusCode = 400;
+         }
+         res.status(statusCode);
          return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
       catch (Exception e) {
