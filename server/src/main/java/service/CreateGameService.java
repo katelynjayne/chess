@@ -5,8 +5,8 @@ import dataAccess.DataAccessException;
 import model.GameData;
 
 public class CreateGameService extends Service {
-   public int createGame(String authToken, GameData game) throws DataAccessException {
+   public int createGame(String authToken, String gameName) throws DataAccessException {
       checkAuth(authToken);
-      return gameDAO.createGame(game);
+      return gameDAO.createGame(gameName);
    }
 }
