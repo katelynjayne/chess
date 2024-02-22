@@ -6,10 +6,11 @@ import org.junit.jupiter.api.*;
 import service.*;
 import model.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static chess.ChessGame.TeamColor.WHITE;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ServiceTests {
@@ -85,12 +86,19 @@ public class ServiceTests {
    @Test
    @Order(6)
    public void joinGameTest() throws DataAccessException {
+      authToken = loginService.login(user1).authToken();
+      joinGameService.joinGame(authToken, WHITE, 0);
 
+      assertThrows(DataAccessException.class, () -> joinGameService.joinGame(authToken, WHITE, 0));
+      GameData game = ((ArrayList<GameData>) listGamesService.listGames(authToken)).get(0);
+      assertEquals(game.getWhiteUsername(), user1.username());
+      assertThrows(DataAccessException.class, () -> joinGameService.joinGame("", null, 0));
+      assertThrows(DataAccessException.class, () -> joinGameService.joinGame(authToken, null, 3));
    }
 
    @Test
    @Order(7)
-   public void clearTest() throws DataAccessException {
+   public void clearTest() {
       clearService.clear();
       assertThrows(DataAccessException.class, () -> loginService.login(user1));
    }
