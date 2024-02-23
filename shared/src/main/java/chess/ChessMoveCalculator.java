@@ -208,9 +208,7 @@ public class ChessMoveCalculator {
             ChessMove validMove = validateMove(board, rowIndex + 1, colIndex, myPosition);
             ChessPosition forwardPosition = new ChessPosition(rowIndex + 2, colIndex + 1);
             if (validMove != null) {
-               if (rowIndex + 1 == 7) {
-                  validMoves.addAll(promotionMoves(myPosition, forwardPosition));
-               }
+               if (rowIndex + 1 == 7) { validMoves.addAll(promotionMoves(myPosition, forwardPosition)); }
                else if (board.getPiece(forwardPosition) == null) {
                   validMoves.add(validMove);
                }
