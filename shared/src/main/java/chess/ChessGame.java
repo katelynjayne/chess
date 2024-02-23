@@ -3,6 +3,7 @@ package chess;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * For a class that can manage a chess game, making moves on a board
@@ -99,14 +100,20 @@ public class ChessGame {
         return board.isInCheck(teamColor);
     }
 
-    /**
-     * Determines if the given team is in checkmate
-     *
-     * @param teamColor which team to check for checkmate
-     * @return True if the specified team is in checkmate
-     */
-    public boolean isInCheckmate(TeamColor teamColor) {
-        boolean validMovesEmpty = true;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChessGame chessGame = (ChessGame) o;
+        return teamTurn == chessGame.teamTurn && Objects.equals(board, chessGame.board);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(teamTurn, board);
+    }
+
+    private boolean validMovesEmpty(TeamColor teamColor) {
         for (int i = 1; i <= 8; i++) {
             for (int j=1; j <= 8; j++) {
                 ChessPosition square=new ChessPosition(i, j);
@@ -114,13 +121,23 @@ public class ChessGame {
                 if (piece != null) {
                     if (piece.getTeamColor() == teamColor) {
                         if (!validMoves(square).isEmpty()) {
-                            validMovesEmpty = false;
+                            return false;
                         }
                     }
                 }
             }
         }
-        return isInCheck(teamColor) && validMovesEmpty;
+        return true;
+    }
+
+    /**
+     * Determines if the given team is in checkmate
+     *
+     * @param teamColor which team to check for checkmate
+     * @return True if the specified team is in checkmate
+     */
+    public boolean isInCheckmate(TeamColor teamColor) {
+        return isInCheck(teamColor) && validMovesEmpty(teamColor);
     }
 
     /**
@@ -131,21 +148,7 @@ public class ChessGame {
      * @return True if the specified team is in stalemate, otherwise false
      */
     public boolean isInStalemate(TeamColor teamColor) {
-        boolean validMovesEmpty = true;
-        for (int i = 1; i <= 8; i++) {
-            for (int j=1; j <= 8; j++) {
-                ChessPosition square=new ChessPosition(i, j);
-                ChessPiece piece=board.getPiece(square);
-                if (piece != null) {
-                    if (piece.getTeamColor() == teamColor) {
-                        if (!validMoves(square).isEmpty()) {
-                            validMovesEmpty = false;
-                        }
-                    }
-                }
-            }
-        }
-        return !isInCheck(teamColor) && validMovesEmpty;
+        return !isInCheck(teamColor) && validMovesEmpty(teamColor);
     }
 
     /**

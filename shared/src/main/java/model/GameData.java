@@ -20,9 +20,7 @@ public class GameData {
    public int getGameID() {
       return gameID;
    }
-   public String getWhiteUsername() {
-      return whiteUsername;
-   }
+
    public boolean setUsername(ChessGame.TeamColor color, String username) {
       if (color == ChessGame.TeamColor.WHITE && whiteUsername == null) {
          whiteUsername = username;
