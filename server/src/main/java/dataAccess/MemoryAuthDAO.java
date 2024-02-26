@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class MemoryAuthDAO implements AuthDAO {
-   private Collection<AuthData> authTokens = new ArrayList<>();
+   private final Collection<AuthData> authTokens = new ArrayList<>();
 
    public void clear() {
       authTokens.clear();

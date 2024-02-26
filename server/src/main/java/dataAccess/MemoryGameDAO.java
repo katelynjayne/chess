@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 public class MemoryGameDAO implements GameDAO{
-   private Collection<GameData> games = new ArrayList<>();
+   private final Collection<GameData> games = new ArrayList<>();
    private int counter = 0;
 
    public void clear() {
