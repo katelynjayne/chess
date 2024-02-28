@@ -1,5 +1,6 @@
-package dataAccess;
+package dataAccess.memoryDAOs;
 
+import dataAccess.AuthDAO;
 import model.AuthData;
 
 import java.util.ArrayList;

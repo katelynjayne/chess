@@ -1,12 +1,13 @@
-package dataAccess;
+package dataAccess.memoryDAOs;
 import chess.ChessGame;
+import dataAccess.GameDAO;
 import model.GameData;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class MemoryGameDAO implements GameDAO{
+public class MemoryGameDAO implements GameDAO {
    private final Collection<GameData> games = new ArrayList<>();
    private int counter = 0;
 
