@@ -15,12 +15,13 @@ public class DatabaseManager {
     static {
         try {
             try (var propStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("db.properties")) {
-                if (propStream == null) throw new Exception("Unable to laod db.properties");
+                if (propStream == null) throw new Exception("Unable to load db.properties");
                 Properties props = new Properties();
                 props.load(propStream);
                 databaseName = props.getProperty("db.name");
                 user = props.getProperty("db.user");
                 password = props.getProperty("db.password");
+
 
                 var host = props.getProperty("db.host");
                 var port = Integer.parseInt(props.getProperty("db.port"));
@@ -30,6 +31,28 @@ public class DatabaseManager {
             throw new RuntimeException("unable to process db.properties. " + ex.getMessage());
         }
     }
+
+    private final String[] tableStatments = {
+            """
+            CREATE TABLE IF NOT EXISTS user (
+            id int not null auto_increment,
+            username varchar(255) not null,
+            password varchar(255) not null,
+            email varchar(255) not null,
+            PRIMARY KEY (id))
+            """,
+            """
+            CREATE TABLE IF NOT EXISTS auth (
+            token varchar(36) not null,
+            id int not null,
+            PRIMARY KEY (token)
+            FOREIGN KEY(id) references user(id))
+            """,
+            """
+            CREATE TABLE IF NOT EXISTS game (
+            
+"""
+    };
 
     /**
      * Creates the database if it does not already exist.
