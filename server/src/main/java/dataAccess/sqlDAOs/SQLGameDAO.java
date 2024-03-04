@@ -1,12 +1,18 @@
 package dataAccess.sqlDAOs;
 
 import chess.ChessGame;
+import dataAccess.DataAccessException;
+import dataAccess.DatabaseManager;
 import dataAccess.GameDAO;
 import model.GameData;
 
 import java.util.Collection;
 
 public class SQLGameDAO implements GameDAO {
+
+   public SQLGameDAO() throws DataAccessException {
+      DatabaseManager.createDatabase();
+   }
    public void clear() {
       //clear the table
    }

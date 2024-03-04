@@ -3,11 +3,11 @@ package service;
 import dataAccess.*;
 import dataAccess.memoryDAOs.MemoryAuthDAO;
 import dataAccess.memoryDAOs.MemoryGameDAO;
-import dataAccess.memoryDAOs.MemoryUserDAO;
+import dataAccess.sqlDAOs.SQLUserDAO;
 import model.AuthData;
 
 public class Service {
-   protected static MemoryUserDAO userDAO = new MemoryUserDAO();
+   protected static SQLUserDAO userDAO; //error handling :/
    protected static MemoryAuthDAO authDAO = new MemoryAuthDAO();
    protected static MemoryGameDAO gameDAO = new MemoryGameDAO();
 

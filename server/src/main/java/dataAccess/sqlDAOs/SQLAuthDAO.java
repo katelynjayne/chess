@@ -1,11 +1,17 @@
 package dataAccess.sqlDAOs;
 
 import dataAccess.AuthDAO;
+import dataAccess.DataAccessException;
+import dataAccess.DatabaseManager;
 import model.AuthData;
 
 import java.util.UUID;
 
 public class SQLAuthDAO implements AuthDAO {
+
+   public SQLAuthDAO() throws DataAccessException {
+      DatabaseManager.createDatabase();
+   }
 
    public void clear() {
       //clear the table

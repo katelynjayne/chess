@@ -32,7 +32,7 @@ public class DatabaseManager {
         }
     }
 
-    private final String[] tableStatments = {
+    private static final String[] tableStatements = {
             """
             CREATE TABLE IF NOT EXISTS user (
             id int not null auto_increment,
@@ -45,24 +45,35 @@ public class DatabaseManager {
             CREATE TABLE IF NOT EXISTS auth (
             token varchar(36) not null,
             id int not null,
-            PRIMARY KEY (token)
+            PRIMARY KEY (token),
             FOREIGN KEY(id) references user(id))
             """,
             """
             CREATE TABLE IF NOT EXISTS game (
-            
-"""
+            id int not null auto_increment,
+            whiteUsername varchar(255),
+            blackUsername varchar(255),
+            gameName varchar(255),
+            gameData varchar(255),
+            PRIMARY KEY (id))
+            """
     };
 
     /**
      * Creates the database if it does not already exist.
      */
-    static void createDatabase() throws DataAccessException {
+    public static void createDatabase() throws DataAccessException {
         try {
             var statement = "CREATE DATABASE IF NOT EXISTS " + databaseName;
             var conn = DriverManager.getConnection(connectionUrl, user, password);
             try (var preparedStatement = conn.prepareStatement(statement)) {
                 preparedStatement.executeUpdate();
+            }
+            conn = getConnection();
+            for (String table : tableStatements) {
+                try (var preparedStatement = conn.prepareStatement(table)) {
+                    preparedStatement.executeUpdate();
+                }
             }
         } catch (SQLException e) {
             throw new DataAccessException(e.getMessage());

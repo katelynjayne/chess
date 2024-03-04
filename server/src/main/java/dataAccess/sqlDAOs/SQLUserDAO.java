@@ -1,9 +1,15 @@
 package dataAccess.sqlDAOs;
 
+import dataAccess.DataAccessException;
+import dataAccess.DatabaseManager;
 import dataAccess.UserDAO;
 import model.UserData;
 
 public class SQLUserDAO implements UserDAO {
+
+   public SQLUserDAO() throws DataAccessException {
+      DatabaseManager.createDatabase();
+   }
 
    public void clear() {
       //clear the table
