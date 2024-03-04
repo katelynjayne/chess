@@ -7,7 +7,7 @@ public class ClearService extends Service  {
    public ClearService() throws DataAccessException {
    }
 
-   public void clear() {
+   public void clear() throws DataAccessException {
       userDAO.clear();
       authDAO.clear();
       gameDAO.clear();

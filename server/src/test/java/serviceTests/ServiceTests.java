@@ -130,7 +130,7 @@ public class ServiceTests {
 
    @Test
    @Order(13)
-   public void clearTest() {
+   public void clearTest() throws DataAccessException{
       clearService.clear();
       assertThrows(DataAccessException.class, () -> loginService.login(user1));
    }

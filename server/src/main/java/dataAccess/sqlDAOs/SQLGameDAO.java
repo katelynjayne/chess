@@ -6,6 +6,8 @@ import dataAccess.DatabaseManager;
 import dataAccess.GameDAO;
 import model.GameData;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Collection;
 
 public class SQLGameDAO implements GameDAO {
@@ -13,8 +15,16 @@ public class SQLGameDAO implements GameDAO {
    public SQLGameDAO() throws DataAccessException {
       DatabaseManager.createDatabase();
    }
-   public void clear() {
-      //clear the table
+   public void clear() throws DataAccessException {
+      String statement = "DELETE FROM game";
+      try (Connection conn = DatabaseManager.getConnection()) {
+         try (var ps = conn.prepareStatement(statement)) {
+            ps.executeUpdate();
+         }
+      }
+      catch (DataAccessException | SQLException e) {
+         throw new DataAccessException(e.getMessage(), 500);
+      }
    }
 
    public Collection<GameData> listGames() {

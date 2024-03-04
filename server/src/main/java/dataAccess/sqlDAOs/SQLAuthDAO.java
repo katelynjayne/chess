@@ -5,6 +5,8 @@ import dataAccess.DataAccessException;
 import dataAccess.DatabaseManager;
 import model.AuthData;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.UUID;
 
 public class SQLAuthDAO implements AuthDAO {
@@ -13,8 +15,16 @@ public class SQLAuthDAO implements AuthDAO {
       DatabaseManager.createDatabase();
    }
 
-   public void clear() {
-      //clear the table
+   public void clear() throws DataAccessException{
+      String statement = "DELETE FROM auth";
+      try (Connection conn = DatabaseManager.getConnection()) {
+         try (var ps = conn.prepareStatement(statement)) {
+            ps.executeUpdate();
+         }
+      }
+      catch (DataAccessException | SQLException e) {
+         throw new DataAccessException(e.getMessage(), 500);
+      }
    }
 
    public AuthData createAuth(String username) {

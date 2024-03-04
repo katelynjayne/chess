@@ -4,6 +4,10 @@ import dataAccess.DataAccessException;
 import dataAccess.DatabaseManager;
 import dataAccess.UserDAO;
 import model.UserData;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class SQLUserDAO implements UserDAO {
 
@@ -11,8 +15,16 @@ public class SQLUserDAO implements UserDAO {
       DatabaseManager.createDatabase();
    }
 
-   public void clear() {
-      //clear the table
+   public void clear() throws DataAccessException {
+      String statement = "DELETE FROM user";
+      try (Connection conn = DatabaseManager.getConnection()) {
+         try (var ps = conn.prepareStatement(statement)) {
+            ps.executeUpdate();
+         }
+      }
+      catch (DataAccessException | SQLException e) {
+         throw new DataAccessException(e.getMessage(), 500);
+      }
    }
 
    public UserData getUser(String username) {
@@ -21,8 +33,20 @@ public class SQLUserDAO implements UserDAO {
       return null;
    }
 
-   public void insertUser(UserData user) {
-      //uh oh we need to refactor this so instead of making a user object, we pass in the 3 things
-      //actually instead we can just access the 3 things with the getters so i think it's chill
+   public void insertUser(UserData user) throws DataAccessException{
+      String statement = "INSERT INTO user (username, password, email) values (?, ?, ?)";
+      BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+      String hashedPassword = encoder.encode(user.password());
+      try (Connection conn = DatabaseManager.getConnection()) {
+         try (var ps = conn.prepareStatement(statement)) {
+            ps.setString(1, user.username());
+            ps.setString(2, hashedPassword);
+            ps.setString(3, user.email());
+            ps.executeUpdate();
+         }
+      }
+      catch (DataAccessException | SQLException e) {
+         throw new DataAccessException(e.getMessage(), 500);
+      }
    }
 }
