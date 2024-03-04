@@ -13,11 +13,11 @@ public class JoinGameService extends Service{
       AuthData auth = checkAuth(authToken);
       GameData game = gameDAO.getGame(gameID);
       if (game == null) {
-         throw new DataAccessException("Error: bad request");
+         throw new DataAccessException("Error: bad request",400);
       }
       if (playerColor != null) {
          if (!gameDAO.updateGame(playerColor, auth.username(), game)) {
-            throw new DataAccessException("Error: already taken");
+            throw new DataAccessException("Error: already taken",403);
          }
       }
    }

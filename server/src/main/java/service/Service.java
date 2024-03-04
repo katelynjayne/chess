@@ -1,6 +1,9 @@
 package service;
 
 import dataAccess.*;
+import dataAccess.memoryDAOs.MemoryAuthDAO;
+import dataAccess.memoryDAOs.MemoryGameDAO;
+import dataAccess.memoryDAOs.MemoryUserDAO;
 import dataAccess.sqlDAOs.SQLAuthDAO;
 import dataAccess.sqlDAOs.SQLGameDAO;
 import dataAccess.sqlDAOs.SQLUserDAO;

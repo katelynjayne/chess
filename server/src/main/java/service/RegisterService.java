@@ -14,7 +14,7 @@ public class RegisterService extends Service {
          return authDAO.createAuth(user.username());
       }
       else {
-         throw new DataAccessException("Error: already taken");
+         throw new DataAccessException("Error: already taken", 403);
       }
    }
 }

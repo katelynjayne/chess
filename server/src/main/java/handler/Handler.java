@@ -29,7 +29,7 @@ public class Handler {
          return serializer.toJson(authToken);
       }
       catch (DataAccessException e) {
-         res.status(403);
+         res.status(e.getStatusCode());
          return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
       catch (Exception e) {
@@ -48,7 +48,7 @@ public class Handler {
          return serializer.toJson(auth);
       }
       catch (DataAccessException e) {
-         res.status(401);
+         res.status(e.getStatusCode());
          return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
       catch (Exception e) {
@@ -65,7 +65,7 @@ public class Handler {
          return "{}";
       }
       catch (DataAccessException e) {
-         res.status(401);
+         res.status(e.getStatusCode());
          return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
       catch (Exception e) {
@@ -83,7 +83,7 @@ public class Handler {
          return serializer.toJson(new ListGamesResponse(gameList));
       }
       catch (DataAccessException e) {
-         res.status(401);
+         res.status(e.getStatusCode());
          return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
       catch (Exception e) {
@@ -106,7 +106,7 @@ public class Handler {
          return serializer.toJson(new CreateGameResponse(gameID));
       }
       catch (DataAccessException e) {
-         res.status(401);
+         res.status(e.getStatusCode());
          return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
       catch (Exception e) {
@@ -125,14 +125,7 @@ public class Handler {
          return "{}";
       }
       catch (DataAccessException e) {
-         int statusCode = 403;
-         if (Objects.equals(e.getMessage(), "Error: unauthorized")) {
-            statusCode = 401;
-         }
-         else if (Objects.equals(e.getMessage(), "Error: bad request")) {
-            statusCode = 400;
-         }
-         res.status(statusCode);
+         res.status(e.getStatusCode());
          return serializer.toJson(new ExceptionResponse(e.getMessage()));
       }
       catch (Exception e) {
