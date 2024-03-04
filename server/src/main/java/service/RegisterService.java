@@ -5,6 +5,9 @@ import model.AuthData;
 import model.UserData;
 
 public class RegisterService extends Service {
+   public RegisterService() throws DataAccessException {
+   }
+
    public AuthData register(UserData user) throws DataAccessException {
       if (userDAO.getUser(user.username()) == null) {
          userDAO.insertUser(user);

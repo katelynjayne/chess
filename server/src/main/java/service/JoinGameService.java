@@ -6,6 +6,9 @@ import model.AuthData;
 import model.GameData;
 
 public class JoinGameService extends Service{
+   public JoinGameService() throws DataAccessException {
+   }
+
    public void joinGame(String authToken, ChessGame.TeamColor playerColor, int gameID) throws DataAccessException {
       AuthData auth = checkAuth(authToken);
       GameData game = gameDAO.getGame(gameID);

@@ -76,7 +76,7 @@ public class DatabaseManager {
                 }
             }
         } catch (SQLException e) {
-            throw new DataAccessException(e.getMessage());
+            throw new DataAccessException(e.getMessage(),500);
         }
     }
 
@@ -98,7 +98,7 @@ public class DatabaseManager {
             conn.setCatalog(databaseName);
             return conn;
         } catch (SQLException e) {
-            throw new DataAccessException(e.getMessage());
+            throw new DataAccessException(e.getMessage(),500);
         }
     }
 }

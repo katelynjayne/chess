@@ -15,9 +15,10 @@ import java.util.Objects;
 
 public class Handler {
    public String register(Request req, Response res) {
-      RegisterService service = new RegisterService();
+
       Gson serializer = new Gson();
       try {
+         RegisterService service = new RegisterService();
          UserData user = serializer.fromJson(req.body(), UserData.class);
          if (user.username() == null || user.password() == null || user.email() == null) {
             res.status(400);
@@ -39,9 +40,9 @@ public class Handler {
    }
 
    public String login(Request req, Response res) {
-      LoginService service = new LoginService();
       Gson serializer = new Gson();
       try {
+         LoginService service = new LoginService();
          AuthData auth = service.login(serializer.fromJson(req.body(), UserData.class));
          res.status(200);
          return serializer.toJson(auth);
@@ -56,9 +57,9 @@ public class Handler {
       }
    }
    public String logout(Request req, Response res) {
-      LogoutService service = new LogoutService();
       Gson serializer = new Gson();
       try {
+         LogoutService service = new LogoutService();
          service.logout(req.headers("authorization"));
          res.status(200);
          return "{}";
@@ -74,9 +75,9 @@ public class Handler {
    }
 
    public String listGames(Request req, Response res) {
-      ListGamesService service = new ListGamesService();
       Gson serializer = new Gson();
       try {
+         ListGamesService service = new ListGamesService();
          Collection<GameData> gameList = service.listGames(req.headers("authorization"));
          res.status(200);
          return serializer.toJson(new ListGamesResponse(gameList));
@@ -92,9 +93,9 @@ public class Handler {
    }
 
    public String createGame(Request req, Response res) {
-      CreateGameService service = new CreateGameService();
       Gson serializer = new Gson();
       try {
+         CreateGameService service = new CreateGameService();
          CreateGameRequest input = serializer.fromJson(req.body(), CreateGameRequest.class);
          if (input.getGameName() == null) {
             res.status(400);
@@ -115,9 +116,9 @@ public class Handler {
    }
 
    public String joinGame(Request req, Response res) {
-      JoinGameService service = new JoinGameService();
       Gson serializer = new Gson();
       try {
+         JoinGameService service = new JoinGameService();
          JoinGameRequest input = serializer.fromJson(req.body(), JoinGameRequest.class);
          service.joinGame(req.headers("authorization"), input.playerColor(), input.gameID());
          res.status(200);

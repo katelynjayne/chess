@@ -26,7 +26,7 @@ public class ServiceTests {
    private String authToken;
 
    @BeforeEach
-   public void setup() {
+   public void setup() throws DataAccessException{
       registerService = new RegisterService();
       loginService = new LoginService();
       logoutService = new LogoutService();
