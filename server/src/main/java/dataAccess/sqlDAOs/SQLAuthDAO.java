@@ -48,27 +48,36 @@ public class SQLAuthDAO implements AuthDAO {
    }
 
    public AuthData getAuth(String token) throws DataAccessException {
-      String statement = "SELECT token, id FROM auth WHERE token=?";
+      String statement = "SELECT token, username FROM auth WHERE token=?";
       String username;
       try (Connection conn = DatabaseManager.getConnection()) {
          try (var ps = conn.prepareStatement(statement)) {
             ps.setString(1, token);
             ResultSet rs = ps.executeQuery();
-            username = rs.getString("username");
+            if (rs.next()) {
+               username = rs.getString("username");
+            }
+            else {
+               return null;
+            }
          }
       }
       catch (DataAccessException | SQLException e) {
-         if (Objects.equals(e.getMessage(), "Illegal operation on empty result set.")) {
-            return null;
-         }
-         else {
-            throw new DataAccessException(e.getMessage(), 500);
-         }
+         throw new DataAccessException(e.getMessage(), 500);
       }
       return new AuthData(token, username);
    }
 
-   public void deleteAuth(AuthData auth) {
-      //remove that row!
+   public void deleteAuth(AuthData auth) throws DataAccessException {
+      String statement = "DELETE FROM auth WHERE token=?";
+      try (Connection conn = DatabaseManager.getConnection()) {
+         try (var ps = conn.prepareStatement(statement)) {
+            ps.setString(1, auth.authToken());
+            ps.executeUpdate();
+         }
+      }
+      catch (DataAccessException | SQLException e) {
+         throw new DataAccessException(e.getMessage(), 500);
+      }
    }
 }
