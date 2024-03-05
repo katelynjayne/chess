@@ -1,13 +1,17 @@
 package dataAccess.sqlDAOs;
 
 import chess.ChessGame;
+import com.google.gson.Gson;
 import dataAccess.DataAccessException;
 import dataAccess.DatabaseManager;
 import dataAccess.GameDAO;
 import model.GameData;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class SQLGameDAO implements GameDAO {
@@ -27,25 +31,86 @@ public class SQLGameDAO implements GameDAO {
       }
    }
 
-   public Collection<GameData> listGames() {
-      //we gonna make a list of EVERYTHING in the table
-      return null;
+   public Collection<GameData> listGames() throws DataAccessException {
+      Collection<GameData> games = new ArrayList<>();
+      Gson serializer = new Gson();
+      String statement = "SELECT * FROM game";
+      try (Connection conn = DatabaseManager.getConnection()) {
+         try (var ps = conn.prepareStatement(statement)) {
+            try (var rs = ps.executeQuery()) {
+               while (rs.next()) {
+                  int id = rs.getInt("id");
+                  String whiteUsername = rs.getString("whiteUsername");
+                  String blackUsername = rs.getString("blackUsername");
+                  String gameName = rs.getString("gameName");
+                  ChessGame game = serializer.fromJson(rs.getString("gameData"), ChessGame.class);
+                  GameData gameData = new GameData(id,whiteUsername,blackUsername,gameName,game);
+                  games.add(gameData);
+               }
+            }
+         }
+      }
+      catch (DataAccessException | SQLException e) {
+         throw new DataAccessException(e.getMessage(), 500);
+      }
+      return games;
    }
 
-   public int createGame(String gameName) {
-      //add a row
-      //return id in row (how to access?)
-      return 0;
+   public int createGame(String gameName) throws DataAccessException {
+      ChessGame gameData = new ChessGame();
+      Gson serializer = new Gson();
+      int id;
+      String statement = "INSERT INTO game (gameName, gameData) values (?,?)";
+      try (Connection conn = DatabaseManager.getConnection()) {
+         try (var ps = conn.prepareStatement(statement, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, gameName);
+            ps.setString(2, serializer.toJson(gameData));
+            ps.executeUpdate();
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+               if (generatedKeys.next()) {
+                  id = generatedKeys.getInt(1);
+               }
+               else {
+                  throw new SQLException("Insertion failed, no ID obtained.");
+               }
+            }
+         }
+      }
+      catch (DataAccessException | SQLException e) {
+         throw new DataAccessException(e.getMessage(), 500);
+      }
+      return id;
    }
 
-   public GameData getGame(int gameID) {
-      //return game data row with matching ID
-      return null;
+   public GameData getGame(int gameID) throws DataAccessException{
+      Gson serializer = new Gson();
+      String statement = "SELECT id,whiteUsername,blackUsername,gameName,gameData FROM game WHERE id=?";
+      GameData gameData;
+      try (Connection conn = DatabaseManager.getConnection()) {
+         try (var ps = conn.prepareStatement(statement)) {
+            ps.setInt(1,gameID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+               int id = rs.getInt("id");
+               String whiteUsername = rs.getString("whiteUsername");
+               String blackUsername = rs.getString("blackUsername");
+               String gameName = rs.getString("gameName");
+               ChessGame game = serializer.fromJson(rs.getString("gameData"), ChessGame.class);
+               gameData = new GameData(id,whiteUsername,blackUsername,gameName,game);
+            }
+            else {
+               return null;
+            }
+         }
+      }
+      catch (DataAccessException | SQLException e) {
+         throw new DataAccessException(e.getMessage(), 500);
+      }
+      return gameData;
    }
 
    public boolean updateGame(ChessGame.TeamColor color, String username, GameData game) {
-      //this is a function in GameData...
-      //may need to refactor?
+
       return game.setUsername(color, username);
    }
 }

@@ -50,10 +50,10 @@ public class DatabaseManager {
             """
             CREATE TABLE IF NOT EXISTS game (
             id int not null auto_increment,
-            whiteUsername varchar(255),
-            blackUsername varchar(255),
-            gameName varchar(255),
-            gameData varchar(255),
+            whiteUsername varchar(255) default null,
+            blackUsername varchar(255) default null,
+            gameName varchar(255) not null,
+            gameData varchar(255) not null,
             PRIMARY KEY (id))
             """
     };
