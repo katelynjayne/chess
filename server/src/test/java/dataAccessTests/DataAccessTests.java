@@ -20,12 +20,12 @@ public class DataAccessTests {
    @BeforeAll
    static void setUp() throws DataAccessException{
       userDAO = new SQLUserDAO();
-      userDAO.clear();
       authDAO = new SQLAuthDAO();
-      authDAO.clear();
       gameDAO = new SQLGameDAO();
-      gameDAO.clear();
       user = new UserData("testuser", "password", "email");
+      authDAO.clear();
+      userDAO.clear();
+      gameDAO.clear();
    }
 
    @Test
