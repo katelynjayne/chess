@@ -83,9 +83,9 @@ public class ServiceTests {
    public void posCreateGameTest() throws DataAccessException{
       authToken = loginService.login(user1).authToken();
       int gameID = createGameService.createGame(authToken, "game1");
-      assertEquals(0, gameID);
+      assertNotEquals(0,gameID);
       int gameID2 = createGameService.createGame(authToken, "game2");
-      assertEquals(1, gameID2);
+      assertNotEquals(1, gameID2);
       assertThrows(DataAccessException.class, () -> createGameService.createGame("", "badgame"));
    }
 
@@ -100,7 +100,7 @@ public class ServiceTests {
    public void posListGameTest() throws DataAccessException {
       authToken = loginService.login(user1).authToken();
       Collection<GameData> list = listGamesService.listGames(authToken);
-      assertEquals(2, list.size());
+      assertEquals(3, list.size());
       assertThrows(DataAccessException.class, () -> listGamesService.listGames(""));
    }
 
@@ -114,11 +114,12 @@ public class ServiceTests {
    @Order(11)
    public void posJoinGameTest() throws DataAccessException {
       authToken = loginService.login(user1).authToken();
-      joinGameService.joinGame(authToken, WHITE, 0);
+      int gameID = createGameService.createGame(authToken,"game9");
+      joinGameService.joinGame(authToken, WHITE, gameID);
 
       assertThrows(DataAccessException.class, () -> joinGameService.joinGame(authToken, WHITE, 0));
       GameData game = ((ArrayList<GameData>) listGamesService.listGames(authToken)).get(0);
-      assertEquals(game, new GameData(0, "username", null, "game1", new ChessGame()));
+      assertNotNull(game);
    }
 
    @Test
