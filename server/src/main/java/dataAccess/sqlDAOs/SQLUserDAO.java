@@ -37,17 +37,17 @@ public class SQLUserDAO implements UserDAO {
          try (var ps = conn.prepareStatement(statement)) {
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
-            password = rs.getString("password");
-            email = rs.getString("email");
+            if (rs.next()) {
+               password = rs.getString("password");
+               email = rs.getString("email");
+            }
+            else {
+               return null;
+            }
          }
       }
       catch (DataAccessException | SQLException e) {
-         if (Objects.equals(e.getMessage(), "Illegal operation on empty result set.")) {
-            return null;
-         }
-         else {
-            throw new DataAccessException(e.getMessage(), 500);
-         }
+         throw new DataAccessException(e.getMessage(), 500);
       }
       return new UserData(username, password, email);
    }

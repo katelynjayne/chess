@@ -35,18 +35,17 @@ public class DatabaseManager {
     private static final String[] tableStatements = {
             """
             CREATE TABLE IF NOT EXISTS user (
-            id int not null auto_increment,
             username varchar(255) not null,
             password varchar(255) not null,
             email varchar(255) not null,
-            PRIMARY KEY (id))
+            PRIMARY KEY (username))
             """,
             """
             CREATE TABLE IF NOT EXISTS auth (
             token varchar(36) not null,
-            id int not null,
+            username varchar(255) not null,
             PRIMARY KEY (token),
-            FOREIGN KEY(id) references user(id))
+            FOREIGN KEY(username) references user(username))
             """,
             """
             CREATE TABLE IF NOT EXISTS game (
