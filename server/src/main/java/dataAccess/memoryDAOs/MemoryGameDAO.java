@@ -22,12 +22,12 @@ public class MemoryGameDAO implements GameDAO {
       GameData game = new GameData(counter, null, null, gameName, new ChessGame());
       counter += 1;
       games.add(game);
-      return game.getGameID();
+      return game.gameID();
    }
 
    public GameData getGame(int gameID) {
       for (GameData game: games) {
-         if (game.getGameID() == gameID) {
+         if (game.gameID() == gameID) {
             return game;
          }
       }
@@ -35,6 +35,6 @@ public class MemoryGameDAO implements GameDAO {
    }
 
    public boolean updateGame(ChessGame.TeamColor color, String username, GameData game) {
-      return game.setUsername(color, username);
+      return false;
    }
 }

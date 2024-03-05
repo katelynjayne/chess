@@ -109,8 +109,27 @@ public class SQLGameDAO implements GameDAO {
       return gameData;
    }
 
-   public boolean updateGame(ChessGame.TeamColor color, String username, GameData game) {
-
-      return game.setUsername(color, username);
+   public boolean updateGame(ChessGame.TeamColor color, String username, GameData game) throws DataAccessException {
+      String statement;
+      if (color == ChessGame.TeamColor.WHITE && game.whiteUsername() == null) {
+         statement = "UPDATE game SET whiteUsername=? WHERE id=?";
+      }
+      else if (color == ChessGame.TeamColor.BLACK && game.blackUsername() == null){
+         statement = "UPDATE game SET blackUsername=? WHERE id=?";
+      }
+      else {
+         return false;
+      }
+      try (Connection conn = DatabaseManager.getConnection()) {
+         try (var ps = conn.prepareStatement(statement)) {
+            ps.setString(1,username);
+            ps.setInt(2,game.gameID());
+            ps.executeUpdate();
+         }
+      }
+      catch (DataAccessException | SQLException e) {
+         throw new DataAccessException(e.getMessage(), 500);
+      }
+      return true;
    }
 }
