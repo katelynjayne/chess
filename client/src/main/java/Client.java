@@ -1,3 +1,4 @@
+import ui.Gameplay;
 import ui.PostLogin;
 import ui.PreLogin;
 
@@ -87,7 +88,8 @@ public class Client {
       if (params.length != 1) {
          throw new IllegalArgumentException("Please specify game ID.");
       }
-      return "imagine this is a game";
+      Gameplay gameplay = new Gameplay();
+      return gameplay.makeBoard();
    }
 
    private String logout() {

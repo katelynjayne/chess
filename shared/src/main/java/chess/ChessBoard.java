@@ -86,6 +86,9 @@ public class ChessBoard {
         return board[position.getRowIndex()][position.getColIndex()];
     }
 
+    public ChessPiece getPiece(int rowIdx, int colIdx) {
+        return board[rowIdx][colIdx];
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
