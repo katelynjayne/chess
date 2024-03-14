@@ -1,3 +1,4 @@
+import model.AuthData;
 import ui.Gameplay;
 import ui.PostLogin;
 import ui.PreLogin;
@@ -8,7 +9,7 @@ import static ui.EscapeSequences.*;
 
 public class Client {
    PreLogin preLogin = new PreLogin();
-   PostLogin postLogin = new PostLogin();
+   PostLogin postLogin;
    boolean loggedIn = false;
    public String eval(String input) {
       try {
@@ -54,11 +55,13 @@ public class Client {
       return SET_TEXT_COLOR_GREEN + "Successfully registered " + params[0] + ". You are now logged in.";
    }
 
-   private String login(String[] params) {
+   private String login(String[] params) throws Exception {
       if (params.length != 2) {
          throw new IllegalArgumentException("Please specify username and password.");
       }
       ServerFacade facade = new ServerFacade(8080);
+      AuthData auth = facade.login(params[0], params[1]);
+      postLogin = new PostLogin(auth.authToken());
       loggedIn = true;
       return SET_TEXT_COLOR_GREEN + "Successfully logged in.";
    }
