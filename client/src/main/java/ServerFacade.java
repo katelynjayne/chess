@@ -1,6 +1,8 @@
 import com.google.gson.Gson;
 import model.AuthData;
 import model.UserData;
+import responseAndRequest.CreateGameRequest;
+import responseAndRequest.CreateGameResponse;
 import responseAndRequest.ExceptionResponse;
 
 import java.io.InputStream;
@@ -25,6 +27,11 @@ public class ServerFacade {
    public AuthData login(String username, String password) throws Exception {
       UserData request = new UserData(username, password, null);
       return sendRequest("/session", "POST", request, AuthData.class);
+   }
+
+   public CreateGameResponse createGame(String authToken, String gameName) throws Exception {
+      CreateGameRequest request = new CreateGameRequest(gameName);
+      return sendRequest("/game", "POST", request, CreateGameResponse.class);
    }
 
    private <T> T sendRequest(String path, String method, Object requestObj, Class<T> responseClass) throws Exception{

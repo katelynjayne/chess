@@ -11,6 +11,7 @@ public class Client {
    PreLogin preLogin = new PreLogin();
    PostLogin postLogin = new PostLogin(null);
    boolean loggedIn = false;
+   ServerFacade facade = new ServerFacade(8080);
    public String eval(String input) {
       try {
          var tokens = input.toLowerCase().split(" ");
@@ -38,7 +39,6 @@ public class Client {
       if (params.length != 3) {
          throw new IllegalArgumentException("Please specify username, password, and email.");
       }
-      ServerFacade facade = new ServerFacade(8080);
       facade.register(params[0],params[1],params[2]);
       login(Arrays.copyOfRange(params, 0, 2));
       return SET_TEXT_COLOR_GREEN + "Successfully registered " + params[0] + ". You are now logged in.";
@@ -48,7 +48,6 @@ public class Client {
       if (params.length != 2) {
          throw new IllegalArgumentException("Please specify username and password.");
       }
-      ServerFacade facade = new ServerFacade(8080);
       AuthData auth = facade.login(params[0], params[1]);
       postLogin.setAuth(auth.authToken());
       loggedIn = true;
@@ -62,11 +61,12 @@ public class Client {
       return preLogin.help();
    }
 
-   private String create(String[] params) throws IllegalArgumentException{
+   private String create(String[] params) throws Exception{
       if (params.length == 0) {
          throw new IllegalArgumentException("Please specify game name.");
       }
       String gameName = String.join("-", params);
+      facade.createGame(postLogin.getAuthToken(), gameName);
       return SET_TEXT_COLOR_GREEN + "Successfully created game: " + gameName;
    }
 
