@@ -39,12 +39,18 @@ public class Client {
 
    }
 
-   private String register(String[] params) throws IllegalArgumentException{
+   private String register(String[] params) throws Exception{
       if (params.length != 3) {
          throw new IllegalArgumentException("Please specify username, password, and email.");
       }
-      ServerFacade facade = new ServerFacade();
-      login(Arrays.copyOfRange(params, 0, 2));
+      ServerFacade facade = new ServerFacade(8080);
+      try {
+         facade.register(params[0],params[1],params[2]);
+         login(Arrays.copyOfRange(params, 0, 2));
+      }
+      catch (Exception e){
+         throw new Exception(e.getMessage());
+      }
       return SET_TEXT_COLOR_GREEN + "Successfully registered " + params[0] + ". You are now logged in.";
    }
 
@@ -52,7 +58,7 @@ public class Client {
       if (params.length != 2) {
          throw new IllegalArgumentException("Please specify username and password.");
       }
-      ServerFacade facade = new ServerFacade();
+      ServerFacade facade = new ServerFacade(8080);
       loggedIn = true;
       return SET_TEXT_COLOR_GREEN + "Successfully logged in.";
    }
