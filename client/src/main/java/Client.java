@@ -9,22 +9,16 @@ import static ui.EscapeSequences.*;
 
 public class Client {
    PreLogin preLogin = new PreLogin();
-   PostLogin postLogin;
+   PostLogin postLogin = new PostLogin(null);
    boolean loggedIn = false;
    public String eval(String input) {
       try {
          var tokens = input.toLowerCase().split(" ");
          String cmd = (tokens.length > 0) ? tokens[0] : "help";
          var params = Arrays.copyOfRange(tokens, 1, tokens.length);
-         if (!loggedIn) {
-            return switch (cmd) {
-               case "register" -> register(params);
-               case "login" -> login(params);
-               case "quit" -> "";
-               default -> help();
-            };
-         }
          return switch (cmd) {
+            case "register" -> register(params);
+            case "login" -> login(params);
             case "create" -> create(params);
             case "list" -> list();
             case "join" -> join(params);
@@ -45,13 +39,8 @@ public class Client {
          throw new IllegalArgumentException("Please specify username, password, and email.");
       }
       ServerFacade facade = new ServerFacade(8080);
-      try {
-         facade.register(params[0],params[1],params[2]);
-         login(Arrays.copyOfRange(params, 0, 2));
-      }
-      catch (Exception e){
-         throw new Exception(e.getMessage());
-      }
+      facade.register(params[0],params[1],params[2]);
+      login(Arrays.copyOfRange(params, 0, 2));
       return SET_TEXT_COLOR_GREEN + "Successfully registered " + params[0] + ". You are now logged in.";
    }
 
@@ -61,7 +50,7 @@ public class Client {
       }
       ServerFacade facade = new ServerFacade(8080);
       AuthData auth = facade.login(params[0], params[1]);
-      postLogin = new PostLogin(auth.authToken());
+      postLogin.setAuth(auth.authToken());
       loggedIn = true;
       return SET_TEXT_COLOR_GREEN + "Successfully logged in.";
    }

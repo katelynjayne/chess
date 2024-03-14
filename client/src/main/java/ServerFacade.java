@@ -1,6 +1,7 @@
 import com.google.gson.Gson;
 import model.AuthData;
 import model.UserData;
+import responseAndRequest.ExceptionResponse;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,61 +17,46 @@ public class ServerFacade {
    }
 
    public AuthData register(String username, String password, String email) throws Exception {
+      UserData request = new UserData(username, password, email);
+      return sendRequest("/user", "POST", request, AuthData.class);
+   }
+
+
+   public AuthData login(String username, String password) throws Exception {
+      UserData request = new UserData(username, password, null);
+      return sendRequest("/session", "POST", request, AuthData.class);
+   }
+
+   private <T> T sendRequest(String path, String method, Object requestObj, Class<T> responseClass) throws Exception{
       try {
-         URL url = new URI(urlString + "/user").toURL();
+         URL url = new URI(urlString + path).toURL();
          HttpURLConnection http = (HttpURLConnection) url.openConnection();
-         http.setRequestMethod("POST");
+         http.setRequestMethod(method);
          http.setDoOutput(true);
          OutputStream requestBody = http.getOutputStream();
-         UserData request = new UserData(username, password, email);
-         String json = new Gson().toJson(request);
+         String json = new Gson().toJson(requestObj);
          requestBody.write(json.getBytes());
          http.connect();
          if (http.getResponseCode() == 200) {
             if (http.getContentLength() < 0) {
                try (InputStream respBody = http.getInputStream()) {
                   InputStreamReader reader = new InputStreamReader(respBody);
-                  return new Gson().fromJson(reader, AuthData.class);
+                  return new Gson().fromJson(reader, responseClass);
                }
+            }
+            else {
+               return null;
             }
          }
          else {
             InputStream error = http.getErrorStream();
             InputStreamReader reader = new InputStreamReader(error);
-            throw new Exception(String.valueOf(new Gson().fromJson(reader, Object.class)));
-            // this is jank!!
+            ExceptionResponse response = new Gson().fromJson(reader, ExceptionResponse.class);
+            throw new Exception(response.getMessage());
          }
       }
       catch (Exception e){
          throw new Exception(e.getMessage());
       }
-      throw new Exception("something janky happened");
-   }
-
-
-   public AuthData login(String username, String password) throws Exception {
-      try {
-         URL url = new URI(urlString + "/session").toURL();
-         HttpURLConnection http = (HttpURLConnection) url.openConnection();
-         http.setRequestMethod("POST");
-         http.setDoOutput(true);
-         OutputStream requestBody = http.getOutputStream();
-         UserData request = new UserData(username, password, null);
-         String json = new Gson().toJson(request);
-         requestBody.write(json.getBytes());
-         http.connect();
-         if (http.getResponseCode() == 200) {
-            if (http.getContentLength() < 0) {
-               try (InputStream respBody = http.getInputStream()) {
-                  InputStreamReader reader = new InputStreamReader(respBody);
-                  return new Gson().fromJson(reader, AuthData.class);
-               }
-            }
-         }
-      }
-      catch (Exception e){
-         throw new Exception(e.getMessage());
-      }
-      throw new Exception("something janky happened");
    }
 }

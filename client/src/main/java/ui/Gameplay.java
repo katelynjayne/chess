@@ -14,18 +14,18 @@ public class Gameplay {
          black = !black;
          for (int j = 0; j < 8; j ++) {
             if (black) {
-               output.append(SET_BG_COLOR_DARK_GREY);
+               output.append(SET_BG_COLOR_LIGHT_GREY);
                black = false;
             }
             else {
-               output.append(SET_BG_COLOR_LIGHT_GREY);
+               output.append(SET_BG_COLOR_WHITE);
                black = true;
             }
             if (board.getPiece(i,j) == null) {
                output.append(EMPTY);
             }
             else {
-               output.append(board.getPiece(i,j).toString());
+               output.append(SET_TEXT_COLOR_BLACK+ board.getPiece(i,j).toString()+ SET_TEXT_COLOR_WHITE);
             }
          }
          output.append(SET_BG_COLOR_DARK_GREEN + " ").append(i + 1).append(" "+ REAL_RESET + "\n");

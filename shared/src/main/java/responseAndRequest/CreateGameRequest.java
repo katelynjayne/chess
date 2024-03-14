@@ -1,4 +1,4 @@
-package handler;
+package responseAndRequest;
 
 public class CreateGameRequest {
    private String gameName;

@@ -1,4 +1,4 @@
-package handler;
+package responseAndRequest;
 
 public class CreateGameResponse {
    private int gameID;

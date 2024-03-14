@@ -1,17 +1,16 @@
 package handler;
 
-import chess.ChessGame;
 import com.google.gson.Gson;
 import dataAccess.DataAccessException;
 import model.AuthData;
 import model.GameData;
 import model.UserData;
+import responseAndRequest.*;
 import service.*;
 import spark.Request;
 import spark.Response;
 
 import java.util.Collection;
-import java.util.Objects;
 
 public class Handler {
    public String register(Request req, Response res) {
