@@ -60,6 +60,9 @@ public class EscapeSequences {
     public static final String BLACK_ROOK = " ♜ ";
     public static final String BLACK_PAWN = " ♟ ";
     public static final String EMPTY = " \u2003 ";
+    public static final String DECORATOR = WHITE_KING + BLACK_BISHOP + WHITE_KNIGHT + BLACK_KING + WHITE_BISHOP + BLACK_KNIGHT +
+            WHITE_KING + BLACK_BISHOP + WHITE_KNIGHT + BLACK_KING + WHITE_BISHOP + BLACK_KNIGHT +
+            WHITE_KING + BLACK_BISHOP + WHITE_KNIGHT + BLACK_KING + WHITE_BISHOP + BLACK_KNIGHT;
 
     public static String moveCursorToLocation(int x, int y) { return UNICODE_ESCAPE + "[" + y + ";" + x + "H"; }
 }

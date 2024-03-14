@@ -1,8 +1,6 @@
 package chess;
 
 import java.util.Collection;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Objects;
 
 /**
@@ -62,10 +60,26 @@ public class  ChessPiece {
 
     @Override
     public String toString() {
-        return "ChessPiece{" +
-                "color=" + color +
-                ", type=" + type +
-                '}';
+        if (color == ChessGame.TeamColor.WHITE) {
+            return switch (type) {
+                case KING -> " ♔ ";
+                case QUEEN -> " ♕ ";
+                case BISHOP -> " ♗ ";
+                case KNIGHT -> " ♘ ";
+                case ROOK -> " ♖ ";
+                case PAWN -> " ♙ ";
+            };
+        }
+        else {
+            return switch (type) {
+                case KING -> " ♚ ";
+                case QUEEN -> " ♛ ";
+                case BISHOP -> " ♝ ";
+                case KNIGHT -> " ♞ ";
+                case ROOK -> " ♜ ";
+                case PAWN -> " ♟ ";
+            };
+        }
     }
 
     /**
