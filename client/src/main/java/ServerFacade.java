@@ -1,10 +1,8 @@
+import chess.ChessGame;
 import com.google.gson.Gson;
 import model.AuthData;
 import model.UserData;
-import responseAndRequest.CreateGameRequest;
-import responseAndRequest.CreateGameResponse;
-import responseAndRequest.ExceptionResponse;
-import responseAndRequest.ListGamesResponse;
+import responseAndRequest.*;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -37,6 +35,11 @@ public class ServerFacade {
 
    public ListGamesResponse listGames(String authToken) throws Exception {
       return sendRequest("/game", "GET", null, ListGamesResponse.class, authToken);
+   }
+
+   public void joinGame(String authToken, ChessGame.TeamColor color, int gameID) throws Exception {
+      JoinGameRequest request = new JoinGameRequest(color, gameID);
+      sendRequest("/game", "PUT", request, String.class, authToken);
    }
 
    private <T> T sendRequest(String path, String method, Object requestObj, Class<T> responseClass, String auth) throws Exception{

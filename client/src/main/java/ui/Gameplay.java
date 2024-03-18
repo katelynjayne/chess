@@ -3,9 +3,7 @@ import chess.ChessBoard;
 
 import static ui.EscapeSequences.*;
 public class Gameplay {
-   public String makeBoard() {
-      ChessBoard board = new ChessBoard();
-      board.resetBoard();
+   public String makeBoard(ChessBoard board) {
       StringBuilder output = new StringBuilder(SET_BG_COLOR_DARK_GREEN + SET_TEXT_COLOR_WHITE);
       output.append("    a  b  c  d  e  f  g  h    " + REAL_RESET + "\n");
       boolean black = true;
@@ -25,7 +23,7 @@ public class Gameplay {
                output.append(EMPTY);
             }
             else {
-               output.append(SET_TEXT_COLOR_BLACK+ board.getPiece(i,j).toString()+ SET_TEXT_COLOR_WHITE);
+               output.append(SET_TEXT_COLOR_BLACK).append(board.getPiece(i, j).toString()).append(SET_TEXT_COLOR_WHITE);
             }
          }
          output.append(SET_BG_COLOR_DARK_GREEN + " ").append(i + 1).append(" "+ REAL_RESET + "\n");

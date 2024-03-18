@@ -1,20 +1,24 @@
+import chess.ChessGame;
 import model.AuthData;
 import model.GameData;
-import responseAndRequest.ListGamesResponse;
 import ui.Gameplay;
 import ui.PostLogin;
 import ui.PreLogin;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Objects;
 
+import static java.lang.Integer.parseInt;
 import static ui.EscapeSequences.*;
 
 public class Client {
-   PreLogin preLogin = new PreLogin();
-   PostLogin postLogin = new PostLogin(null);
-   boolean loggedIn = false;
-   ServerFacade facade = new ServerFacade(8080);
+   private final PreLogin preLogin = new PreLogin();
+   private final PostLogin postLogin = new PostLogin(null);
+   private boolean loggedIn = false;
+   private final ServerFacade facade = new ServerFacade(8080);
+   private final HashMap<Integer, GameData> uiIDs = new HashMap<Integer, GameData>();
    public String eval(String input) {
       try {
          var tokens = input.toLowerCase().split(" ");
@@ -79,25 +83,42 @@ public class Client {
       int counter = 1;
       for (GameData game : list) {
          output.append(counter).append(": ").append(game.gameName()).append("\n");
+         if (!uiIDs.containsKey(counter)) {
+            uiIDs.put(counter, game);
+         }
          counter += 1;
       }
       return output.toString();
    }
 
-   private String join(String[] params) throws IllegalArgumentException {
+   private String join(String[] params) throws Exception {
       if (params.length != 2) {
          throw new IllegalArgumentException("Please specify game ID and color.");
       }
-      return SET_TEXT_COLOR_GREEN + "Successfully joined game " + params[0] + " as color " + params[1] + ". Enjoy your game!";
-      //also print out game
+      int id = parseInt(params[0]);
+      ChessGame.TeamColor color;
+      if (Objects.equals(params[1], "white")) {
+         color = ChessGame.TeamColor.WHITE;
+      }
+      else if (Objects.equals(params[1], "black")) {
+         color = ChessGame.TeamColor.BLACK;
+      }
+      else {
+         throw new IllegalArgumentException("Please specify \"white\" or \"black\" for color.");
+      }
+      Gameplay gameplay = new Gameplay();
+      facade.joinGame(postLogin.getAuthToken(), color, uiIDs.get(id).gameID());
+      return SET_TEXT_COLOR_GREEN + "Successfully joined game " + params[0] + " as " + params[1] + ". Enjoy your game!\n"
+              + gameplay.makeBoard(uiIDs.get(id).game().getBoard());
    }
 
    private String watch(String[] params) throws IllegalArgumentException {
       if (params.length != 1) {
          throw new IllegalArgumentException("Please specify game ID.");
       }
+      int id = parseInt(params[0]);
       Gameplay gameplay = new Gameplay();
-      return gameplay.makeBoard();
+      return gameplay.makeBoard(uiIDs.get(id).game().getBoard());
    }
 
    private String logout() {
