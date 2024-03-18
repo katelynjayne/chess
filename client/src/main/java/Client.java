@@ -1,9 +1,12 @@
 import model.AuthData;
+import model.GameData;
+import responseAndRequest.ListGamesResponse;
 import ui.Gameplay;
 import ui.PostLogin;
 import ui.PreLogin;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 import static ui.EscapeSequences.*;
 
@@ -70,8 +73,15 @@ public class Client {
       return SET_TEXT_COLOR_GREEN + "Successfully created game: " + gameName;
    }
 
-   private String list() {
-      return "Imagine this is a list of games";
+   private String list() throws Exception {
+      Collection<GameData> list = facade.listGames(postLogin.getAuthToken()).getGames();
+      StringBuilder output = new StringBuilder(SET_TEXT_COLOR_GREEN);
+      int counter = 1;
+      for (GameData game : list) {
+         output.append(counter).append(": ").append(game.gameName()).append("\n");
+         counter += 1;
+      }
+      return output.toString();
    }
 
    private String join(String[] params) throws IllegalArgumentException {
