@@ -53,7 +53,7 @@ public class DatabaseManager {
             whiteUsername varchar(255) default null,
             blackUsername varchar(255) default null,
             gameName varchar(255) not null,
-            gameData varchar(255) not null,
+            gameData varchar(2000) not null,
             PRIMARY KEY (id))
             """
     };

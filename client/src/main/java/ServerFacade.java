@@ -39,7 +39,11 @@ public class ServerFacade {
 
    public void joinGame(String authToken, ChessGame.TeamColor color, int gameID) throws Exception {
       JoinGameRequest request = new JoinGameRequest(color, gameID);
-      sendRequest("/game", "PUT", request, String.class, authToken);
+      sendRequest("/game", "PUT", request, Object.class, authToken);
+   }
+
+   public void logout(String authToken) throws Exception {
+      sendRequest("/session", "DELETE", null, Object.class, authToken);
    }
 
    private <T> T sendRequest(String path, String method, Object requestObj, Class<T> responseClass, String auth) throws Exception{
