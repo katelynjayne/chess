@@ -1,4 +1,5 @@
 import chess.ChessGame;
+import client.ServerFacade;
 import model.AuthData;
 import model.GameData;
 import ui.Gameplay;
