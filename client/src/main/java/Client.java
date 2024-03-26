@@ -17,9 +17,11 @@ import static ui.EscapeSequences.*;
 public class Client {
    private final PreLogin preLogin = new PreLogin();
    private final PostLogin postLogin = new PostLogin(null);
+   private final Gameplay gameplay = new Gameplay();
    private boolean loggedIn = false;
+   private boolean inGame = false;
    private final ServerFacade facade = new ServerFacade(8080);
-   private final HashMap<Integer, GameData> uiIDs = new HashMap<Integer, GameData>();
+   private final HashMap<Integer, GameData> uiIDs = new HashMap<>();
    public String eval(String input) {
       try {
          var tokens = input.toLowerCase().split(" ");
@@ -63,6 +65,9 @@ public class Client {
    }
 
    private String help() {
+      if (inGame) {
+         return gameplay.help();
+      }
       if (loggedIn) {
          return postLogin.help();
       }
@@ -82,6 +87,9 @@ public class Client {
       Collection<GameData> list = facade.listGames(postLogin.getAuthToken()).getGames();
       StringBuilder output = new StringBuilder(SET_TEXT_COLOR_YELLOW);
       int counter = 1;
+      if (list.isEmpty()) {
+         output.append("No active games. Use the command \"create\" to start your own.");
+      }
       for (GameData game : list) {
          if (counter != 1) {
             output.append("\n");
@@ -104,14 +112,11 @@ public class Client {
       }
       int id = parseInt(params[0]);
       ChessGame.TeamColor color;
-      ChessGame.TeamColor otherColor;
       if (Objects.equals(params[1], "white")) {
          color = ChessGame.TeamColor.WHITE;
-         otherColor = ChessGame.TeamColor.BLACK;
       }
       else if (Objects.equals(params[1], "black")) {
          color = ChessGame.TeamColor.BLACK;
-         otherColor = ChessGame.TeamColor.WHITE;
       }
       else {
          throw new IllegalArgumentException("Please specify \"white\" or \"black\" for color.");
@@ -125,9 +130,9 @@ public class Client {
          throw new Exception("Couldn't find game. Try the \"list\" command to see all active games and corresponding IDs.");
       }
       facade.joinGame(postLogin.getAuthToken(), color, gameID);
+      inGame = true;
       return SET_TEXT_COLOR_GREEN + "Successfully joined game " + params[0] + " as " + params[1] + ". Enjoy your game!\n"
-              + gameplay.makeBoard(uiIDs.get(id).game().getBoard(), color) + "\n\n"
-              + gameplay.makeBoard(uiIDs.get(id).game().getBoard(), otherColor);
+              + gameplay.makeBoard(uiIDs.get(id).game().getBoard(), color);
    }
 
    private String watch(String[] params) throws Exception {
@@ -144,7 +149,8 @@ public class Client {
          throw new Exception("Couldn't find game. Try the \"list\" command to see all active games and corresponding IDs.");
       }
       facade.joinGame(postLogin.getAuthToken(), null, gameID);
-      return gameplay.makeBoard(uiIDs.get(id).game().getBoard(), ChessGame.TeamColor.WHITE) + "\n\n" + gameplay.makeBoard(uiIDs.get(id).game().getBoard(), ChessGame.TeamColor.BLACK);
+      inGame = true;
+      return gameplay.makeBoard(uiIDs.get(id).game().getBoard(), ChessGame.TeamColor.WHITE);
    }
 
    private String logout() throws Exception {

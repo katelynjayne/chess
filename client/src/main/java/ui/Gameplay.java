@@ -4,6 +4,21 @@ import chess.ChessGame;
 
 import static ui.EscapeSequences.*;
 public class Gameplay {
+
+   public String help() {
+      return SET_TEXT_BOLD + SET_TEXT_COLOR_RED + "redraw" + RESET_TEXT_BOLD_FAINT
+              + SET_TEXT_COLOR_BLUE + " to see the board again\n" +
+              SET_TEXT_BOLD + SET_TEXT_COLOR_RED + "move <start position><end position>" + RESET_TEXT_BOLD_FAINT
+              + SET_TEXT_COLOR_BLUE + " to move a piece\n" +
+              SET_TEXT_BOLD + SET_TEXT_COLOR_RED + "highlight <position>" + RESET_TEXT_BOLD_FAINT
+              + SET_TEXT_COLOR_BLUE + " to see all the moves a piece at the given position can make\n" +
+              SET_TEXT_BOLD + SET_TEXT_COLOR_RED + "leave" + RESET_TEXT_BOLD_FAINT
+              + SET_TEXT_COLOR_BLUE + " to exit the game\n" +
+              SET_TEXT_BOLD + SET_TEXT_COLOR_RED + "resign" + RESET_TEXT_BOLD_FAINT
+              + SET_TEXT_COLOR_BLUE + " to take the L\n" +
+              SET_TEXT_BOLD + SET_TEXT_COLOR_RED + "help" + RESET_TEXT_BOLD_FAINT
+              + SET_TEXT_COLOR_BLUE + " to print this list of commands";
+   }
    public String makeBoard(ChessBoard board, ChessGame.TeamColor color) {
       StringBuilder output = new StringBuilder(SET_BG_COLOR_DARK_GREEN + SET_TEXT_COLOR_WHITE);
       String header=(color == ChessGame.TeamColor.BLACK)?"    h  g  f  e  d  c  b  a    " : "    a  b  c  d  e  f  g  h    ";
