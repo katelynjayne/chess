@@ -1,7 +1,6 @@
 package service;
 
 import dataAccess.DataAccessException;
-import model.AuthData;
 
 public class LogoutService extends Service {
    public LogoutService() throws DataAccessException {

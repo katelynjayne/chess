@@ -93,7 +93,7 @@ public class ServerFacadeTests {
         AuthData auth = facade.login("test-user","test-password");
         facade.createGame(auth.authToken(), "test-game");
         facade.createGame(auth.authToken(), "test-game-2");
-        Collection<GameData> list = facade.listGames(auth.authToken()).getGames();
+        Collection<GameData> list = facade.listGames(auth.authToken()).games();
         Assertions.assertEquals(2, list.size());
     }
 
@@ -106,7 +106,7 @@ public class ServerFacadeTests {
     public void posJoinTest() throws Exception {
         facade.register("test-user","test-password", "test-email");
         AuthData auth = facade.login("test-user","test-password");
-        int id = facade.createGame(auth.authToken(), "test-game").getGameID();
+        int id = facade.createGame(auth.authToken(), "test-game").gameID();
         Assertions.assertDoesNotThrow(() -> facade.joinGame(auth.authToken(), ChessGame.TeamColor.WHITE, id));
     }
 

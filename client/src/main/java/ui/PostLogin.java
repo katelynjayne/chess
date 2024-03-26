@@ -1,7 +1,6 @@
 package ui;
 
 import static ui.EscapeSequences.*;
-import static ui.EscapeSequences.SET_TEXT_COLOR_BLUE;
 
 public class PostLogin {
    private String authToken;

@@ -84,7 +84,7 @@ public class Client {
    }
 
    private String list() throws Exception {
-      Collection<GameData> list = facade.listGames(postLogin.getAuthToken()).getGames();
+      Collection<GameData> list = facade.listGames(postLogin.getAuthToken()).games();
       StringBuilder output = new StringBuilder(SET_TEXT_COLOR_YELLOW);
       int counter = 1;
       if (list.isEmpty()) {

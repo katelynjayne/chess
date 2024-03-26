@@ -5,7 +5,6 @@ import model.GameData;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 public class MemoryGameDAO implements GameDAO {
    private final Collection<GameData> games = new ArrayList<>();

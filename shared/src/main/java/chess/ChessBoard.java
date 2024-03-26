@@ -18,9 +18,7 @@ public class ChessBoard {
     public ChessBoard copy() {
         ChessBoard copy = new ChessBoard();
         for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                copy.board[i][j] = board[i][j];
-            }
+           System.arraycopy(board[i], 0, copy.board[i], 0, 8);
         }
         return copy;
     }

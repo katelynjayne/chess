@@ -96,11 +96,11 @@ public class Handler {
       try {
          CreateGameService service = new CreateGameService();
          CreateGameRequest input = serializer.fromJson(req.body(), CreateGameRequest.class);
-         if (input.getGameName() == null) {
+         if (input.gameName() == null) {
             res.status(400);
             return serializer.toJson(new ExceptionResponse("Error: bad request"));
          }
-         int gameID = service.createGame(req.headers("authorization"), input.getGameName());
+         int gameID = service.createGame(req.headers("authorization"), input.gameName());
          res.status(200);
          return serializer.toJson(new CreateGameResponse(gameID));
       }

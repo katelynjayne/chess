@@ -78,7 +78,7 @@ public class ServerFacade {
             InputStream error = http.getErrorStream();
             InputStreamReader reader = new InputStreamReader(error);
             ExceptionResponse response = new Gson().fromJson(reader, ExceptionResponse.class);
-            throw new Exception(response.getMessage());
+            throw new Exception(response.message());
          }
       }
       catch (Exception e){
