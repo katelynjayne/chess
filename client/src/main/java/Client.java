@@ -27,6 +27,16 @@ public class Client {
          var tokens = input.toLowerCase().split(" ");
          String cmd = (tokens.length > 0) ? tokens[0] : "help";
          var params = Arrays.copyOfRange(tokens, 1, tokens.length);
+         if (inGame) {
+            return switch (cmd) {
+               case "redraw" -> redraw();
+               case "move" -> move(params);
+               case "highlight" -> highlight(params);
+               case "leave" -> leave();
+               case "resign" -> resign();
+               default -> help();
+            };
+         }
          return switch (cmd) {
             case "register" -> register(params);
             case "login" -> login(params);
@@ -121,7 +131,6 @@ public class Client {
       else {
          throw new IllegalArgumentException("Please specify \"white\" or \"black\" for color.");
       }
-      Gameplay gameplay = new Gameplay();
       int gameID;
       try {
          gameID = uiIDs.get(id).gameID();
@@ -131,8 +140,9 @@ public class Client {
       }
       facade.joinGame(postLogin.getAuthToken(), color, gameID);
       inGame = true;
+      gameplay.setGame(uiIDs.get(id).game().getBoard(), color);
       return SET_TEXT_COLOR_GREEN + "Successfully joined game " + params[0] + " as " + params[1] + ". Enjoy your game!\n"
-              + gameplay.makeBoard(uiIDs.get(id).game().getBoard(), color);
+              + gameplay.makeBoard();
    }
 
    private String watch(String[] params) throws Exception {
@@ -140,7 +150,6 @@ public class Client {
          throw new IllegalArgumentException("Please specify game ID.");
       }
       int id = parseInt(params[0]);
-      Gameplay gameplay = new Gameplay();
       int gameID;
       try {
          gameID = uiIDs.get(id).gameID();
@@ -150,12 +159,41 @@ public class Client {
       }
       facade.joinGame(postLogin.getAuthToken(), null, gameID);
       inGame = true;
-      return gameplay.makeBoard(uiIDs.get(id).game().getBoard(), ChessGame.TeamColor.WHITE);
+      gameplay.setGame(uiIDs.get(id).game().getBoard(), ChessGame.TeamColor.WHITE);
+      return gameplay.makeBoard();
    }
 
    private String logout() throws Exception {
       facade.logout(postLogin.getAuthToken());
       loggedIn = false;
       return SET_TEXT_COLOR_GREEN + "Successfully logged out.";
+   }
+
+   private String redraw() {
+      return gameplay.makeBoard();
+   }
+
+   private String move(String[] params) throws Exception {
+      if (params.length != 2) {
+         throw new Exception("Please include the start position of the piece you will be moving, followed by the end position, separated by a space.");
+      }
+      return gameplay.makeBoard();
+   }
+
+   private String highlight(String[] params) throws Exception{
+      if (params.length != 1) {
+         throw new Exception("Please specify the position you would like to highlight");
+      }
+      return gameplay.makeBoard();
+   }
+
+   private String leave() throws Exception {
+      inGame = false;
+      return SET_TEXT_COLOR_GREEN + "You left the game... (change this)";
+   }
+
+   private String resign() throws Exception {
+      inGame = false;
+      return SET_TEXT_COLOR_GREEN + "You lost lol.";
    }
 }

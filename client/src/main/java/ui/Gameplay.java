@@ -5,10 +5,18 @@ import chess.ChessGame;
 import static ui.EscapeSequences.*;
 public class Gameplay {
 
+   private ChessBoard board;
+   private ChessGame.TeamColor color;
+
+   public void setGame(ChessBoard board, ChessGame.TeamColor color) {
+      this.board = board;
+      this.color = color;
+   }
+
    public String help() {
       return SET_TEXT_BOLD + SET_TEXT_COLOR_RED + "redraw" + RESET_TEXT_BOLD_FAINT
               + SET_TEXT_COLOR_BLUE + " to see the board again\n" +
-              SET_TEXT_BOLD + SET_TEXT_COLOR_RED + "move <start position><end position>" + RESET_TEXT_BOLD_FAINT
+              SET_TEXT_BOLD + SET_TEXT_COLOR_RED + "move <start position> <end position>" + RESET_TEXT_BOLD_FAINT
               + SET_TEXT_COLOR_BLUE + " to move a piece\n" +
               SET_TEXT_BOLD + SET_TEXT_COLOR_RED + "highlight <position>" + RESET_TEXT_BOLD_FAINT
               + SET_TEXT_COLOR_BLUE + " to see all the moves a piece at the given position can make\n" +
@@ -19,7 +27,7 @@ public class Gameplay {
               SET_TEXT_BOLD + SET_TEXT_COLOR_RED + "help" + RESET_TEXT_BOLD_FAINT
               + SET_TEXT_COLOR_BLUE + " to print this list of commands";
    }
-   public String makeBoard(ChessBoard board, ChessGame.TeamColor color) {
+   public String makeBoard() {
       StringBuilder output = new StringBuilder(SET_BG_COLOR_DARK_GREEN + SET_TEXT_COLOR_WHITE);
       String header=(color == ChessGame.TeamColor.BLACK)?"    h  g  f  e  d  c  b  a    " : "    a  b  c  d  e  f  g  h    ";
       output.append(header).append(REAL_RESET).append("\n");
@@ -54,5 +62,21 @@ public class Gameplay {
       }
       output.append(SET_BG_COLOR_DARK_GREEN + SET_TEXT_COLOR_WHITE).append(header).append(REAL_RESET);
       return output.toString();
+   }
+
+   public String move() {
+      return "";
+   }
+
+   public String highlight() {
+      return "";
+   }
+
+   public String leave() {
+      return "";
+   }
+
+   public String resign() {
+      return "";
    }
 }
