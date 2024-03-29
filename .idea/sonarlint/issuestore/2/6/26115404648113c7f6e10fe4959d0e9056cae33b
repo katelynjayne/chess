@@ -1,0 +1,15 @@
+
+	java:S112‹"FDefine and throw a dedicated exception instead of using a generic one.(‹Š¼»ıÿÿÿÿ8ùŒ‘è1J$156d8754-f8b9-4f39-b6c6-f54a6f7af0da
+	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(‹Š¼»ıÿÿÿÿ8úŒ‘è1J$00b0592d-dbf8-4b50-81e2-9eff1908228e
+	java:S112²"FDefine and throw a dedicated exception instead of using a generic one.(åİÇÚøÿÿÿÿ8ûŒ‘è1J$6f5ae9bb-6fbb-478b-a34d-fd0027d77842
+‰	java:S112°"FDefine and throw a dedicated exception instead of using a generic one.(¥ÀË„8ûŒ‘è1J$3f00e555-452f-4023-8900-6cb147bbf658
+‰	java:S112¹"FDefine and throw a dedicated exception instead of using a generic one.(ñşÅƒ8ûŒ‘è1J$6567445a-4982-451a-9863-4e9556c209f5
+	java:S112·"FDefine and throw a dedicated exception instead of using a generic one.(æ’Ü³øÿÿÿÿ8ûŒ‘è1J$276f5847-9165-45f4-ab75-e512f67d29a9
+‰	java:S112¾"FDefine and throw a dedicated exception instead of using a generic one.(§Ç…ã8ûŒ‘è1J$e0ebf4fd-c7b5-44b6-a24c-1cf34f8c752a
+	java:S112Ã"FDefine and throw a dedicated exception instead of using a generic one.(ë¶•úÿÿÿÿ8üŒ‘è1J$7a43c32e-7c02-4edf-93f7-cf5976c1c21c
+]
+java:S1220""Move this file to a named package.8ƒ‘è1J$2f755648-3be5-4730-8ae9-1c7610b5cf38
+°
+java:S1130¾"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(§Ç…ã8‡“‘è1J$87e53e09-031a-45b3-b487-3529eef47624
+µ
+java:S1130Ã"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(ë¶•úÿÿÿÿ8¡“‘è1J$2f7895d1-469b-4d21-817c-12c887c28eef
