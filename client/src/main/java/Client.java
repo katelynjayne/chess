@@ -21,8 +21,6 @@ public class Client {
    private final Gameplay gameplay = new Gameplay();
    private boolean loggedIn = false;
    private boolean inGame = false;
-   private final ServerFacade facade = new ServerFacade(8080);
-   private final HashMap<Integer, GameData> uiIDs = new HashMap<>();
    public String eval(String input) {
       try {
          var tokens = input.toLowerCase().split(" ");
@@ -57,20 +55,13 @@ public class Client {
    }
 
    private String register(String[] params) throws Exception{
-      if (params.length != 3) {
-         throw new IllegalArgumentException("Please specify username, password, and email.");
-      }
-      facade.register(params[0],params[1],params[2]);
+      preLogin.register(params);
       login(Arrays.copyOfRange(params, 0, 2));
       return SET_TEXT_COLOR_GREEN + "Successfully registered " + params[0] + ". You are now logged in.";
    }
 
    private String login(String[] params) throws Exception {
-      if (params.length != 2) {
-         throw new IllegalArgumentException("Please specify username and password.");
-      }
-      AuthData auth = facade.login(params[0], params[1]);
-      postLogin.setAuth(auth.authToken());
+      postLogin.setAuth(preLogin.login(params));
       loggedIn = true;
       return SET_TEXT_COLOR_GREEN + "Successfully logged in.";
    }
@@ -79,93 +70,36 @@ public class Client {
       if (inGame) {
          return gameplay.help();
       }
-      if (loggedIn) {
+      else if (loggedIn) {
          return postLogin.help();
       }
       return preLogin.help();
    }
 
    private String create(String[] params) throws Exception{
-      if (params.length == 0) {
-         throw new IllegalArgumentException("Please specify game name.");
-      }
-      String gameName = String.join("-", params);
-      facade.createGame(postLogin.getAuthToken(), gameName);
+      String gameName = postLogin.create(params);
       return SET_TEXT_COLOR_GREEN + "Successfully created game: " + gameName;
    }
 
    private String list() throws Exception {
-      Collection<GameData> list = facade.listGames(postLogin.getAuthToken()).games();
-      StringBuilder output = new StringBuilder(SET_TEXT_COLOR_YELLOW);
-      int counter = 1;
-      if (list.isEmpty()) {
-         output.append("No active games. Use the command \"create\" to start your own.");
-      }
-      for (GameData game : list) {
-         if (counter != 1) {
-            output.append("\n");
-         }
-         output.append(counter).append(": ").append(game.gameName());
-         String whiteUser = (game.whiteUsername() != null)?game.whiteUsername():"FREE";
-         String blackUser = (game.blackUsername() != null)?game.blackUsername():"FREE";
-         output.append(" | WHITE: ").append(whiteUser).append(" | BLACK: ").append(blackUser);
-         if (!uiIDs.containsKey(counter)) {
-            uiIDs.put(counter, game);
-         }
-         counter += 1;
-      }
-      return output.toString();
+      return postLogin.list();
    }
 
    private String join(String[] params) throws Exception {
-      if (params.length != 2) {
-         throw new IllegalArgumentException("Please specify game ID and color.");
-      }
-      int id = parseInt(params[0]);
-      ChessGame.TeamColor color;
-      if (Objects.equals(params[1], "white")) {
-         color = ChessGame.TeamColor.WHITE;
-      }
-      else if (Objects.equals(params[1], "black")) {
-         color = ChessGame.TeamColor.BLACK;
-      }
-      else {
-         throw new IllegalArgumentException("Please specify \"white\" or \"black\" for color.");
-      }
-      int gameID;
-      try {
-         gameID = uiIDs.get(id).gameID();
-      }
-      catch (NullPointerException e){
-         throw new Exception("Couldn't find game. Try the \"list\" command to see all active games and corresponding IDs.");
-      }
-      facade.joinGame(postLogin.getAuthToken(), color, gameID);
+      postLogin.join(params, gameplay);
       inGame = true;
-      gameplay.setGame(uiIDs.get(id).game().getBoard(), color);
       return SET_TEXT_COLOR_GREEN + "Successfully joined game " + params[0] + " as " + params[1] + ". Enjoy your game!\n"
               + gameplay.makeBoard();
    }
 
    private String watch(String[] params) throws Exception {
-      if (params.length != 1) {
-         throw new IllegalArgumentException("Please specify game ID.");
-      }
-      int id = parseInt(params[0]);
-      int gameID;
-      try {
-         gameID = uiIDs.get(id).gameID();
-      }
-      catch (NullPointerException e){
-         throw new Exception("Couldn't find game. Try the \"list\" command to see all active games and corresponding IDs.");
-      }
-      facade.joinGame(postLogin.getAuthToken(), null, gameID);
+      postLogin.watch(params, gameplay);
       inGame = true;
-      gameplay.setGame(uiIDs.get(id).game().getBoard(), ChessGame.TeamColor.WHITE);
       return gameplay.makeBoard();
    }
 
    private String logout() throws Exception {
-      facade.logout(postLogin.getAuthToken());
+      postLogin.logout();
       loggedIn = false;
       return SET_TEXT_COLOR_GREEN + "Successfully logged out.";
    }
@@ -175,28 +109,23 @@ public class Client {
    }
 
    private String move(String[] params) throws Exception {
-      if (params.length != 2) {
-         throw new Exception("Please include the start position of the piece you will be moving, followed by the end position, separated by a space.");
-      }
+      gameplay.move(params);
       return gameplay.makeBoard();
    }
 
    private String highlight(String[] params) throws Exception{
-      if (params.length != 1) {
-         throw new Exception("Please specify the position you would like to highlight");
-      }
-      return gameplay.makeBoard();
+      return gameplay.highlight(params);
    }
 
    private String leave() throws Exception {
-      WSClient ws = new WSClient();
+      gameplay.leave();
       inGame = false;
-      ws.send("leave");
       return SET_TEXT_COLOR_GREEN + "You left the game... (change this)";
 
    }
 
    private String resign() throws Exception {
+      gameplay.resign();
       inGame = false;
       return SET_TEXT_COLOR_GREEN + "You lost lol.";
    }

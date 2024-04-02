@@ -1,6 +1,7 @@
 package ui;
 import chess.ChessBoard;
 import chess.ChessGame;
+import client.WSClient;
 
 import static ui.EscapeSequences.*;
 public class Gameplay {
@@ -64,15 +65,23 @@ public class Gameplay {
       return output.toString();
    }
 
-   public String move() {
+   public String move(String[] params) throws Exception {
+      if (params.length != 2) {
+         throw new Exception("Please include the start position of the piece you will be moving, followed by the end position, separated by a space.");
+      }
       return "";
    }
 
-   public String highlight() {
-      return "";
+   public String highlight(String[] params) throws Exception{
+      if (params.length != 1) {
+         throw new Exception("Please specify the position you would like to highlight");
+      }
+      return makeBoard();
    }
 
-   public String leave() {
+   public String leave() throws Exception {
+      WSClient ws = new WSClient();
+      ws.send("leave");
       return "";
    }
 

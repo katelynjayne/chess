@@ -31,3 +31,7 @@ Y
 )client/src/main/java/client/WSClient.java,9/5/956848b8e3e2da1fcdeae87355dab2f11e611706
 W
 'server/src/main/java/server/Server.java,8/0/8036b8cb9ce2e6760f04e2a3b475b260935bb7b8
+U
+%client/src/main/java/ui/PreLogin.java,3/b/3b44b679c1287aa0f4627f4cfcd3edafda56b732
+V
+&client/src/main/java/ui/PostLogin.java,4/c/4caf695126773db59afc0d53417f60e9a5fef033
