@@ -1,5 +1,6 @@
 import chess.ChessGame;
 import client.ServerFacade;
+import client.WSClient;
 import model.AuthData;
 import model.GameData;
 import ui.Gameplay;
@@ -188,8 +189,11 @@ public class Client {
    }
 
    private String leave() throws Exception {
+      WSClient ws = new WSClient();
       inGame = false;
+      ws.send("leave");
       return SET_TEXT_COLOR_GREEN + "You left the game... (change this)";
+
    }
 
    private String resign() throws Exception {

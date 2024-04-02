@@ -1,6 +1,7 @@
 package server;
 
 import handler.Handler;
+import handler.WSHandler;
 import spark.*;
 
 public class Server {
@@ -8,7 +9,7 @@ public class Server {
         Spark.port(desiredPort);
 
         Spark.staticFiles.location("web");
-
+        Spark.webSocket("/connect", new WSHandler());
         // Register your endpoints and handle exceptions here.
         Handler handler = new Handler();
         Spark.post("/user", handler::register);
