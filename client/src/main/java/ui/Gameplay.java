@@ -3,6 +3,10 @@ import chess.ChessBoard;
 import chess.ChessGame;
 import client.WSClient;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import static java.lang.Integer.parseInt;
 import static ui.EscapeSequences.*;
 public class Gameplay {
 
@@ -26,7 +30,8 @@ public class Gameplay {
               SET_TEXT_BOLD + SET_TEXT_COLOR_RED + "resign" + RESET_TEXT_BOLD_FAINT
               + SET_TEXT_COLOR_BLUE + " to take the L\n" +
               SET_TEXT_BOLD + SET_TEXT_COLOR_RED + "help" + RESET_TEXT_BOLD_FAINT
-              + SET_TEXT_COLOR_BLUE + " to print this list of commands";
+              + SET_TEXT_COLOR_BLUE + " to print this list of commands\n" +
+              SET_TEXT_COLOR_YELLOW + "TIP: Please refer to positions in the form of <column letter><row number>. Example: a1" ;
    }
    public String makeBoard() {
       StringBuilder output = new StringBuilder(SET_BG_COLOR_DARK_GREEN + SET_TEXT_COLOR_WHITE);
@@ -76,7 +81,33 @@ public class Gameplay {
       if (params.length != 1) {
          throw new Exception("Please specify the position you would like to highlight");
       }
+      Collection<Integer> coordinates = positionConverter(params[0]);
       return makeBoard();
+   }
+
+   private Collection<Integer> positionConverter(String position) throws IllegalArgumentException {
+      if (position.length() != 2) {
+         throw new IllegalArgumentException("Invalid position. TIP: Please refer to positions in the form of <column letter><row number>. Example: a1");
+      }
+      int colIndex;
+      int rowIndex;
+      Collection<Integer> coordinates = new ArrayList<>();
+      boolean valid = true;
+      if (position.charAt(0) >= 'a' && position.charAt(0) <= 'h') {
+         colIndex = position.charAt(0) - 'a';
+         coordinates.add(colIndex);
+      }
+      else {valid = false;}
+      try {
+         rowIndex = parseInt(String.valueOf(position.charAt(1)));
+         if (rowIndex <= 0 || rowIndex > 8) {valid = false;}
+         coordinates.add(rowIndex);
+      }
+      catch (NumberFormatException e) {valid = false;}
+      if (!valid) {
+         throw new IllegalArgumentException("Invalid position. TIP: Please refer to positions in the form of <column letter><row number>. Example: a1");
+      }
+      return coordinates;
    }
 
    public String leave() throws Exception {

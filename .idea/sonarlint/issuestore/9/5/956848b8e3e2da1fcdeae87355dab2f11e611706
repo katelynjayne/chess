@@ -1,10 +1,10 @@
 
-ˆ	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¬¿× 8Èù¼†ê1J$9778b49e-d18c-4ff4-8998-778cfdb4115e
-g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(‹áöÿÿÿÿÿ8ôœ¾†ê1
-J
-java:S1604"(Make this anonymous inner class a lambda(ÆÏ¹úÿÿÿÿ8‚¾†ê1
+ˆ	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¬¿× 8Èù¼†ê1J$c0246170-0dce-48cd-87cd-b5b5ec0fd4a5
+	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(‹áöÿÿÿÿÿ8ôœ¾†ê1J$7d9bdfe1-2bf3-4567-85d3-fd8c307e7414
+p
+java:S1604"(Make this anonymous inner class a lambda(ÆÏ¹úÿÿÿÿ8‚¾†ê1J$07c5be02-a27c-4930-b6d0-6c94acd09257
 É
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(òø¨œøÿÿÿÿ8áù¼†ê1J$b3bc94b2-ef19-4336-8331-47c611c323da
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(òø¨œøÿÿÿÿ8áù¼†ê1J$a134ab16-b9c3-45ab-b21d-10e62d8fc730
 „
-java:S1075	"ARefactor your code to get this URI from a customizable parameter.(Œšô†8Ä¥½†ê1J$9098fe8a-b486-492d-a4d2-396527610381
-r	java:S106"+Replace this use of System.out by a logger.(øºÑûúÿÿÿÿ8ôù¼†ê1J$66b1ce2e-4e81-4b33-a72c-06983afc2e46
+java:S1075	"ARefactor your code to get this URI from a customizable parameter.(Œšô†8Ä¥½†ê1J$f6a7c6d2-7570-4e8f-996b-7e48ae02dd84
+r	java:S106"+Replace this use of System.out by a logger.(øºÑûúÿÿÿÿ8ôù¼†ê1J$79879895-e30b-4fa4-b190-0bb04aff399b

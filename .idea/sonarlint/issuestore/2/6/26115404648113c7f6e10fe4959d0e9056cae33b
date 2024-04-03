@@ -1,9 +1,22 @@
 
-ˆ	java:S112x"FDefine and throw a dedicated exception instead of using a generic one.(§Ç…ã8±à‡ê1J$8c40605b-7574-4ff7-880f-e9951a685fdc
-	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ë¶•úÿÿÿÿ8ÿáØ‡ê1J$a631cce8-d82e-41a4-86ae-0f8f6dcd13a9
+	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ë¶•úÿÿÿÿ8ÿáØ‡ê1J$d7367374-b375-4bc3-bba0-fae424d8519a
 ]
-java:S1220""Move this file to a named package.8”¾Å†ê1J$a966a163-ac48-43f3-a4c6-501339770b1f
-¯
-java:S1130x"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(§Ç…ã8ÏâØ‡ê1J$de048bca-702f-45c1-a1db-46a456fc5b91
+java:S1220""Move this file to a named package.8”¾Å†ê1J$9170cd80-5582-4fa3-b743-b6c1f0c458c3
 ´
-java:S1130"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(ë¶•úÿÿÿÿ8Å­Ş‡ê1J$5d03052c-90bf-4413-ad54-6c6a7486511e
+java:S1130"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(ë¶•úÿÿÿÿ8Å­Ş‡ê1J$9bb80e84-528c-4a27-893c-636a2d65c70c
+I
+java:S1128",Remove this unused import 'chess.ChessGame'.(†¶ØŸ8¸††ê1
+R
+java:S1128"0Remove this unused import 'client.ServerFacade'.(ïµ´şÿÿÿÿ8¹††ê1
+N
+java:S1128",Remove this unused import 'client.WSClient'.(–°İ›üÿÿÿÿ8¹††ê1
+M
+java:S1128"+Remove this unused import 'model.AuthData'.(î‡„Ãÿÿÿÿÿ8¹††ê1
+H
+java:S1128"+Remove this unused import 'model.GameData'.(Ãà—õ8¹††ê1
+S
+java:S1128"1Remove this unused import 'java.util.Collection'.(¹ÉĞšùÿÿÿÿ8º††ê1
+P
+java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8º††ê1
+K
+java:S1128".Remove this unused import 'java.util.Objects'.(¼¸õ›8º††ê1

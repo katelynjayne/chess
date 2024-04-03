@@ -35,3 +35,5 @@ U
 %client/src/main/java/ui/PreLogin.java,3/b/3b44b679c1287aa0f4627f4cfcd3edafda56b732
 V
 &client/src/main/java/ui/PostLogin.java,4/c/4caf695126773db59afc0d53417f60e9a5fef033
+g
+7client/src/test/java/clientTests/ServerFacadeTests.java,0/5/0581f445e574fa58ad0145d51bcdf3d3095a999d

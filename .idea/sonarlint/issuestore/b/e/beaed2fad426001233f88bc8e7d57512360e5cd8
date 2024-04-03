@@ -1,7 +1,9 @@
 
-	java:S112F"FDefine and throw a dedicated exception instead of using a generic one.(åİÇÚøÿÿÿÿ8ß˜Ü‡ê1J$3c37e2fe-0db0-4adb-8f05-db5d7592824c
-	java:S112D"FDefine and throw a dedicated exception instead of using a generic one.(¶ãâ‹üÿÿÿÿ8à˜Ü‡ê1J$cc1cd731-f310-40d4-8287-cb7538feffb3
-ˆ	java:S112M"FDefine and throw a dedicated exception instead of using a generic one.(ñşÅƒ8¨Äá‡ê1J$5c25bcef-fe14-4c83-b320-e9bcd58412a8
-‡	java:S112K"FDefine and throw a dedicated exception instead of using a generic one.(ûÛ×t8¨Äá‡ê1J$5d1d4f5e-2265-408e-9816-7a2e81560fb2
-š
-java:S3776"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(ïÅŞøÿÿÿÿ8­àŒè1J$5d763899-5f7d-450e-9fd9-ecdcf2bda074
+	java:S112K"FDefine and throw a dedicated exception instead of using a generic one.(åİÇÚøÿÿÿÿ8“®şê1J$2b0e736c-2747-4168-8737-adcad2ac08dc
+	java:S112I"FDefine and throw a dedicated exception instead of using a generic one.(¶ãâ‹üÿÿÿÿ8”®şê1J$2073629f-9e58-4dba-993d-124e01bf3240
+ˆ	java:S112R"FDefine and throw a dedicated exception instead of using a generic one.(ñşÅƒ8”®şê1J$2768c726-a2f6-4aca-9b7e-64b682760f5f
+‡	java:S112P"FDefine and throw a dedicated exception instead of using a generic one.(ûÛ×t8”®şê1J$95597eff-b538-4eb0-8201-8754d6a20883
+‚
+java:S1854T"?Remove this useless assignment to local variable "coordinates".(Ôƒ÷ç8ü·‚ê1J$344cdbee-8987-492e-bad3-27de5cce84bd
+s
+java:S1481T"0Remove this unused "coordinates" local variable.(Ôƒ÷ç8ş·‚ê1J$ada4f4ee-064c-4cdb-abd2-86774bb10034
