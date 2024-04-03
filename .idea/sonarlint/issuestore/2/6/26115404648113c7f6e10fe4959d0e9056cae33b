@@ -1,22 +1,19 @@
 
-	java:S112~"FDefine and throw a dedicated exception instead of using a generic one.(ë¶•úÿÿÿÿ8ÿáØ‡ê1J$9a5547f0-92ae-4ff1-991a-3fbcc86744e3
 ]
-java:S1220""Move this file to a named package.8”¾Å†ê1J$9d1ab15a-0447-4f89-84e6-d7863c12db54
-´
-java:S1130~"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(ë¶•úÿÿÿÿ8Å­Ş‡ê1J$7b3b5ab3-555d-4d98-95f8-583e18b0a8bf
+java:S1220""Move this file to a named package.8”¾Å†ê1J$f776f361-6d97-43aa-adce-2b894316594f
 o
-java:S1128",Remove this unused import 'chess.ChessGame'.(†¶ØŸ8¸††ê1J$4466ee1e-eb28-4af1-91ef-6a1bb402e6a6
+java:S1128",Remove this unused import 'chess.ChessGame'.(†¶ØŸ8¸††ê1J$68457275-462d-4d46-9441-c819f27c7ee3
 x
-java:S1128"0Remove this unused import 'client.ServerFacade'.(ïµ´şÿÿÿÿ8¹††ê1J$e6e3f970-38a5-4f52-9f2a-6e93ff6698c2
+java:S1128"0Remove this unused import 'client.ServerFacade'.(ïµ´şÿÿÿÿ8¹††ê1J$9aec3162-7065-4d5c-abe6-691a88ef8e87
 t
-java:S1128",Remove this unused import 'client.WSClient'.(–°İ›üÿÿÿÿ8¹††ê1J$0c384fec-27e1-44b4-be32-43a757a6ccc7
+java:S1128",Remove this unused import 'client.WSClient'.(–°İ›üÿÿÿÿ8¹††ê1J$98875549-0fb0-418d-b94c-35fefa8f3efb
 s
-java:S1128"+Remove this unused import 'model.AuthData'.(î‡„Ãÿÿÿÿÿ8¹††ê1J$a78f7256-6e67-4881-a26c-1fbc3b68e497
+java:S1128"+Remove this unused import 'model.AuthData'.(î‡„Ãÿÿÿÿÿ8¹††ê1J$06ce748e-9a5b-4d38-b6d8-e5cea05c7f13
 n
-java:S1128"+Remove this unused import 'model.GameData'.(Ãà—õ8¹††ê1J$c20f592b-79ab-42b1-a193-f034068cfd6c
+java:S1128"+Remove this unused import 'model.GameData'.(Ãà—õ8¹††ê1J$8585056f-1b0a-42ac-9dfd-5a1e988c3e1b
 y
-java:S1128"1Remove this unused import 'java.util.Collection'.(¹ÉĞšùÿÿÿÿ8º††ê1J$5d823033-6a68-429d-a64c-2b697b16876a
+java:S1128"1Remove this unused import 'java.util.Collection'.(¹ÉĞšùÿÿÿÿ8º††ê1J$a148335f-a041-44cc-a741-571ce0ee8279
 v
-java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8º††ê1J$d31bf32a-89f2-4bde-9f5e-48af12ad3d64
+java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8º††ê1J$20a312ac-4116-49d8-89a0-ab5dca3a144d
 q
-java:S1128".Remove this unused import 'java.util.Objects'.(¼¸õ›8º††ê1J$748a1f94-a465-46fa-a511-d1dcf97796de
+java:S1128".Remove this unused import 'java.util.Objects'.(¼¸õ›8º††ê1J$f07f5f93-bc7c-4501-b622-06502b3c242c

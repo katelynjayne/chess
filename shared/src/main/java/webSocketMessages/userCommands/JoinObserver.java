@@ -10,4 +10,6 @@ public class JoinObserver extends UserGameCommand {
       commandType = UserGameCommand.CommandType.JOIN_PLAYER;
       this.gameID = gameID;
    }
+
+   public int getGameID() {return gameID;}
 }
