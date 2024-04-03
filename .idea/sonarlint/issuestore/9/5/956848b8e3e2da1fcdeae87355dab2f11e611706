@@ -1,17 +1,13 @@
 
-ˆ	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¬¿× 8ºšš¬ê1J$776738b0-d320-4c93-9fe1-8490a9e356e7
-	java:S112;"FDefine and throw a dedicated exception instead of using a generic one.(‹áöÿÿÿÿÿ8»šš¬ê1J$a0db2a6e-c8cd-475e-8d87-f5f03ea0c00c
+ˆ	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¬¿× 8‚Ä‡­ê1J$830dca59-3134-4a62-8712-21574be46273
+	java:S112>"FDefine and throw a dedicated exception instead of using a generic one.(‹áöÿÿÿÿÿ8ƒÄ‡­ê1J$1cff8a06-b8e5-448a-a4f8-72ccd1f23238
 p
-java:S1604"(Make this anonymous inner class a lambda(ÆÏ¹úÿÿÿÿ8¾šš¬ê1J$239a8a3b-0c73-4b49-9099-f8c28916b610
+java:S1604"(Make this anonymous inner class a lambda(ÆÏ¹úÿÿÿÿ8…Ä‡­ê1J$9443c3db-64c9-4c92-a680-4465cbe39291
 É
-java:S1186>"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(òø¨œøÿÿÿÿ8Ïšš¬ê1J$da1af85f-cc0e-4ac0-a9b3-5b81905bcbb6
+java:S1186A"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(òø¨œøÿÿÿÿ8›Ä‡­ê1J$118bf35f-bbd8-475f-ace7-059f30a34dd5
 „
-java:S1075"ARefactor your code to get this URI from a customizable parameter.(Œšô†8Ùšš¬ê1J$64982229-7668-428b-9a15-dd15d7a8de2e
-m	java:S106""+Replace this use of System.out by a logger.( ìò±8õÃº¬ê1J$fe9893f5-800e-430a-b4fb-4d10afca9175
-m	java:S106,"+Replace this use of System.out by a logger.(‚òùÇ8ÜĞ¼¬ê1J$05709ba5-681f-40a1-886c-09babfc5842c
-m	java:S1061"+Replace this use of System.out by a logger.(Ÿİì¤8ıÉ¬ê1J$301f69aa-b0c2-4d0e-b6c8-5af61cda0b6b
-{
-java:S18545"8Remove this useless assignment to local variable "game".(ˆÈßÇ8éšš¬ê1J$aec1f7bc-648e-4b94-bde0-0f0da08dbdb7
-l
-java:S14815")Remove this unused "game" local variable.(ˆÈßÇ8íšš¬ê1J$faa582a5-d4c7-4cd2-821f-655f297c6cdd
-m	java:S1066"+Replace this use of System.out by a logger.(¬ëÊ‡8ÍÈÔ¬ê1J$371df5a2-a02b-4abe-920d-aedab8b3a5b6
+java:S1075"ARefactor your code to get this URI from a customizable parameter.(Œšô†8ªÄ‡­ê1J$80f2ff99-711f-48b0-84d1-ad31e186c52b
+r	java:S106"+Replace this use of System.out by a logger.(¼…¼şûÿÿÿÿ8°Ä‡­ê1J$3de8e3d4-201c-4781-832a-422a55b27570
+m	java:S106."+Replace this use of System.out by a logger.(‚òùÇ8¹Ä‡­ê1J$ef429769-b0d8-4378-a8e1-b10784486558
+m	java:S1063"+Replace this use of System.out by a logger.(Ÿİì¤8ºÄ‡­ê1J$42891334-1ec2-4bdf-9efe-1d4ae402ff3b
+l	java:S1069"+Replace this use of System.out by a logger.(Ááµw8Øù­ê1J$8bd9e1aa-76fb-4928-aec4-bfaef351e756

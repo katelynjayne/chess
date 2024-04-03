@@ -69,3 +69,5 @@ g
 7server/src/main/java/dataAccess/sqlDAOs/SQLGameDAO.java,a/5/a5d90d7de3ecd1e52fbef37c039b02c5f2f34aa0
 w
 Gshared/src/main/java/webSocketMessages/serverMessages/ErrorMessage.java,a/6/a640536a3b1655359766930173571274da6ef25e
+Y
+)client/src/main/java/ui/BoardPrinter.java,e/d/edc8cc2b8554959eaea3222c6f03b044e376aa08

@@ -1,6 +1,10 @@
 package handler;
 
+import chess.ChessGame;
 import com.google.gson.Gson;
+import dataAccess.DataAccessException;
+import dataAccess.GameDAO;
+import dataAccess.sqlDAOs.SQLGameDAO;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
@@ -12,6 +16,7 @@ import java.io.IOException;
 @WebSocket
 public class WSHandler {
    Gson serializer = new Gson();
+   GameDAO gameDAO;
    @OnWebSocketMessage
    public void onMessage(Session session, String message) throws Exception {
       UserGameCommand command = serializer.fromJson(message, UserGameCommand.class);
@@ -24,16 +29,20 @@ public class WSHandler {
       }
    }
 
-   private void join(Session session, String json) throws IOException {
+   private void join(Session session, String json) throws IOException, DataAccessException {
       JoinPlayer command = serializer.fromJson(json, JoinPlayer.class);
-      LoadGame response = new LoadGame(command.getGameID());
+      gameDAO = new SQLGameDAO();
+      ChessGame game = gameDAO.getGame(command.getGameID()).game();
+      LoadGame response = new LoadGame(game);
       String responseJson = serializer.toJson(response);
       session.getRemote().sendString(responseJson);
    }
 
-   private void observe(Session session, String message) throws IOException {
+   private void observe(Session session, String message) throws IOException, DataAccessException {
       JoinObserver command = serializer.fromJson(message, JoinObserver.class);
-      LoadGame response = new LoadGame(command.getGameID());
+      gameDAO = new SQLGameDAO();
+      ChessGame game = gameDAO.getGame(command.getGameID()).game();
+      LoadGame response = new LoadGame(game);
       String json = serializer.toJson(response);
       session.getRemote().sendString(json);
    }

@@ -1,6 +1,9 @@
 package client;
 
+import chess.ChessGame;
 import com.google.gson.Gson;
+import ui.BoardPrinter;
+import ui.Gameplay;
 import webSocketMessages.serverMessages.*;
 
 import javax.websocket.*;
@@ -22,7 +25,7 @@ public class WSClient extends Endpoint {
             try {
                WSClient.this.notify(message);
             } catch(Exception ex) {
-               WSClient.this.notify(ex.getMessage());
+               System.out.println(SET_TEXT_BOLD + SET_TEXT_COLOR_RED + "⚠ " + ex.getMessage() + " ⚠" + RESET_TEXT_BOLD_FAINT);
             }
          }
       });
@@ -31,7 +34,6 @@ public class WSClient extends Endpoint {
 
    public void notify(String message) {
       ServerMessage serverMessage = serializer.fromJson(message, ServerMessage.class);
-      System.out.println(serverMessage.getServerMessageType());
       switch (serverMessage.getServerMessageType()) {
          case NOTIFICATION -> displayNotification(message);
          case ERROR -> displayError(message);
@@ -50,8 +52,9 @@ public class WSClient extends Endpoint {
    }
 
    public void loadGame(String message) {
-      LoadGame game = serializer.fromJson(message, LoadGame.class);
-      System.out.println(SET_TEXT_COLOR_WHITE + "uh yeah here's the game");
+      ChessGame game = serializer.fromJson(message, LoadGame.class).getGame();
+      BoardPrinter printer = new BoardPrinter();
+      System.out.println(printer.printBoard(game.getBoard(), ChessGame.TeamColor.WHITE, null, null));
    }
 
 

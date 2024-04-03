@@ -88,13 +88,13 @@ public class Client {
    private String join(String[] params) throws Exception {
       postLogin.join(params, gameplay);
       inGame = true;
-      return gameplay.makeBoard();
+      return "";
    }
 
    private String watch(String[] params) throws Exception {
       postLogin.watch(params, gameplay);
       inGame = true;
-      return gameplay.makeBoard();
+      return "";
    }
 
    private String logout() throws Exception {
