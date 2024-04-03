@@ -37,3 +37,9 @@ V
 &client/src/main/java/ui/PostLogin.java,4/c/4caf695126773db59afc0d53417f60e9a5fef033
 g
 7client/src/test/java/clientTests/ServerFacadeTests.java,0/5/0581f445e574fa58ad0145d51bcdf3d3095a999d
+Y
+)shared/src/main/java/chess/ChessGame.java,1/2/12ee2b2e0577bf40c2f0f09ceb1e2b3d9b36bd7a
+Y
+)shared/src/main/java/chess/ChessMove.java,c/5/c52f67c55315a844e23611bb848b35269aaedb66
+]
+-shared/src/main/java/chess/ChessPosition.java,3/b/3b013a24b64d343e15bac32b29d3d69c6c135d82
