@@ -109,7 +109,7 @@ public class Client {
 
    private String move(String[] params) throws Exception {
       gameplay.move(params);
-      return gameplay.makeBoard();
+      return "";
    }
 
    private String highlight(String[] params) throws Exception{

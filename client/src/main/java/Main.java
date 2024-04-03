@@ -13,7 +13,10 @@ public class Main {
         Client client = new Client();
         while (!Objects.equals(input, "quit")) {
             input = scanner.nextLine();
-            System.out.println(client.eval(input));
+            String output = client.eval(input);
+            if (!Objects.equals(output, "")) {
+                System.out.println(output);
+            }
         }
         System.out.println(SET_TEXT_COLOR_MAGENTA + "Bye!");
         System.out.println(DECORATOR);

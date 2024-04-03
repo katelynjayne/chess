@@ -1,19 +1,19 @@
 
 ]
-java:S1220""Move this file to a named package.8¥† ­ê1J$e28823d2-3698-42c1-85a6-c1115f785c52
+java:S1220""Move this file to a named package.8¥† ­ê1J$e87d41e8-a30b-4b4e-9e9c-4f035c14d10c
 o
-java:S1128",Remove this unused import 'chess.ChessGame'.(†¶ØŸ8ª‡ ­ê1J$fcc7cff7-78c6-46b3-83b6-6df9330d01e2
+java:S1128",Remove this unused import 'chess.ChessGame'.(†¶ØŸ8ª‡ ­ê1J$2a887a25-60a3-4eab-b098-c11d4ee1d65b
 x
-java:S1128"0Remove this unused import 'client.ServerFacade'.(ïµŽ´þÿÿÿÿ8ª‡ ­ê1J$87c43ed4-1470-48c0-9d08-e25fab9e8fa0
+java:S1128"0Remove this unused import 'client.ServerFacade'.(ïµŽ´þÿÿÿÿ8ª‡ ­ê1J$08d49e03-51d9-48dd-a9d0-73d993801eb3
 t
-java:S1128",Remove this unused import 'client.WSClient'.(–°Ý›üÿÿÿÿ8«‡ ­ê1J$05f18eaf-8993-4f9e-9b52-a39361ceaaca
+java:S1128",Remove this unused import 'client.WSClient'.(–°Ý›üÿÿÿÿ8«‡ ­ê1J$8df47ab7-1b50-47f7-a939-05a069075be8
 s
-java:S1128"+Remove this unused import 'model.AuthData'.(î‡„Ãÿÿÿÿÿ8«‡ ­ê1J$a9e19f1f-4067-4abf-8384-a0378cf6b530
+java:S1128"+Remove this unused import 'model.AuthData'.(î‡„Ãÿÿÿÿÿ8«‡ ­ê1J$6cdf69ef-7086-4bb9-881e-83d8d993ab57
 n
-java:S1128"+Remove this unused import 'model.GameData'.(Ãà—õ8«‡ ­ê1J$a2028ed1-8eb8-41a6-a944-85036ccc1381
+java:S1128"+Remove this unused import 'model.GameData'.(Ãà—õ8«‡ ­ê1J$6e2a13a4-d603-4f55-b219-7939aa7527d5
 y
-java:S1128"1Remove this unused import 'java.util.Collection'.(¹ÉÐšùÿÿÿÿ8«‡ ­ê1J$bd419d8e-8fae-462a-9409-7930c5e4c863
+java:S1128"1Remove this unused import 'java.util.Collection'.(¹ÉÐšùÿÿÿÿ8«‡ ­ê1J$11725ee3-5394-4a75-98f6-6727ba3b4892
 v
-java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8«‡ ­ê1J$40607e03-24f5-4ccc-be3f-d153aa2e53d4
+java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8«‡ ­ê1J$97a4a88d-ea73-4bd4-b357-6b9bd9ad323b
 q
-java:S1128".Remove this unused import 'java.util.Objects'.(¼¸õ›8¬‡ ­ê1J$9a3dadb7-f9c4-45a7-aac6-382749c425fc
+java:S1128".Remove this unused import 'java.util.Objects'.(¼¸õ›8¬‡ ­ê1J$75442e03-c97d-47c6-ac93-f07672bba96d

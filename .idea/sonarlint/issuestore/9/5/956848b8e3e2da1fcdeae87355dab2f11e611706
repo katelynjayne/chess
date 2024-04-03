@@ -1,13 +1,15 @@
 
-ˆ	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¬¿× 8‚Ä‡­ê1J$830dca59-3134-4a62-8712-21574be46273
-	java:S112>"FDefine and throw a dedicated exception instead of using a generic one.(‹áöÿÿÿÿÿ8ƒÄ‡­ê1J$1cff8a06-b8e5-448a-a4f8-72ccd1f23238
+ˆ	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¬¿× 8‚Ä‡­ê1J$46d9b5c3-1bb7-4b3f-acbd-0cc6b48dbd00
+	java:S112>"FDefine and throw a dedicated exception instead of using a generic one.(‹áöÿÿÿÿÿ8ƒÄ‡­ê1J$432743ce-8fe4-4f27-bde4-c69a76ebaf3d
 p
-java:S1604"(Make this anonymous inner class a lambda(ÆÏ¹úÿÿÿÿ8…Ä‡­ê1J$9443c3db-64c9-4c92-a680-4465cbe39291
+java:S1604"(Make this anonymous inner class a lambda(ÆÏ¹úÿÿÿÿ8…Ä‡­ê1J$73005b51-9c78-4a8c-ae4b-cc18605c0f55
 É
-java:S1186A"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(òø¨œøÿÿÿÿ8›Ä‡­ê1J$118bf35f-bbd8-475f-ace7-059f30a34dd5
+java:S1186A"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(òø¨œøÿÿÿÿ8›Ä‡­ê1J$3dcb7b9d-175e-4153-97be-37a04ff3191c
 „
-java:S1075"ARefactor your code to get this URI from a customizable parameter.(Œšô†8ªÄ‡­ê1J$80f2ff99-711f-48b0-84d1-ad31e186c52b
-r	java:S106"+Replace this use of System.out by a logger.(¼…¼şûÿÿÿÿ8°Ä‡­ê1J$3de8e3d4-201c-4781-832a-422a55b27570
-m	java:S106."+Replace this use of System.out by a logger.(‚òùÇ8¹Ä‡­ê1J$ef429769-b0d8-4378-a8e1-b10784486558
-m	java:S1063"+Replace this use of System.out by a logger.(Ÿİì¤8ºÄ‡­ê1J$42891334-1ec2-4bdf-9efe-1d4ae402ff3b
-l	java:S1069"+Replace this use of System.out by a logger.(Ááµw8Øù­ê1J$8bd9e1aa-76fb-4928-aec4-bfaef351e756
+java:S1075"ARefactor your code to get this URI from a customizable parameter.(Œšô†8ªÄ‡­ê1J$f2fe4cfe-d0f6-4e10-bc0e-03d2a2c09144
+r	java:S106"+Replace this use of System.out by a logger.(¼…¼şûÿÿÿÿ8°Ä‡­ê1J$7988968e-c648-46c8-a2df-70464b238bbf
+m	java:S106."+Replace this use of System.out by a logger.(‚òùÇ8¹Ä‡­ê1J$b51e49b3-9b7f-4e1f-b090-c7cb4b39c5f0
+m	java:S1063"+Replace this use of System.out by a logger.(Ÿİì¤8ºÄ‡­ê1J$6f33d29c-9b66-405a-a901-068fff69d8ad
+l	java:S1069"+Replace this use of System.out by a logger.(Ááµw8Øù­ê1J$c9aa7411-f574-417e-81d1-21a5b1420272
+k
+java:S1128"(Remove this unused import 'ui.Gameplay'.(§î–ñ8À ®­ê1J$6b1a8093-f747-487d-a027-00d46314acc9
