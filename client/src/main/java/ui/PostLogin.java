@@ -94,8 +94,8 @@ public class PostLogin {
          throw new Exception("Couldn't find game. Try the \"list\" command to see all active games and corresponding IDs.");
       }
       facade.joinGame(authToken, color, gameID);
-      gameplay.setGame(uiIDs.get(id).game(), color);
-      gameplay.join(authToken, gameID);
+      gameplay.setGame(uiIDs.get(id).game(), color, authToken, gameID);
+      gameplay.join();
    }
 
    public void watch(String[] params, Gameplay gameplay) throws Exception {
@@ -111,7 +111,7 @@ public class PostLogin {
          throw new Exception("Couldn't find game. Try the \"list\" command to see all active games and corresponding IDs.");
       }
       facade.joinGame(authToken, null, gameID);
-      gameplay.setGame(uiIDs.get(id).game(), ChessGame.TeamColor.WHITE);
+      gameplay.setGame(uiIDs.get(id).game(), ChessGame.TeamColor.WHITE, authToken, gameID);
       gameplay.watch();
    }
 

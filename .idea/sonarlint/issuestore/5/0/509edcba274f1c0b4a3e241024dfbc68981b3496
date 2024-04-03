@@ -1,8 +1,8 @@
 
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ˆñëûÿÿÿÿ8ÌØâ•ê1J$6bc3d0a6-95b3-43a6-9cbf-c270e6cc0e6d
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ˆñëûÿÿÿÿ8ÌØâ•ê1J$8ddb322f-fa51-4cf0-ae52-29258bb6859f
 n
-java:S2160"+Override the "equals" method in this class.(Ê®ÛÂ8…üã•ê1J$2b1b7f1c-9158-4517-90b7-1abf748a5612
+java:S2160"+Override the "equals" method in this class.(Ê®ÛÂ8…üã•ê1J$7fbb1f01-6a42-49b3-b546-ffb28738a43d
 m
-java:S1068"*Remove this unused "gameID" private field.(úãƒØ8üã•ê1J$26f61a52-49c3-4a21-9bb8-a8c0dfbbfa92
-q
-java:S1068")Remove this unused "color" private field.(àª©æÿÿÿÿÿ8üã•ê1J$736f24fe-7365-4a05-9253-fa56629c4b48
+java:S1068"*Remove this unused "gameID" private field.(úãƒØ8üã•ê1J$175a382d-79b6-4644-9966-c213c3e5ca12
+w
+java:S1068"/Remove this unused "playerColor" private field.(¼äŞÁşÿÿÿÿ8Š‘›–ê1J$9a29b229-e7fa-40b4-9c3e-9ca1b4643c6c

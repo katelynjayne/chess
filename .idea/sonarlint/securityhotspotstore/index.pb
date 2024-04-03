@@ -45,3 +45,11 @@ Y
 -shared/src/main/java/chess/ChessPosition.java,3/b/3b013a24b64d343e15bac32b29d3d69c6c135d82
 s
 Cshared/src/main/java/webSocketMessages/userCommands/JoinPlayer.java,5/0/509edcba274f1c0b4a3e241024dfbc68981b3496
+u
+Eshared/src/main/java/webSocketMessages/userCommands/JoinObserver.java,9/b/9be9695c30efbd5c60b9e0527ee3fa04e8a51a33
+q
+Ashared/src/main/java/webSocketMessages/userCommands/MakeMove.java,f/9/f9610d1accddabc198bde6cc30c6431831c925cd
+n
+>shared/src/main/java/webSocketMessages/userCommands/Leave.java,8/8/88645699ced0af6cff21ae611f3630da7e301720
+o
+?shared/src/main/java/webSocketMessages/userCommands/Resign.java,e/1/e1fe75bc7da5da04a40789adadfa4ddc0328f670

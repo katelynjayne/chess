@@ -5,7 +5,7 @@ import chess.ChessMove;
 import chess.ChessPosition;
 import client.WSClient;
 import com.google.gson.Gson;
-import webSocketMessages.userCommands.JoinPlayer;
+import webSocketMessages.userCommands.*;
 
 import java.util.*;
 
@@ -19,10 +19,16 @@ public class Gameplay {
 
    private WSClient ws;
 
-   public void setGame(ChessGame game, ChessGame.TeamColor color) {
+   private String authToken;
+
+   private int gameID;
+
+   public void setGame(ChessGame game, ChessGame.TeamColor color, String authToken, int gameID) {
       this.game = game;
       this.board = game.getBoard();
       this.color = color;
+      this.authToken = authToken;
+      this.gameID = gameID;
    }
 
    public String help() {
@@ -91,7 +97,7 @@ public class Gameplay {
       return makeBoard(null, null);
    }
 
-   public void join(String authToken, int gameID) throws Exception {
+   public void join() throws Exception {
       ws = new WSClient();
       JoinPlayer message = new JoinPlayer(authToken, gameID, color);
       String json = new Gson().toJson(message);
@@ -100,13 +106,19 @@ public class Gameplay {
 
    public void watch() throws Exception {
       ws = new WSClient();
-      ws.send("watch");
+      JoinObserver message = new JoinObserver(authToken, gameID);
+      String json = new Gson().toJson(message);
+      ws.send(json);
    }
-   public String move(String[] params) throws Exception {
+   public void move(String[] params) throws Exception {
       if (params.length != 2) {
          throw new Exception("Please include the start position of the piece you will be moving, followed by the end position, separated by a space.");
       }
-      return "";
+      ChessPosition startPosition = positionConverter(params[0]);
+      ChessPosition endPosition = positionConverter(params[1]);
+      MakeMove message = new MakeMove(authToken,gameID, new ChessMove(startPosition, endPosition));
+      String json = new Gson().toJson(message);
+      ws.send(json);
    }
 
    public String highlight(String[] params) throws Exception{
@@ -149,13 +161,15 @@ public class Gameplay {
       return new ChessPosition(rowIndex , colIndex);
    }
 
-   public String leave() throws Exception {
-      ws.send("leave");
-      return "";
+   public void leave() throws Exception {
+      Leave message = new Leave(authToken, gameID);
+      String json = new Gson().toJson(message);
+      ws.send(json);
    }
 
-   public String resign() throws Exception {
-      ws.send("resign");
-      return "";
+   public void resign() throws Exception {
+      Resign message = new Resign(authToken, gameID);
+      String json = new Gson().toJson(message);
+      ws.send(json);
    }
 }
