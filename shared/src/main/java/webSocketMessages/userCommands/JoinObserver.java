@@ -7,7 +7,7 @@ public class JoinObserver extends UserGameCommand {
 
    public JoinObserver(String authToken, int gameID) {
       super(authToken);
-      commandType = UserGameCommand.CommandType.JOIN_PLAYER;
+      commandType = UserGameCommand.CommandType.JOIN_OBSERVER;
       this.gameID = gameID;
    }
 

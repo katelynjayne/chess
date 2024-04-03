@@ -59,14 +59,10 @@ a
 1server/src/main/java/service/JoinGameService.java,8/4/84554d76379df4f91cabdfc4f6fecc6083ce5b49
 \
 ,server/src/main/java/handler/Connection.java,4/e/4ea4964ced4d6d1683a673ec2a31a3456493fd1c
-d
-4client/src/main/java/client/NotificationHandler.java,a/d/adb9df1276f02cf7aec9e42baeb58ef5452fa14f
 s
 Cshared/src/main/java/webSocketMessages/serverMessages/LoadGame.java,5/8/58a76589c9fddb01558dac8b55aebc83e0b57677
 w
 Gshared/src/main/java/webSocketMessages/serverMessages/Notification.java,1/3/136b9d7f18546b6a996270df1c274edd1b05e03e
-p
-@shared/src/main/java/webSocketMessages/serverMessages/Error.java,1/9/199611b7c5b2bcdf0c05a1b5fd9655cfcf6167f2
 X
 (shared/src/main/java/model/GameData.java,5/5/5576294e62ca35aee743ff8a314bab938effe594
 g

@@ -1,14 +1,15 @@
 
-ˆ	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¬¿× 8¦á‹˜ê1J$1dae8e5b-684c-416b-a148-b84e31433856
-	java:S1126"FDefine and throw a dedicated exception instead of using a generic one.(‹áöÿÿÿÿÿ8§á‹˜ê1J$ead3b92c-036e-4fc0-9d09-26fdbf304fe2
-p
-java:S1604"(Make this anonymous inner class a lambda(ÆÏ¹úÿÿÿÿ8¨á‹˜ê1J$e7497746-895c-4e9b-92dd-27db84d63b88
-É
-java:S11869"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(òø¨œøÿÿÿÿ8µá‹˜ê1J$61a9f42c-e6a2-4836-b802-05319fc26cf6
-„
-java:S1075"ARefactor your code to get this URI from a customizable parameter.(Œšô†8¹á‹˜ê1J$7d746e12-9a7b-4635-a7fe-4dcfc6b55acb
-m	java:S106)"+Replace this use of System.out by a logger.(‹›’¨8Ãá‹˜ê1J$5f788755-76d2-45e3-b3c9-72084f4f4c5c
-r	java:S106-"+Replace this use of System.out by a logger.(ÿœùÿÿÿÿ8Åá‹˜ê1J$a9d7e550-d71f-4821-8f52-7a9385d55dca
-s
-java:S11720"+Remove this unused method parameter "game".(îŞÆøúÿÿÿÿ8Æá‹˜ê1J$4c8e0483-b3a3-4a9a-819b-63be6c74e707
-m	java:S1061"+Replace this use of System.out by a logger.(¬ëÊ‡8Æá‹˜ê1J$846f90b3-4a76-42b8-9e34-1809c4144e12
+b	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¬¿× 8¬Ğò©ê1
+g	java:S1127"FDefine and throw a dedicated exception instead of using a generic one.(‹áöÿÿÿÿÿ8°Ğò©ê1
+J
+java:S1604"(Make this anonymous inner class a lambda(ÆÏ¹úÿÿÿÿ8¸Ğò©ê1
+£
+java:S1186:"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(òø¨œøÿÿÿÿ8ãĞò©ê1
+^
+java:S1075"ARefactor your code to get this URI from a customizable parameter.(Œšô†8òĞò©ê1
+G	java:S106"+Replace this use of System.out by a logger.(”å—…8Ñò©ê1
+G	java:S106*"+Replace this use of System.out by a logger.(‹›’¨8šÑò©ê1
+L	java:S106."+Replace this use of System.out by a logger.(ÿœùÿÿÿÿ8œÑò©ê1
+M
+java:S11721"+Remove this unused method parameter "game".(îŞÆøúÿÿÿÿ8 Ñò©ê1
+G	java:S1062"+Replace this use of System.out by a logger.(¬ëÊ‡8¡Ñò©ê1

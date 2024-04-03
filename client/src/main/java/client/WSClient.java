@@ -21,6 +21,7 @@ public class WSClient extends Endpoint {
             try {
                ServerMessage serverMessage = new Gson().fromJson(message, ServerMessage.class);
                WSClient.this.notify(serverMessage);
+               System.out.println("pong");
             } catch(Exception ex) {
                WSClient.this.notify(new ErrorMessage(ex.getMessage()));
             }
