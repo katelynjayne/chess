@@ -88,8 +88,7 @@ public class Client {
    private String join(String[] params) throws Exception {
       postLogin.join(params, gameplay);
       inGame = true;
-      return SET_TEXT_COLOR_GREEN + "Successfully joined game " + params[0] + " as " + params[1] + ". Enjoy your game!\n"
-              + gameplay.makeBoard();
+      return gameplay.makeBoard();
    }
 
    private String watch(String[] params) throws Exception {
@@ -120,13 +119,13 @@ public class Client {
    private String leave() throws Exception {
       gameplay.leave();
       inGame = false;
-      return SET_TEXT_COLOR_GREEN + "You left the game... (change this)";
+      return "";
 
    }
 
    private String resign() throws Exception {
       gameplay.resign();
       inGame = false;
-      return SET_TEXT_COLOR_GREEN + "You lost lol.";
+      return "";
    }
 }

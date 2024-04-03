@@ -95,6 +95,7 @@ public class PostLogin {
       }
       facade.joinGame(authToken, color, gameID);
       gameplay.setGame(uiIDs.get(id).game(), color);
+      gameplay.join(authToken, gameID);
    }
 
    public void watch(String[] params, Gameplay gameplay) throws Exception {
@@ -111,6 +112,7 @@ public class PostLogin {
       }
       facade.joinGame(authToken, null, gameID);
       gameplay.setGame(uiIDs.get(id).game(), ChessGame.TeamColor.WHITE);
+      gameplay.watch();
    }
 
    public void logout() throws Exception {

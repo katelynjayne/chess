@@ -1,11 +1,7 @@
 
-	java:S112\"FDefine and throw a dedicated exception instead of using a generic one.(åİÇÚøÿÿÿÿ8–ö·”ê1J$a358a9e3-ca4a-4897-8c3e-e8e667b6e5fa
-	java:S112Z"FDefine and throw a dedicated exception instead of using a generic one.(¶ãâ‹üÿÿÿÿ8—ö·”ê1J$58d964fd-87a8-4198-9cc3-a6dbc204f0ac
-ˆ	java:S112c"FDefine and throw a dedicated exception instead of using a generic one.(ñşÅƒ8—ö·”ê1J$39aa97f0-bd54-4cab-95fa-9043e53fae77
-‡	java:S112a"FDefine and throw a dedicated exception instead of using a generic one.(ûÛ×t8—ö·”ê1J$beca2e66-931c-4d64-9867-7e373a96127c
-w
-java:S1066D"/Merge this if statement with the enclosing one.(³Ñ˜Íûÿÿÿÿ8›ö·”ê1J$4a415b5d-1084-48f8-914b-e5516c7331bb
-‹
-java:S3824k"HReplace this "Map.containsKey()" with a call to "Map.computeIfAbsent()".(ô—Œ¦8Šı·”ê1J$68b66b19-f679-46ab-a523-1be320850751
-”
-java:S3776'"RRefactor this method to reduce its Cognitive Complexity from 35 to the 15 allowed.(É°Ú8šı·”ê1J$90aba01d-0e62-4fc6-8b15-4cbd0293ff74
+g	java:S112k"FDefine and throw a dedicated exception instead of using a generic one.(åİÇÚøÿÿÿÿ8€‹–ê1
+g	java:S112i"FDefine and throw a dedicated exception instead of using a generic one.(¶ãâ‹üÿÿÿÿ8€‹–ê1
+b	java:S112r"FDefine and throw a dedicated exception instead of using a generic one.(ñşÅƒ8‘€‹–ê1
+a	java:S112p"FDefine and throw a dedicated exception instead of using a generic one.(ûÛ×t8’€‹–ê1
+Q
+java:S1066H"/Merge this if statement with the enclosing one.(³Ñ˜Íûÿÿÿÿ8—€‹–ê1

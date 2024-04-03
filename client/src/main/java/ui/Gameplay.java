@@ -4,6 +4,8 @@ import chess.ChessGame;
 import chess.ChessMove;
 import chess.ChessPosition;
 import client.WSClient;
+import com.google.gson.Gson;
+import webSocketMessages.userCommands.JoinPlayer;
 
 import java.util.*;
 
@@ -14,6 +16,8 @@ public class Gameplay {
    private ChessGame game;
    private ChessBoard board;
    private ChessGame.TeamColor color;
+
+   private WSClient ws;
 
    public void setGame(ChessGame game, ChessGame.TeamColor color) {
       this.game = game;
@@ -87,6 +91,17 @@ public class Gameplay {
       return makeBoard(null, null);
    }
 
+   public void join(String authToken, int gameID) throws Exception {
+      ws = new WSClient();
+      JoinPlayer message = new JoinPlayer(authToken, gameID, color);
+      String json = new Gson().toJson(message);
+      ws.send(json);
+   }
+
+   public void watch() throws Exception {
+      ws = new WSClient();
+      ws.send("watch");
+   }
    public String move(String[] params) throws Exception {
       if (params.length != 2) {
          throw new Exception("Please include the start position of the piece you will be moving, followed by the end position, separated by a space.");
@@ -135,12 +150,12 @@ public class Gameplay {
    }
 
    public String leave() throws Exception {
-      WSClient ws = new WSClient();
       ws.send("leave");
       return "";
    }
 
-   public String resign() {
+   public String resign() throws Exception {
+      ws.send("resign");
       return "";
    }
 }
