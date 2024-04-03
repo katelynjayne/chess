@@ -38,15 +38,15 @@ public class WSHandler {
       session.getRemote().sendString(json);
    }
 
-   private void move(Session session, MakeMove command) throws IOException {
+   private void move(Session session, String message) throws IOException {
       session.getRemote().sendString("RESPONSE!: imagine that piece just moved.");
    }
 
-   private void leave(Session session, Leave command) throws IOException {
+   private void leave(Session session, String message) throws IOException {
       session.getRemote().sendString("RESPONSE!: you have left game");
    }
 
-   private void resign(Session session, Resign command) throws IOException {
+   private void resign(Session session, String message) throws IOException {
       session.getRemote().sendString("RESPONSE!: you lost womp womp");
    }
 }

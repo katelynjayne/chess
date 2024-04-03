@@ -10,6 +10,7 @@ import static ui.EscapeSequences.*;
 
 public class WSClient extends Endpoint {
    private Session session;
+   private Gson serializer = new Gson();
    public WSClient() throws Exception {
       URI uri = new URI("ws://localhost:8080/connect");
       WebSocketContainer container = ContainerProvider.getWebSocketContainer();
@@ -19,34 +20,37 @@ public class WSClient extends Endpoint {
          @Override
          public void onMessage(String message) {
             try {
-               ServerMessage serverMessage = new Gson().fromJson(message, ServerMessage.class);
-               WSClient.this.notify(serverMessage);
-               System.out.println("pong");
+               WSClient.this.notify(message);
             } catch(Exception ex) {
-               WSClient.this.notify(new ErrorMessage(ex.getMessage()));
+               WSClient.this.notify(ex.getMessage());
             }
          }
       });
    }
 
 
-   public void notify(ServerMessage message) {
-      switch (message.getServerMessageType()) {
-         case NOTIFICATION -> displayNotification(((Notification) message).getMessage());
-         case ERROR -> displayError(((ErrorMessage) message).getErrorMessage());
-         case LOAD_GAME -> loadGame(((LoadGame) message).getGame());
+   public void notify(String message) {
+      ServerMessage serverMessage = serializer.fromJson(message, ServerMessage.class);
+      System.out.println(serverMessage.getServerMessageType());
+      switch (serverMessage.getServerMessageType()) {
+         case NOTIFICATION -> displayNotification(message);
+         case ERROR -> displayError(message);
+         case LOAD_GAME -> loadGame(message);
       }
    }
 
    public void displayNotification(String message) {
-      System.out.println(SET_TEXT_COLOR_GREEN + message);
+      String notification = serializer.fromJson(message, Notification.class).getMessage();
+      System.out.println(SET_TEXT_COLOR_GREEN + notification);
    }
 
    public void displayError(String message) {
-      System.out.println(SET_TEXT_BOLD + SET_TEXT_COLOR_RED + "⚠ " + message + " ⚠" + RESET_TEXT_BOLD_FAINT);
+      String error = serializer.fromJson(message, ErrorMessage.class).getErrorMessage();
+      System.out.println(SET_TEXT_BOLD + SET_TEXT_COLOR_RED + "⚠ " + error + " ⚠" + RESET_TEXT_BOLD_FAINT);
    }
 
-   public void loadGame(int game) {
+   public void loadGame(String message) {
+      LoadGame game = serializer.fromJson(message, LoadGame.class);
       System.out.println(SET_TEXT_COLOR_WHITE + "uh yeah here's the game");
    }
 
