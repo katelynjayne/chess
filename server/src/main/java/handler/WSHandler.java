@@ -25,8 +25,8 @@ public class WSHandler {
    GameDAO gameDAO;
    AuthDAO authDAO;
 
-   private Map<String, Session> sessions = new HashMap<>();
-   private Map<Integer, List<Session>> gameGroups = new HashMap<>();
+   private final Map<Session, String> sessions = new HashMap<>();
+   private final Map<Integer, List<Session>> gameGroups = new HashMap<>();
    @OnWebSocketMessage
    public void onMessage(Session session, String message) {
       try {
@@ -72,7 +72,7 @@ public class WSHandler {
       JoinPlayer command = serializer.fromJson(json, JoinPlayer.class);
       authDAO = new SQLAuthDAO();
       String username = authDAO.getAuth(command.getAuthString()).username();
-      sessions.put(username, session);
+      sessions.put(session, command.getColorString());
       addToGroup(command.getGameID(), session);
       gameDAO = new SQLGameDAO();
       ChessGame game = gameDAO.getGame(command.getGameID()).game();
@@ -86,7 +86,7 @@ public class WSHandler {
       JoinObserver command = serializer.fromJson(message, JoinObserver.class);
       authDAO = new SQLAuthDAO();
       String username = authDAO.getAuth(command.getAuthString()).username();
-      sessions.put(username, session);
+      sessions.put(session, "observer");
       addToGroup(command.getGameID(), session);
       gameDAO = new SQLGameDAO();
       ChessGame game = gameDAO.getGame(command.getGameID()).game();
@@ -99,7 +99,7 @@ public class WSHandler {
    private void move(Session session, String message) throws IOException, DataAccessException, InvalidMoveException {
       MakeMove command = serializer.fromJson(message, MakeMove.class);
       ChessGame game = gameDAO.getGame(command.getGameID()).game();
-      authChecker(command.getAuthString(), game.getTeamTurn(), game.getBoard().getPiece(command.getMove().getStartPosition()), command.getGameID());
+      authChecker(session, game.getBoard().getPiece(command.getMove().getStartPosition()));
       game.makeMove(command.getMove());
       String boardData = serializer.toJson(game);
       gameDAO.updateBoard(boardData, command.getGameID());
@@ -108,19 +108,17 @@ public class WSHandler {
       session.getRemote().sendString(json);
    }
 
-   private void authChecker(String authToken, ChessGame.TeamColor teamTurn, ChessPiece piece, int gameID) throws DataAccessException {
+   private void authChecker(Session session, ChessPiece piece) throws DataAccessException {
       if (piece == null) {
-         throw new DataAccessException("There is no piece at that position.", 0);
+         throw new DataAccessException("There is no piece at that location.", 0);
       }
-      authDAO = new SQLAuthDAO();
-      String username = authDAO.getAuth(authToken).username();
-      GameData game = gameDAO.getGame(gameID);
-      if (!Objects.equals(username, game.whiteUsername()) && !Objects.equals(username, game.blackUsername())) {
-         throw new DataAccessException("You are not playing this game!", 0);
+      ChessGame.TeamColor pieceColor = piece.getTeamColor();
+      if (Objects.equals(sessions.get(session), "observer"))  {
+         throw new DataAccessException("You are not playing this game.", 0);
       }
-      if (Objects.equals(username, game.whiteUsername()) && teamTurn == ChessGame.TeamColor.BLACK
-              || Objects.equals(username, game.blackUsername()) && teamTurn == ChessGame.TeamColor.WHITE) {
-         throw new DataAccessException("It is not your turn.", 0);
+      if (Objects.equals(sessions.get(session), "white") && pieceColor != ChessGame.TeamColor.WHITE
+              || Objects.equals(sessions.get(session), "black") && pieceColor == ChessGame.TeamColor.WHITE) {
+         throw new DataAccessException("That is not your piece!",0);
       }
    }
 
