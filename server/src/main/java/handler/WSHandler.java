@@ -60,11 +60,13 @@ public class WSHandler {
       gameGroups.get(gameID).add(session);
    }
 
-   private void broadcast(List<Session> sessions, String message) throws IOException {
+   private void broadcast(List<Session> sessions, String message, Session exclude) throws IOException {
       Notification notification = new Notification(message);
       String json = serializer.toJson(notification);
       for (Session session : sessions) {
-         session.getRemote().sendString(json);
+         if (session != exclude) {
+            session.getRemote().sendString(json);
+         }
       }
    }
 
@@ -79,7 +81,7 @@ public class WSHandler {
       LoadGame response = new LoadGame(game, command.getPlayerColor());
       String responseJson = serializer.toJson(response);
       session.getRemote().sendString(responseJson);
-      broadcast(gameGroups.get(command.getGameID()), username + " has joined the game as " + command.getColorString());
+      broadcast(gameGroups.get(command.getGameID()), username + " has joined the game as " + command.getColorString(), session);
    }
 
    private void observe(Session session, String message) throws IOException, DataAccessException {
@@ -93,7 +95,7 @@ public class WSHandler {
       LoadGame response = new LoadGame(game, ChessGame.TeamColor.WHITE);
       String json = serializer.toJson(response);
       session.getRemote().sendString(json);
-      broadcast(gameGroups.get(command.getGameID()), username + " is now watching this game." );
+      broadcast(gameGroups.get(command.getGameID()), username + " is now watching this game.", session );
    }
 
    private void move(Session session, String message) throws IOException, DataAccessException, InvalidMoveException {
@@ -110,7 +112,7 @@ public class WSHandler {
          String json = serializer.toJson(response);
          allSessions.getRemote().sendString(json);
       }
-      broadcast(gameGroups.get(command.getGameID()), "A move has been made.");
+      broadcast(gameGroups.get(command.getGameID()), "A move has been made.", session);
    }
 
    private void authChecker(Session session, ChessPiece piece) throws DataAccessException {
@@ -127,8 +129,22 @@ public class WSHandler {
       }
    }
 
-   private void leave(Session session, String message) throws IOException {
-      session.getRemote().sendString("RESPONSE!: you have left game");
+   private void leave(Session session, String message) throws IOException, DataAccessException {
+      Leave command = serializer.fromJson(message, Leave.class);
+      GameData game = gameDAO.getGame(command.getGameID());
+      String username = authDAO.getAuth(command.getAuthString()).username();
+      if (Objects.equals(sessions.get(session), "white")) {
+         gameDAO.leaveGame(ChessGame.TeamColor.WHITE, game);
+         broadcast(gameGroups.get(command.getGameID()), username + " has left the game.", session);
+      }
+      else if (Objects.equals(sessions.get(session), "black")) {
+         gameDAO.leaveGame(ChessGame.TeamColor.BLACK, game);
+         broadcast(gameGroups.get(command.getGameID()), username + " has left the game.", session);
+      }
+      else {
+         broadcast(gameGroups.get(command.getGameID()), username + " has stopped watching", session);
+      }
+      gameGroups.get(command.getGameID()).remove(session);
    }
 
    private void resign(Session session, String message) throws IOException {

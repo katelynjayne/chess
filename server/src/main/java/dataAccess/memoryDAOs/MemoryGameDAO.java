@@ -40,4 +40,5 @@ public class MemoryGameDAO implements GameDAO {
    }
 
    public void updateBoard(String gameData, int gameID) throws DataAccessException {}
+   public void leaveGame(ChessGame.TeamColor color, GameData game) throws DataAccessException {}
 }

@@ -1,11 +1,8 @@
 
+‰
+java:S1192n"FDefine a constant instead of duplicating this literal "white" 3 times.(âµ×¸8ƒ¼•Ùê1J$cc1050ed-1d4a-429c-869f-17e746374404
 
-java:S38249"HReplace this "Map.containsKey()" with a call to "Map.computeIfAbsent()".(§ÕÉ±ÿÿÿÿÿ8ŞÈ°¸ê1J$2fc1aa3c-485d-471d-9f15-1848d4d2839f
-m	java:S1061"+Replace this use of System.out by a logger.(ñù€î8ñÈ°¸ê1J$d5375ba3-426d-436e-bdf6-2ab08b7ba375
-w
-java:S1172‚".Remove this unused method parameter "message".(å…’¥ıÿÿÿÿ8‡É°¸ê1J$5ab39ba2-7ca2-40ed-adaa-098cd2437eed
+java:S38249"HReplace this "Map.containsKey()" with a call to "Map.computeIfAbsent()".(§ÕÉ±ÿÿÿÿÿ8÷«ßØê1J$03b756af-e2bd-4739-a299-12e3a1b47912
+m	java:S1061"+Replace this use of System.out by a logger.(ñù€î8Š¬ßØê1J$105717f7-4ba8-479e-b395-b9954609e240
 q
-java:S1172†".Remove this unused method parameter "message".(¯‚ÚA8‰É°¸ê1J$3f721fa7-3684-4ed6-8f9c-66bcdad4a71a
-n
-java:S1128
-"+Remove this unused import 'model.GameData'.(Ãà—õ8ŠÉ°¸ê1J$d2cc8b18-e3f8-4c37-a9c2-7709b591c92f
+java:S1172–".Remove this unused method parameter "message".(¯‚ÚA8º¬ßØê1J$70c5044b-03e4-4df4-b23d-50bfa23976f7

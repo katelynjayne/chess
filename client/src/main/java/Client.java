@@ -117,9 +117,8 @@ public class Client {
    }
 
    private String leave() throws Exception {
-      gameplay.leave();
       inGame = false;
-      return "";
+      return gameplay.leave();
 
    }
 

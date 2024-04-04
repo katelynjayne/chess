@@ -7,10 +7,7 @@ import dataAccess.DatabaseManager;
 import dataAccess.GameDAO;
 import model.GameData;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -131,6 +128,20 @@ public class SQLGameDAO implements GameDAO {
          throw new DataAccessException(e.getMessage(), 500);
       }
       return true;
+   }
+
+   public void leaveGame(ChessGame.TeamColor color, GameData game) throws DataAccessException {
+      String statement = (color == ChessGame.TeamColor.WHITE) ? "UPDATE game SET whiteUsername=? WHERE id=?" : "UPDATE game SET blackUsername=? WHERE id=?";
+      try (Connection conn = DatabaseManager.getConnection()) {
+         try (var ps = conn.prepareStatement(statement)) {
+            ps.setNull(1, Types.VARCHAR);
+            ps.setInt(2,game.gameID());
+            ps.executeUpdate();
+         }
+      }
+      catch (DataAccessException | SQLException e) {
+         throw new DataAccessException(e.getMessage(), 500);
+      }
    }
 
    public void updateBoard(String gameData, int gameID) throws DataAccessException {

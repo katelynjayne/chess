@@ -13,4 +13,5 @@ public interface GameDAO {
    boolean updateGame(ChessGame.TeamColor color, String username, GameData game) throws DataAccessException;
 
    void updateBoard(String gameData, int gameID) throws DataAccessException;
+   void leaveGame(ChessGame.TeamColor color, GameData game) throws DataAccessException;
 }

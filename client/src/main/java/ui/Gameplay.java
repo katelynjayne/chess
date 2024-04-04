@@ -122,10 +122,11 @@ public class Gameplay {
       return new ChessPosition(rowIndex , colIndex);
    }
 
-   public void leave() throws Exception {
+   public String leave() throws Exception {
       Leave message = new Leave(authToken, gameID);
       String json = new Gson().toJson(message);
       ws.send(json);
+      return SET_TEXT_COLOR_GREEN + "Successfully left game.";
    }
 
    public void resign() throws Exception {
