@@ -1,3 +1,16 @@
 
 ]
-java:S1220""Move this file to a named package.8¥† ­ê1J$8aa94784-2efe-47b5-9fc5-9a775fde165d
+java:S1220""Move this file to a named package.8ÆşİÙê1J$8f0760b2-e6a1-4b03-8fb6-71b3cb41c9ea
+r	java:S106{"+Replace this use of System.out by a logger.(à ·¦úÿÿÿÿ8¤ÿİÙê1J$7496f6f7-f6aa-4713-bfd3-b7b8d30fde3e
+¦
+java:S1157~"cReplace these toUpperCase()/toLowerCase() and equals() calls with a single equalsIgnoreCase() call.(Å¯ïŞ8©ÿİÙê1J$5e308d66-ae68-4474-b052-63e00a20d491
+o
+java:S1128",Remove this unused import 'chess.ChessGame'.(†¶ØŸ8­ÿİÙê1J$dc18f6bb-7ff0-42be-92ae-3381a115d05f
+x
+java:S1128"0Remove this unused import 'client.ServerFacade'.(ïµ´şÿÿÿÿ8®ÿİÙê1J$991b7171-aae1-485e-89ae-98176bcd5b0b
+t
+java:S1128",Remove this unused import 'client.WSClient'.(–°İ›üÿÿÿÿ8¯ÿİÙê1J$ff144f24-8f08-4aa8-9c87-810e1d3de3ea
+s
+java:S1128"+Remove this unused import 'model.AuthData'.(î‡„Ãÿÿÿÿÿ8¯ÿİÙê1J$48441171-7468-48ea-8c48-76df06fc0a1d
+n
+java:S1128"+Remove this unused import 'model.GameData'.(Ãà—õ8°ÿİÙê1J$f64d6199-2487-4b2b-b0f5-886db67eb3ad

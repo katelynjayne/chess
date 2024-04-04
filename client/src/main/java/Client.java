@@ -7,10 +7,7 @@ import ui.Gameplay;
 import ui.PostLogin;
 import ui.PreLogin;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 import static java.lang.Integer.parseInt;
 import static ui.EscapeSequences.*;
@@ -123,8 +120,13 @@ public class Client {
    }
 
    private String resign() throws Exception {
+      System.out.println(SET_TEXT_COLOR_YELLOW + "Are you sure you'd like to resign? (y/n)");
+      Scanner scanner = new Scanner(System.in);
+      String input = scanner.nextLine();
+      if (!input.toLowerCase().equals("y")) {
+         return gameplay.help();
+      }
       gameplay.resign();
-      inGame = false;
       return "";
    }
 }

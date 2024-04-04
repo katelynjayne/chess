@@ -1,10 +1,10 @@
 
 V
-java:S1220""Move this file to a named package.J$291cc045-f305-4c1a-8bbc-c1bf5509b41c
-k	java:S106"+Replace this use of System.out by a logger.(ãÇŸ’øÿÿÿÿJ$c615ae80-1f88-4f4b-9acb-29bfb99bf537
-f	java:S106	"+Replace this use of System.out by a logger.(ÃæÈÇJ$2d517ad4-8f23-48f6-99ae-5957e98f4ccd
+java:S1220""Move this file to a named package.J$2b0d7274-2050-4543-9678-ac9c87b8242c
+k	java:S106"+Replace this use of System.out by a logger.(ãÇŸ’øÿÿÿÿJ$332a48ab-1b3c-4077-b4ae-1d9a0c2eab07
+f	java:S106	"+Replace this use of System.out by a logger.(ÃæÈÇJ$82ec6761-b408-4449-b794-0ba6df88a090
 f	java:S106
-"+Replace this use of System.out by a logger.(ÇæĞçJ$34da60bb-ee5a-4df0-aeed-b52469e53966
-f	java:S106"+Replace this use of System.out by a logger.(¢àóÄJ$6048d45b-3fed-470c-aae7-4ecb52a76543
-k	java:S106"+Replace this use of System.out by a logger.(À¥ÿ€ùÿÿÿÿJ$4b9f14e0-4f39-4343-b1ec-ee8d3a79bf37
-r	java:S106"+Replace this use of System.out by a logger.(‡œÿÿÿÿÿ8€¹­ê1J$1012ae08-edac-4fb4-9d8f-a0c9ac9f0a9a
+"+Replace this use of System.out by a logger.(ÇæĞçJ$4064dc41-9e3a-414f-8166-5fcb79e683f9
+f	java:S106"+Replace this use of System.out by a logger.(¢àóÄJ$c383fead-d9b8-4778-883d-d0d55dfb040c
+k	java:S106"+Replace this use of System.out by a logger.(À¥ÿ€ùÿÿÿÿJ$4c418d91-6f66-4f6f-815f-f52675cd3abd
+r	java:S106"+Replace this use of System.out by a logger.(‡œÿÿÿÿÿ8€¹­ê1J$8d10ba77-7cb8-449c-99ea-aae0a48ad63a

@@ -1,8 +1,8 @@
 
-‰
-java:S1192n"FDefine a constant instead of duplicating this literal "white" 3 times.(âµ×¸8ƒ¼•Ùê1J$cc1050ed-1d4a-429c-869f-17e746374404
+
+java:S1192o"FDefine a constant instead of duplicating this literal "black" 3 times.(íÕ™ÿÿÿÿÿ8®ıÊÚê1J$6724df7c-3e78-42bb-99a3-ee64f65339e7
 
-java:S38249"HReplace this "Map.containsKey()" with a call to "Map.computeIfAbsent()".(§ÕÉ±ÿÿÿÿÿ8÷«ßØê1J$03b756af-e2bd-4739-a299-12e3a1b47912
-m	java:S1061"+Replace this use of System.out by a logger.(ñù€î8Š¬ßØê1J$105717f7-4ba8-479e-b395-b9954609e240
+java:S38249"HReplace this "Map.containsKey()" with a call to "Map.computeIfAbsent()".(§ÕÉ±ÿÿÿÿÿ8óşÊÚê1J$44d578c8-a434-45f2-9733-6f4a1bd94c39
+m	java:S1061"+Replace this use of System.out by a logger.(ñù€î8‹ÿÊÚê1J$b2b6d697-54d0-4b1b-bb92-ee55151adfd3
 q
-java:S1172–".Remove this unused method parameter "message".(¯‚ÚA8º¬ßØê1J$70c5044b-03e4-4df4-b23d-50bfa23976f7
+java:S1172ª".Remove this unused method parameter "message".(¯‚ÚA8ÎÿÊÚê1J$6f5e1390-7b82-4d85-848d-653a825ce4c5

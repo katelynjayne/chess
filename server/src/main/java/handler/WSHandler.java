@@ -41,7 +41,7 @@ public class WSHandler {
       }
       catch (Exception e){
          try {
-            ErrorMessage error = new ErrorMessage(e.getMessage());
+            ErrorMessage error = new ErrorMessage("Error: " + e.getMessage());
             String json = serializer.toJson(error);
             session.getRemote().sendString(json);
          }
@@ -100,19 +100,39 @@ public class WSHandler {
 
    private void move(Session session, String message) throws IOException, DataAccessException, InvalidMoveException {
       MakeMove command = serializer.fromJson(message, MakeMove.class);
-      ChessGame game = gameDAO.getGame(command.getGameID()).game();
+      GameData gameData = gameDAO.getGame(command.getGameID());
+      ChessGame game = gameData.game();
       authChecker(session, game.getBoard().getPiece(command.getMove().getStartPosition()));
       game.makeMove(command.getMove());
       String boardData = serializer.toJson(game);
       gameDAO.updateBoard(boardData, command.getGameID());
 
       for (Session allSessions : gameGroups.get(command.getGameID())) {
-         ChessGame.TeamColor color = (Objects.equals(sessions.get(allSessions), "white")) ? ChessGame.TeamColor.WHITE : ChessGame.TeamColor.BLACK;
+         ChessGame.TeamColor color = (Objects.equals(sessions.get(allSessions), "black")) ? ChessGame.TeamColor.BLACK : ChessGame.TeamColor.WHITE;
          LoadGame response = new LoadGame(game, color);
          String json = serializer.toJson(response);
          allSessions.getRemote().sendString(json);
       }
-      broadcast(gameGroups.get(command.getGameID()), "A move has been made.", session);
+      broadcast(gameGroups.get(command.getGameID()), "FIX THIS MESSAGE", session);
+      checkCheck(gameData);
+   }
+
+   private void checkCheck(GameData gameData) throws IOException {
+      ChessGame game = gameData.game();
+      String whiteUsername = gameData.whiteUsername();
+      String blackUsername = gameData.blackUsername();
+      if (game.isInCheckmate(ChessGame.TeamColor.BLACK)) {
+         broadcast(gameGroups.get(gameData.gameID()),"!! " + blackUsername + " IS IN CHECKMATE !!", null);
+      }
+      else if (game.isInCheckmate(ChessGame.TeamColor.WHITE)) {
+         broadcast(gameGroups.get(gameData.gameID()),"!! " + whiteUsername + " IS IN CHECKMATE !!", null);
+      }
+      else if (game.isInCheck(ChessGame.TeamColor.BLACK)) {
+         broadcast(gameGroups.get(gameData.gameID()),"!! " + blackUsername + " IS IN CHECK !!", null);
+      }
+      else if (game.isInCheck(ChessGame.TeamColor.WHITE)) {
+         broadcast(gameGroups.get(gameData.gameID()),"!! " + whiteUsername + " IS IN CHECK !!", null);
+      }
    }
 
    private void authChecker(Session session, ChessPiece piece) throws DataAccessException {
