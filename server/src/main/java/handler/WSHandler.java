@@ -76,7 +76,7 @@ public class WSHandler {
       addToGroup(command.getGameID(), session);
       gameDAO = new SQLGameDAO();
       ChessGame game = gameDAO.getGame(command.getGameID()).game();
-      LoadGame response = new LoadGame(game);
+      LoadGame response = new LoadGame(game, command.getPlayerColor());
       String responseJson = serializer.toJson(response);
       session.getRemote().sendString(responseJson);
       broadcast(gameGroups.get(command.getGameID()), username + " has joined the game as " + command.getColorString());
@@ -90,7 +90,7 @@ public class WSHandler {
       addToGroup(command.getGameID(), session);
       gameDAO = new SQLGameDAO();
       ChessGame game = gameDAO.getGame(command.getGameID()).game();
-      LoadGame response = new LoadGame(game);
+      LoadGame response = new LoadGame(game, ChessGame.TeamColor.WHITE);
       String json = serializer.toJson(response);
       session.getRemote().sendString(json);
       broadcast(gameGroups.get(command.getGameID()), username + " is now watching this game." );
@@ -103,9 +103,13 @@ public class WSHandler {
       game.makeMove(command.getMove());
       String boardData = serializer.toJson(game);
       gameDAO.updateBoard(boardData, command.getGameID());
-      LoadGame response = new LoadGame(game);
+      ChessGame.TeamColor color = (Objects.equals(sessions.get(session), "white")) ? ChessGame.TeamColor.WHITE : ChessGame.TeamColor.BLACK;
+      LoadGame response = new LoadGame(game, color);
       String json = serializer.toJson(response);
-      session.getRemote().sendString(json);
+      for (Session allSessions : gameGroups.get(command.getGameID())) {
+         allSessions.getRemote().sendString(json);
+      }
+
    }
 
    private void authChecker(Session session, ChessPiece piece) throws DataAccessException {

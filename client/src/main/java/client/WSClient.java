@@ -52,9 +52,10 @@ public class WSClient extends Endpoint {
    }
 
    public void loadGame(String message) {
-      ChessGame game = serializer.fromJson(message, LoadGame.class).getGame();
+      LoadGame load = serializer.fromJson(message, LoadGame.class);
+      ChessGame game = load.getGame();
       BoardPrinter printer = new BoardPrinter();
-      System.out.println(printer.printBoard(game.getBoard(), ChessGame.TeamColor.WHITE, null, null));
+      System.out.println(printer.printBoard(game.getBoard(), load.getColor(), null, null));
    }
 
 

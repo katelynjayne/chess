@@ -1,11 +1,8 @@
 
-
-java:S38249"HReplace this "Map.containsKey()" with a call to "Map.computeIfAbsent()".(§ÕÉ±ÿÿÿÿÿ8ãÔè·ê1J$8d9faea4-084f-420d-acd2-aa4ef6aebf67
-m	java:S1061"+Replace this use of System.out by a logger.(ñù€î8öÔè·ê1J$089aeefb-b4ea-42d8-9e41-af78f2fcf228
-v
-java:S1172}".Remove this unused method parameter "message".(å…’¥ıÿÿÿÿ8™Õè·ê1J$5ae49910-225c-4038-aa40-41be5b1ab318
-q
-java:S1172".Remove this unused method parameter "message".(¯‚ÚA8œÕè·ê1J$8e835810-e0d8-482e-b5f9-33d5b9cdbfc8
-n
-java:S1128
-"+Remove this unused import 'model.GameData'.(Ãà—õ8µ™é·ê1J$323c4edf-cfc9-4119-929e-e1995117e975
+j
+java:S38249"HReplace this "Map.containsKey()" with a call to "Map.computeIfAbsent()".(§ÕÉ±ÿÿÿÿÿ8‚©”¸ê1
+G	java:S1061"+Replace this use of System.out by a logger.(ñù€î8Ğ«”¸ê1
+Q
+java:S1172".Remove this unused method parameter "message".(å…’¥ıÿÿÿÿ8Ü®”¸ê1
+K
+java:S1172…".Remove this unused method parameter "message".(¯‚ÚA8ä®”¸ê1
