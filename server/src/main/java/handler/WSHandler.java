@@ -13,16 +13,20 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import webSocketMessages.serverMessages.ErrorMessage;
 import webSocketMessages.serverMessages.LoadGame;
+import webSocketMessages.serverMessages.Notification;
 import webSocketMessages.userCommands.*;
 
 import java.io.IOException;
-import java.util.Objects;
+import java.util.*;
 
 @WebSocket
 public class WSHandler {
    Gson serializer = new Gson();
    GameDAO gameDAO;
    AuthDAO authDAO;
+
+   private Map<String, Session> sessions = new HashMap<>();
+   private Map<Integer, List<Session>> gameGroups = new HashMap<>();
    @OnWebSocketMessage
    public void onMessage(Session session, String message) {
       try {
@@ -49,22 +53,47 @@ public class WSHandler {
 
    }
 
+   private void addToGroup(int gameID, Session session) {
+      if (!gameGroups.containsKey(gameID)) {
+         gameGroups.put(gameID, new ArrayList<>());
+      }
+      gameGroups.get(gameID).add(session);
+   }
+
+   private void broadcast(List<Session> sessions, String message) throws IOException {
+      Notification notification = new Notification(message);
+      String json = serializer.toJson(notification);
+      for (Session session : sessions) {
+         session.getRemote().sendString(json);
+      }
+   }
+
    private void join(Session session, String json) throws IOException, DataAccessException {
       JoinPlayer command = serializer.fromJson(json, JoinPlayer.class);
+      authDAO = new SQLAuthDAO();
+      String username = authDAO.getAuth(command.getAuthString()).username();
+      sessions.put(username, session);
+      addToGroup(command.getGameID(), session);
       gameDAO = new SQLGameDAO();
       ChessGame game = gameDAO.getGame(command.getGameID()).game();
       LoadGame response = new LoadGame(game);
       String responseJson = serializer.toJson(response);
       session.getRemote().sendString(responseJson);
+      broadcast(gameGroups.get(command.getGameID()), username + " has joined the game as " + command.getColorString());
    }
 
    private void observe(Session session, String message) throws IOException, DataAccessException {
       JoinObserver command = serializer.fromJson(message, JoinObserver.class);
+      authDAO = new SQLAuthDAO();
+      String username = authDAO.getAuth(command.getAuthString()).username();
+      sessions.put(username, session);
+      addToGroup(command.getGameID(), session);
       gameDAO = new SQLGameDAO();
       ChessGame game = gameDAO.getGame(command.getGameID()).game();
       LoadGame response = new LoadGame(game);
       String json = serializer.toJson(response);
       session.getRemote().sendString(json);
+      broadcast(gameGroups.get(command.getGameID()), username + " is now watching this game." );
    }
 
    private void move(Session session, String message) throws IOException, DataAccessException, InvalidMoveException {
