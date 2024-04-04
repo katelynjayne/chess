@@ -84,6 +84,9 @@ public class Gameplay {
          throw new Exception("Please specify the position you would like to highlight");
       }
       ChessPosition position = positionConverter(params[0]);
+      if (board.getPiece(position) == null) {
+         throw new Exception("There is no piece at position " + params[0]);
+      }
       Collection<ChessMove> validMoves = game.validMoves(position);
       Map<Integer, List<Integer>> coordinates = new HashMap<>();
       for (ChessMove move : validMoves) {

@@ -132,4 +132,18 @@ public class SQLGameDAO implements GameDAO {
       }
       return true;
    }
+
+   public void updateBoard(String gameData, int gameID) throws DataAccessException {
+      String statement = "UPDATE game SET gameData=? WHERE id=?";
+      try (Connection conn = DatabaseManager.getConnection()) {
+         try (var ps = conn.prepareStatement(statement)) {
+            ps.setString(1,gameData);
+            ps.setInt(2,gameID);
+            ps.executeUpdate();
+         }
+      }
+      catch (DataAccessException | SQLException e) {
+         throw new DataAccessException(e.getMessage(), 500);
+      }
+   }
 }

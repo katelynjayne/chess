@@ -71,3 +71,9 @@ w
 Gshared/src/main/java/webSocketMessages/serverMessages/ErrorMessage.java,a/6/a640536a3b1655359766930173571274da6ef25e
 Y
 )client/src/main/java/ui/BoardPrinter.java,e/d/edc8cc2b8554959eaea3222c6f03b044e376aa08
+\
+,server/src/main/java/dataAccess/GameDAO.java,9/9/9972356c2123657992e806d5a813697939ac7d20
+m
+=server/src/main/java/dataAccess/memoryDAOs/MemoryGameDAO.java,6/5/65818eb80baedf897117af3b7bb297feaa82cd17
+g
+7server/src/main/java/dataAccess/sqlDAOs/SQLAuthDAO.java,b/3/b336cd31adaeef2383143eaa3ae8f560e8c0c0ce

@@ -1,5 +1,6 @@
 package dataAccess.memoryDAOs;
 import chess.ChessGame;
+import dataAccess.DataAccessException;
 import dataAccess.GameDAO;
 import model.GameData;
 
@@ -37,4 +38,6 @@ public class MemoryGameDAO implements GameDAO {
       //this is broken :)
       return false;
    }
+
+   public void updateBoard(String gameData, int gameID) throws DataAccessException {}
 }

@@ -17,6 +17,7 @@ public class ChessGame {
     public ChessGame() {
         board = new ChessBoard();
         board.resetBoard();
+        teamTurn = TeamColor.WHITE;
     }
 
     /**
@@ -86,7 +87,7 @@ public class ChessGame {
             }
         }
         else {
-            throw new InvalidMoveException();
+            throw new InvalidMoveException("Illegal move! TIP: Use command \"highlight\" to see valid moves.");
         }
     }
 
