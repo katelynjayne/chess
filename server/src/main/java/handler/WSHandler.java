@@ -103,13 +103,14 @@ public class WSHandler {
       game.makeMove(command.getMove());
       String boardData = serializer.toJson(game);
       gameDAO.updateBoard(boardData, command.getGameID());
-      ChessGame.TeamColor color = (Objects.equals(sessions.get(session), "white")) ? ChessGame.TeamColor.WHITE : ChessGame.TeamColor.BLACK;
-      LoadGame response = new LoadGame(game, color);
-      String json = serializer.toJson(response);
+
       for (Session allSessions : gameGroups.get(command.getGameID())) {
+         ChessGame.TeamColor color = (Objects.equals(sessions.get(allSessions), "white")) ? ChessGame.TeamColor.WHITE : ChessGame.TeamColor.BLACK;
+         LoadGame response = new LoadGame(game, color);
+         String json = serializer.toJson(response);
          allSessions.getRemote().sendString(json);
       }
-
+      broadcast(gameGroups.get(command.getGameID()), "A move has been made.");
    }
 
    private void authChecker(Session session, ChessPiece piece) throws DataAccessException {
