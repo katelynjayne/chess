@@ -138,7 +138,7 @@ public class WSHandler {
          broadcast(gameGroups.get(gameData.gameID()),"!! " + whiteUsername + " IS IN CHECKMATE !!\nThe game is over, " + blackUsername + " has won! Use command \"leave\" to exit.", null);
          endGame(game, gameID);
       }
-      if (game.isInStalemate(ChessGame.TeamColor.BLACK)) {
+      else if (game.isInStalemate(ChessGame.TeamColor.BLACK)) {
          broadcast(gameGroups.get(gameData.gameID()),"!! " + blackUsername + " IS IN STALEMATE !!\nThe game is over, " + whiteUsername + " has won! Use command \"leave\" to exit.", null);
          endGame(game, gameID);
       }

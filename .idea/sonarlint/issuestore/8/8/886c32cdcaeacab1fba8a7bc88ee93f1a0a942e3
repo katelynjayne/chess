@@ -1,13 +1,15 @@
 
-h	java:S112À"FDefine and throw a dedicated exception instead of using a generic one.(ñØƒîûÿÿÿÿ8åòĞáê1
-h	java:S112Æ"FDefine and throw a dedicated exception instead of using a generic one.(¡­ëŸùÿÿÿÿ8çòĞáê1
-c	java:S112½"FDefine and throw a dedicated exception instead of using a generic one.(ùú¶ä8èòĞáê1
-h
-java:S1192w"FDefine a constant instead of duplicating this literal "black" 3 times.(íÕ™ÿÿÿÿÿ8íòĞáê1
-‡
-java:S1192†"iDefine a constant instead of duplicating this literal " has won! Use command \"leave\" to exit." 4 times.(Ø¬Á8îòĞáê1
-k
-java:S1192`"IDefine a constant instead of duplicating this literal "observer" 3 times.(‹É–àÿÿÿÿÿ8ïòĞáê1
-j
-java:S38249"HReplace this "Map.containsKey()" with a call to "Map.computeIfAbsent()".(§ÕÉ±ÿÿÿÿÿ8ÃöĞáê1
-G	java:S1061"+Replace this use of System.out by a logger.(ñù€î8‚÷Ğáê1
+	java:S112À"FDefine and throw a dedicated exception instead of using a generic one.(ñØƒîûÿÿÿÿ8åòĞáê1J$ceab72f0-1d6d-4c12-b383-287e6a957581
+	java:S112Æ"FDefine and throw a dedicated exception instead of using a generic one.(¡­ëŸùÿÿÿÿ8çòĞáê1J$23c1c7e9-6aef-4450-8d9f-a1894aa51749
+‰	java:S112½"FDefine and throw a dedicated exception instead of using a generic one.(ùú¶ä8èòĞáê1J$1d25af79-4f72-4898-9667-8b0ea15ccd8c
+
+java:S1192w"FDefine a constant instead of duplicating this literal "black" 3 times.(íÕ™ÿÿÿÿÿ8íòĞáê1J$8b1887aa-88bb-4b63-b47e-b4ca3b4073ce
+­
+java:S1192†"iDefine a constant instead of duplicating this literal " has won! Use command \"leave\" to exit." 4 times.(Ø¬Á8îòĞáê1J$8437e8e6-a34e-41b3-bec5-bf8fb68a411f
+‘
+java:S1192`"IDefine a constant instead of duplicating this literal "observer" 3 times.(‹É–àÿÿÿÿÿ8ïòĞáê1J$aa201e69-ee5c-4507-ad73-48ef7e845e76
+¨
+java:S1862‘"„This branch can not be reached because the condition duplicates a previous condition in the same sequence of "if/else if" statements(†®äŠùÿÿÿÿ8Ä…—ÿê1
+
+java:S38249"HReplace this "Map.containsKey()" with a call to "Map.computeIfAbsent()".(§ÕÉ±ÿÿÿÿÿ8ÃöĞáê1J$fbf7d610-3e92-4429-aa1e-3370d556c116
+m	java:S1061"+Replace this use of System.out by a logger.(ñù€î8‚÷Ğáê1J$b8563b2c-8161-45c8-975f-a4b8636becfd
