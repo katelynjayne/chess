@@ -121,7 +121,8 @@ public class WSHandler {
          String json = serializer.toJson(response);
          allSessions.getRemote().sendString(json);
       }
-      broadcast(gameGroups.get(command.getGameID()), "FIX THIS MESSAGE", session);
+      String username = authDAO.getAuth(command.getAuthString()).username();
+      broadcast(gameGroups.get(command.getGameID()), username + " has moved " + command.getMoveStr(), session);
       checkCheck(gameData, command.getGameID());
    }
 

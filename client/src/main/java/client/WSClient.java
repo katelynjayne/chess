@@ -3,7 +3,6 @@ package client;
 import chess.ChessGame;
 import com.google.gson.Gson;
 import ui.BoardPrinter;
-import ui.Gameplay;
 import webSocketMessages.serverMessages.*;
 
 import javax.websocket.*;
@@ -55,6 +54,7 @@ public class WSClient extends Endpoint {
       LoadGame load = serializer.fromJson(message, LoadGame.class);
       ChessGame game = load.getGame();
       BoardPrinter printer = new BoardPrinter();
+      //WE NEED SOME WAY TO COMMUNICATE THE NEW GAME TO THE GAMEPLAY UI
       System.out.println(printer.printBoard(game.getBoard(), load.getColor(), null, null));
    }
 

@@ -74,7 +74,7 @@ public class Gameplay {
       }
       ChessPosition startPosition = positionConverter(params[0]);
       ChessPosition endPosition = positionConverter(params[1]);
-      MakeMove message = new MakeMove(authToken,gameID, new ChessMove(startPosition, endPosition));
+      MakeMove message = new MakeMove(authToken,gameID, new ChessMove(startPosition, endPosition), params[0] + " to " + params[1]);
       String json = new Gson().toJson(message);
       ws.send(json);
    }

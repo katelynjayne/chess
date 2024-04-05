@@ -1,15 +1,13 @@
 
-ˆ	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¬¿× 8Äú™¸ê1J$7cffb10c-6b9e-4e2a-bbe6-afac9f2cd265
-	java:S112?"FDefine and throw a dedicated exception instead of using a generic one.(‹áöÿÿÿÿÿ8Íú™¸ê1J$c883aeff-8b5b-4e11-9386-32aa4350cea8
+ˆ	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¬¿× 8Äú™¸ê1J$180abfa7-2b39-4271-9305-5ea3c08339dc
+	java:S112?"FDefine and throw a dedicated exception instead of using a generic one.(‹áöÿÿÿÿÿ8Íú™¸ê1J$ce3dcbe3-20b6-42d6-9c6d-3b3b91b3f47b
 p
-java:S1604"(Make this anonymous inner class a lambda(ÆÏ¹úÿÿÿÿ8Ùú™¸ê1J$0fb67be7-acf3-4b7e-9915-03349cc144a2
+java:S1604"(Make this anonymous inner class a lambda(ÆÏ¹úÿÿÿÿ8Ùú™¸ê1J$86354390-ea24-4839-b185-1c8a9782bbcd
 É
-java:S1186B"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(òø¨œøÿÿÿÿ8çû™¸ê1J$7ac669af-32ae-43e8-bb92-164c411ef720
+java:S1186B"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(òø¨œøÿÿÿÿ8çû™¸ê1J$61eeed2c-bcad-48bf-ada5-0022f60ce2b8
 „
-java:S1075"ARefactor your code to get this URI from a customizable parameter.(Œšô†8·ü™¸ê1J$09eb5edd-96c0-4386-b1b9-60da205136e9
-r	java:S106"+Replace this use of System.out by a logger.(¼…¼şûÿÿÿÿ8Îü™¸ê1J$34aaf1a6-b65e-4b4d-ac5d-e585685aff18
-m	java:S106."+Replace this use of System.out by a logger.(‚òùÇ8Ùü™¸ê1J$45d9eba9-83b0-4388-92d0-27a5efa7354e
-m	java:S1063"+Replace this use of System.out by a logger.(Ÿİì¤8Şü™¸ê1J$4d08b869-2382-449b-b110-aab1f1b5e7f1
-r	java:S106:"+Replace this use of System.out by a logger.(ˆïåòüÿÿÿÿ8ãü™¸ê1J$8f1fe472-2347-4be9-85e4-0cc900b68db4
-k
-java:S1128"(Remove this unused import 'ui.Gameplay'.(§î–ñ8íü™¸ê1J$932e3f72-54b8-49d0-a2be-226572c9432b
+java:S1075"ARefactor your code to get this URI from a customizable parameter.(Œšô†8·ü™¸ê1J$21cd6781-9e88-4b09-97d0-bf82d52b9a11
+r	java:S106"+Replace this use of System.out by a logger.(¼…¼şûÿÿÿÿ8Îü™¸ê1J$e0d8e3ac-dbcc-40fc-a2a1-a96c8d2aa4df
+m	java:S106-"+Replace this use of System.out by a logger.(‚òùÇ8Ùü™¸ê1J$d0853117-240c-4c8b-b4c0-bafc3407269d
+m	java:S1062"+Replace this use of System.out by a logger.(Ÿİì¤8Şü™¸ê1J$0e8cbb45-a813-4da6-a2db-4260d549d303
+r	java:S106:"+Replace this use of System.out by a logger.(ˆïåòüÿÿÿÿ8ãü™¸ê1J$0ad7e539-e375-472a-8d4a-68e1e018d0f0

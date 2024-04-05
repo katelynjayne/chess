@@ -1,13 +1,13 @@
 
-	java:S112¿"FDefine and throw a dedicated exception instead of using a generic one.(ñØƒîûÿÿÿÿ8Î£åàê1J$e4f35c7c-7c78-4044-a923-8c5400adea74
-	java:S112Å"FDefine and throw a dedicated exception instead of using a generic one.(¡­ëŸùÿÿÿÿ8Ï£åàê1J$b6847a29-5be1-4b27-b24c-a4731de97bd6
-‰	java:S112¼"FDefine and throw a dedicated exception instead of using a generic one.(ùú¶ä8Ï£åàê1J$e4a38ef2-17f1-48ef-8e99-27778c3f98cd
-
-java:S1192w"FDefine a constant instead of duplicating this literal "black" 3 times.(íÕ™ÿÿÿÿÿ8Ò£åàê1J$567ba5a9-8ab9-4d03-9af0-1e58a7a423d9
-­
-java:S1192…"iDefine a constant instead of duplicating this literal " has won! Use command \"leave\" to exit." 4 times.(Ø¬Á8Ò£åàê1J$5b2d7905-9293-4ee0-9279-b2e07ea81e30
-‘
-java:S1192`"IDefine a constant instead of duplicating this literal "observer" 3 times.(‹É–àÿÿÿÿÿ8Ò£åàê1J$7103d102-21e8-44c8-877c-333dbb9cdc7f
-
-java:S38249"HReplace this "Map.containsKey()" with a call to "Map.computeIfAbsent()".(§ÕÉ±ÿÿÿÿÿ8Ù¥åàê1J$f767f27d-468e-4c56-bfd3-feabf4cdd65b
-m	java:S1061"+Replace this use of System.out by a logger.(ñù€î8í¥åàê1J$ae11b2ea-fcfa-4165-8b0d-b1efbbe97e7a
+h	java:S112À"FDefine and throw a dedicated exception instead of using a generic one.(ñØƒîûÿÿÿÿ8åòĞáê1
+h	java:S112Æ"FDefine and throw a dedicated exception instead of using a generic one.(¡­ëŸùÿÿÿÿ8çòĞáê1
+c	java:S112½"FDefine and throw a dedicated exception instead of using a generic one.(ùú¶ä8èòĞáê1
+h
+java:S1192w"FDefine a constant instead of duplicating this literal "black" 3 times.(íÕ™ÿÿÿÿÿ8íòĞáê1
+‡
+java:S1192†"iDefine a constant instead of duplicating this literal " has won! Use command \"leave\" to exit." 4 times.(Ø¬Á8îòĞáê1
+k
+java:S1192`"IDefine a constant instead of duplicating this literal "observer" 3 times.(‹É–àÿÿÿÿÿ8ïòĞáê1
+j
+java:S38249"HReplace this "Map.containsKey()" with a call to "Map.computeIfAbsent()".(§ÕÉ±ÿÿÿÿÿ8ÃöĞáê1
+G	java:S1061"+Replace this use of System.out by a logger.(ñù€î8‚÷Ğáê1
