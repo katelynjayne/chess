@@ -1,13 +1,13 @@
 
-ˆ	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¬¿× 8Äú™¸ê1J$180abfa7-2b39-4271-9305-5ea3c08339dc
-	java:S112?"FDefine and throw a dedicated exception instead of using a generic one.(‹áöÿÿÿÿÿ8Íú™¸ê1J$ce3dcbe3-20b6-42d6-9c6d-3b3b91b3f47b
+ˆ	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¬¿× 8Äú™¸ê1J$9b83d84c-ec9d-4925-bb45-04697f5d473b
+	java:S112@"FDefine and throw a dedicated exception instead of using a generic one.(‹áöÿÿÿÿÿ8Íú™¸ê1J$1cde5b6f-b558-4f58-8181-29a954561f07
 p
-java:S1604"(Make this anonymous inner class a lambda(ÆÏ¹úÿÿÿÿ8Ùú™¸ê1J$86354390-ea24-4839-b185-1c8a9782bbcd
+java:S1604"(Make this anonymous inner class a lambda(ÆÏ¹úÿÿÿÿ8Ùú™¸ê1J$d5a8bf82-75b8-49ff-bc2e-8d8114ee2da0
 É
-java:S1186B"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(òø¨œøÿÿÿÿ8çû™¸ê1J$61eeed2c-bcad-48bf-ada5-0022f60ce2b8
+java:S1186C"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(òø¨œøÿÿÿÿ8çû™¸ê1J$b16cd70b-7af4-4d73-90e2-7be875ec8f8f
 „
-java:S1075"ARefactor your code to get this URI from a customizable parameter.(Œšô†8·ü™¸ê1J$21cd6781-9e88-4b09-97d0-bf82d52b9a11
-r	java:S106"+Replace this use of System.out by a logger.(¼…¼şûÿÿÿÿ8Îü™¸ê1J$e0d8e3ac-dbcc-40fc-a2a1-a96c8d2aa4df
-m	java:S106-"+Replace this use of System.out by a logger.(‚òùÇ8Ùü™¸ê1J$d0853117-240c-4c8b-b4c0-bafc3407269d
-m	java:S1062"+Replace this use of System.out by a logger.(Ÿİì¤8Şü™¸ê1J$0e8cbb45-a813-4da6-a2db-4260d549d303
-r	java:S106:"+Replace this use of System.out by a logger.(ˆïåòüÿÿÿÿ8ãü™¸ê1J$0ad7e539-e375-472a-8d4a-68e1e018d0f0
+java:S1075"ARefactor your code to get this URI from a customizable parameter.(Œšô†8·ü™¸ê1J$43dc3d5f-303e-4c3b-aa41-4f4bdb5290ab
+r	java:S106"+Replace this use of System.out by a logger.(¼…¼şûÿÿÿÿ8Îü™¸ê1J$30314ed7-1678-49d5-9126-d064d9285a9f
+m	java:S106."+Replace this use of System.out by a logger.(‚òùÇ8Ùü™¸ê1J$52ee635b-c01e-477a-b81c-7e27add963f0
+m	java:S1063"+Replace this use of System.out by a logger.(Ÿİì¤8Şü™¸ê1J$e6f2ec4f-f0a3-4400-a075-ab26aa29caf6
+r	java:S106;"+Replace this use of System.out by a logger.(ˆïåòüÿÿÿÿ8ãü™¸ê1J$84d21e3c-6775-4d0d-a432-139bbb45abfe

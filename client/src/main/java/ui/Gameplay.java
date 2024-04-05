@@ -13,8 +13,8 @@ import static java.lang.Integer.parseInt;
 import static ui.EscapeSequences.*;
 public class Gameplay {
 
-   private ChessGame game;
-   private ChessBoard board;
+   private static ChessGame game;
+   private static ChessBoard board;
    private ChessGame.TeamColor color;
 
    private WSClient ws;
@@ -29,6 +29,11 @@ public class Gameplay {
       this.color = color;
       this.authToken = authToken;
       this.gameID = gameID;
+   }
+
+   public static void updateGame(ChessGame newGame) {
+      game = newGame;
+      board = game.getBoard();
    }
 
    public String help() {

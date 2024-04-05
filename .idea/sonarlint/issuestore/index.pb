@@ -77,3 +77,5 @@ m
 =server/src/main/java/dataAccess/memoryDAOs/MemoryGameDAO.java,6/5/65818eb80baedf897117af3b7bb297feaa82cd17
 g
 7server/src/main/java/dataAccess/sqlDAOs/SQLAuthDAO.java,b/3/b336cd31adaeef2383143eaa3ae8f560e8c0c0ce
+m
+=server/src/main/java/dataAccess/memoryDAOs/MemoryUserDAO.java,0/6/06d6c82a57aea67de848478a7e02474839d90679
