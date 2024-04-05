@@ -1,8 +1,13 @@
 
-
-java:S1192o"FDefine a constant instead of duplicating this literal "black" 3 times.(íÕ™ÿÿÿÿÿ8®ıÊÚê1J$6724df7c-3e78-42bb-99a3-ee64f65339e7
-
-java:S38249"HReplace this "Map.containsKey()" with a call to "Map.computeIfAbsent()".(§ÕÉ±ÿÿÿÿÿ8óşÊÚê1J$44d578c8-a434-45f2-9733-6f4a1bd94c39
-m	java:S1061"+Replace this use of System.out by a logger.(ñù€î8‹ÿÊÚê1J$b2b6d697-54d0-4b1b-bb92-ee55151adfd3
-q
-java:S1172ª".Remove this unused method parameter "message".(¯‚ÚA8ÎÿÊÚê1J$6f5e1390-7b82-4d85-848d-653a825ce4c5
+h	java:S112Á"FDefine and throw a dedicated exception instead of using a generic one.(ñØƒîûÿÿÿÿ8÷¾ÙŞê1
+h	java:S112Ä"FDefine and throw a dedicated exception instead of using a generic one.(¡­ëŸùÿÿÿÿ8÷¾ÙŞê1
+c	java:S112¾"FDefine and throw a dedicated exception instead of using a generic one.(ùú¶ä8÷¾ÙŞê1
+h
+java:S1192y"FDefine a constant instead of duplicating this literal "black" 3 times.(íÕ™ÿÿÿÿÿ8ù¾ÙŞê1
+‡
+java:S1192‡"iDefine a constant instead of duplicating this literal " has won! Use command \"leave\" to exit." 4 times.(Ø¬Á8ù¾ÙŞê1
+k
+java:S1192b"IDefine a constant instead of duplicating this literal "observer" 3 times.(‹É–àÿÿÿÿÿ8ú¾ÙŞê1
+j
+java:S3824;"HReplace this "Map.containsKey()" with a call to "Map.computeIfAbsent()".(§ÕÉ±ÿÿÿÿÿ8î¿ÙŞê1
+G	java:S1063"+Replace this use of System.out by a logger.(ñù€î8ÀÙŞê1

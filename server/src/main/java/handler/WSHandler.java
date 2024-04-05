@@ -24,6 +24,8 @@ public class WSHandler {
    Gson serializer = new Gson();
    GameDAO gameDAO;
    AuthDAO authDAO;
+   boolean gameOver = false;
+   boolean resigned = false;
 
    private final Map<Session, String> sessions = new HashMap<>();
    private final Map<Integer, List<Session>> gameGroups = new HashMap<>();
@@ -72,12 +74,17 @@ public class WSHandler {
 
    private void join(Session session, String json) throws IOException, DataAccessException {
       JoinPlayer command = serializer.fromJson(json, JoinPlayer.class);
+      gameDAO = new SQLGameDAO();
+      GameData gameData = gameDAO.getGame(command.getGameID());
       authDAO = new SQLAuthDAO();
       String username = authDAO.getAuth(command.getAuthString()).username();
+      if (command.getPlayerColor() == ChessGame.TeamColor.WHITE && !Objects.equals(gameData.whiteUsername(), username)
+              || command.getPlayerColor() == ChessGame.TeamColor.BLACK && !Objects.equals(gameData.blackUsername(), username)) {
+         throw new DataAccessException("Illegal join", 0);
+      }
       sessions.put(session, command.getColorString());
+      ChessGame game = gameData.game();
       addToGroup(command.getGameID(), session);
-      gameDAO = new SQLGameDAO();
-      ChessGame game = gameDAO.getGame(command.getGameID()).game();
       LoadGame response = new LoadGame(game, command.getPlayerColor());
       String responseJson = serializer.toJson(response);
       session.getRemote().sendString(responseJson);
@@ -99,6 +106,9 @@ public class WSHandler {
    }
 
    private void move(Session session, String message) throws IOException, DataAccessException, InvalidMoveException {
+      if (gameOver) {
+         throw new InvalidMoveException("The game is over, you can no longer make moves. Use command \"leave\" to exit.");
+      }
       MakeMove command = serializer.fromJson(message, MakeMove.class);
       GameData gameData = gameDAO.getGame(command.getGameID());
       ChessGame game = gameData.game();
@@ -122,10 +132,20 @@ public class WSHandler {
       String whiteUsername = gameData.whiteUsername();
       String blackUsername = gameData.blackUsername();
       if (game.isInCheckmate(ChessGame.TeamColor.BLACK)) {
-         broadcast(gameGroups.get(gameData.gameID()),"!! " + blackUsername + " IS IN CHECKMATE !!", null);
+         broadcast(gameGroups.get(gameData.gameID()),"!! " + blackUsername + " IS IN CHECKMATE !!\nThe game is over, " + whiteUsername + " has won! Use command \"leave\" to exit.", null);
+         gameOver = true;
       }
       else if (game.isInCheckmate(ChessGame.TeamColor.WHITE)) {
-         broadcast(gameGroups.get(gameData.gameID()),"!! " + whiteUsername + " IS IN CHECKMATE !!", null);
+         broadcast(gameGroups.get(gameData.gameID()),"!! " + whiteUsername + " IS IN CHECKMATE !!\nThe game is over, " + blackUsername + " has won! Use command \"leave\" to exit.", null);
+         gameOver = true;
+      }
+      if (game.isInStalemate(ChessGame.TeamColor.BLACK)) {
+         broadcast(gameGroups.get(gameData.gameID()),"!! " + blackUsername + " IS IN STALEMATE !!\nThe game is over, " + whiteUsername + " has won! Use command \"leave\" to exit.", null);
+         gameOver = true;
+      }
+      else if (game.isInCheckmate(ChessGame.TeamColor.WHITE)) {
+         broadcast(gameGroups.get(gameData.gameID()),"!! " + whiteUsername + " IS IN STALEMATE !!\nThe game is over, " + blackUsername + " has won! Use command \"leave\" to exit.", null);
+         gameOver = true;
       }
       else if (game.isInCheck(ChessGame.TeamColor.BLACK)) {
          broadcast(gameGroups.get(gameData.gameID()),"!! " + blackUsername + " IS IN CHECK !!", null);
@@ -167,7 +187,17 @@ public class WSHandler {
       gameGroups.get(command.getGameID()).remove(session);
    }
 
-   private void resign(Session session, String message) throws IOException {
-      session.getRemote().sendString("RESPONSE!: you lost womp womp");
+   private void resign(Session session, String message) throws Exception {
+      Resign command = serializer.fromJson(message, Resign.class);
+      if (Objects.equals(sessions.get(session), "observer")) {
+         throw new Exception("You are not playing this game.");
+      }
+      if (resigned) {
+         throw new Exception("You can't resign; the other player already did. Use \"leave\" instead.");
+      }
+      resigned = true;
+      String username = authDAO.getAuth(command.getAuthString()).username();
+      broadcast(gameGroups.get(command.getGameID()), username + " has resigned.\nThe game is over. Use command \"leave\" to exit.", null);
+      gameOver = true;
    }
 }
