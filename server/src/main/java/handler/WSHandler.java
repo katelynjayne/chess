@@ -24,8 +24,6 @@ public class WSHandler {
    Gson serializer = new Gson();
    GameDAO gameDAO;
    AuthDAO authDAO;
-   boolean gameOver = false;
-   boolean resigned = false;
 
    private final Map<Session, String> sessions = new HashMap<>();
    private final Map<Integer, List<Session>> gameGroups = new HashMap<>();
@@ -106,12 +104,12 @@ public class WSHandler {
    }
 
    private void move(Session session, String message) throws IOException, DataAccessException, InvalidMoveException {
-      if (gameOver) {
-         throw new InvalidMoveException("The game is over, you can no longer make moves. Use command \"leave\" to exit.");
-      }
       MakeMove command = serializer.fromJson(message, MakeMove.class);
       GameData gameData = gameDAO.getGame(command.getGameID());
       ChessGame game = gameData.game();
+      if (game.isGameOver()) {
+         throw new InvalidMoveException("The game is over, you can no longer make moves. Use command \"leave\" to exit.");
+      }
       authChecker(session, game.getBoard().getPiece(command.getMove().getStartPosition()));
       game.makeMove(command.getMove());
       String boardData = serializer.toJson(game);
@@ -124,28 +122,28 @@ public class WSHandler {
          allSessions.getRemote().sendString(json);
       }
       broadcast(gameGroups.get(command.getGameID()), "FIX THIS MESSAGE", session);
-      checkCheck(gameData);
+      checkCheck(gameData, command.getGameID());
    }
 
-   private void checkCheck(GameData gameData) throws IOException {
+   private void checkCheck(GameData gameData, int gameID) throws IOException, DataAccessException {
       ChessGame game = gameData.game();
       String whiteUsername = gameData.whiteUsername();
       String blackUsername = gameData.blackUsername();
       if (game.isInCheckmate(ChessGame.TeamColor.BLACK)) {
          broadcast(gameGroups.get(gameData.gameID()),"!! " + blackUsername + " IS IN CHECKMATE !!\nThe game is over, " + whiteUsername + " has won! Use command \"leave\" to exit.", null);
-         gameOver = true;
+         endGame(game, gameID);
       }
       else if (game.isInCheckmate(ChessGame.TeamColor.WHITE)) {
          broadcast(gameGroups.get(gameData.gameID()),"!! " + whiteUsername + " IS IN CHECKMATE !!\nThe game is over, " + blackUsername + " has won! Use command \"leave\" to exit.", null);
-         gameOver = true;
+         endGame(game, gameID);
       }
       if (game.isInStalemate(ChessGame.TeamColor.BLACK)) {
          broadcast(gameGroups.get(gameData.gameID()),"!! " + blackUsername + " IS IN STALEMATE !!\nThe game is over, " + whiteUsername + " has won! Use command \"leave\" to exit.", null);
-         gameOver = true;
+         endGame(game, gameID);
       }
       else if (game.isInCheckmate(ChessGame.TeamColor.WHITE)) {
          broadcast(gameGroups.get(gameData.gameID()),"!! " + whiteUsername + " IS IN STALEMATE !!\nThe game is over, " + blackUsername + " has won! Use command \"leave\" to exit.", null);
-         gameOver = true;
+         endGame(game, gameID);
       }
       else if (game.isInCheck(ChessGame.TeamColor.BLACK)) {
          broadcast(gameGroups.get(gameData.gameID()),"!! " + blackUsername + " IS IN CHECK !!", null);
@@ -192,12 +190,22 @@ public class WSHandler {
       if (Objects.equals(sessions.get(session), "observer")) {
          throw new Exception("You are not playing this game.");
       }
-      if (resigned) {
-         throw new Exception("You can't resign; the other player already did. Use \"leave\" instead.");
-      }
-      resigned = true;
       String username = authDAO.getAuth(command.getAuthString()).username();
+      List<Session> group = gameGroups.get(command.getGameID());
+      for (Session sesh : group) {
+         if (Objects.equals(sessions.get(sesh), "resign")) {
+            throw new Exception("You can't resign; the other player already did. Use \"leave\" instead.");
+         }
+      }
+      sessions.put(session, "resign");
       broadcast(gameGroups.get(command.getGameID()), username + " has resigned.\nThe game is over. Use command \"leave\" to exit.", null);
-      gameOver = true;
+      ChessGame game = gameDAO.getGame(command.getGameID()).game();
+      endGame(game, command.getGameID());
+   }
+
+   private void endGame(ChessGame game, int gameID) throws DataAccessException {
+      game.gameOver();
+      String json = serializer.toJson(game);
+      gameDAO.updateBoard(json, gameID);
    }
 }
